@@ -18,7 +18,7 @@ export default function HomePage(){
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                   <div className="px-3 py-5 flex-auto">
                     
-          <img className = "h-60 rounded px-14"
+          <img className = "md:h-60 rounded px-14"
             alt="..."
             src={book.imageUrl}
           /> 
