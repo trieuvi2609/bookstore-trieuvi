@@ -2692,6 +2692,9 @@ select {
 }
 
 @media (min-width: 768px) {
+  .md\:h-60{
+    height: 15rem;
+  }
   .md\:block {
     display: block;
   }
