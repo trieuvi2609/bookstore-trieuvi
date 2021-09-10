@@ -1,79 +1,58 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import HeaderStats from "components/Headers/HeaderStats";
+import React, { useEffect } from "react";
 import Navbar from "components/Navbars/IndexNavbar";
-import { selectBooks } from "features/books/booksSlice";
-import { selectCart, addCart } from "features/cart/cartSlice";
-import { useSelector,useDispatch } from "react-redux";
+import { selectBooks, setBooks } from "features/books/booksSlice";
+import { addCart } from "features/cart/cartSlice";
+import { useSelector, useDispatch } from "react-redux";
 import { selectCurrentUser } from "features/session/sessionSlice";
-export default function HomePage(){
+import { BOOKS } from "app/data";
+export default function HomePage() {
   const books = useSelector(selectBooks);
-  const items = useSelector(selectCart);
   const currentUser = useSelector(selectCurrentUser);
   const dispatch = useDispatch();
+  useEffect(() => {
+    const setMyBooks = () => dispatch(setBooks(BOOKS));
+    setMyBooks();
+  }, [dispatch]);
   const booksShow = (
     <div className="flex flex-wrap">
-    {books.map((book)=>(
-      <div className="lg:pt-12 pt-6 w-full md:w-3/12 px-4 text-center" key={book.id}>
-                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                  <div className="px-3 py-5 flex-auto">
-                    
-          <img className = "md:h-60 rounded px-14"
-            alt="..."
-            src={book.imageUrl}
-          /> 
-                    
-                     <div className="px-3 py-3">
-           <h6 className="text-xl font-semibold">{book.title}</h6>
-           <h1 className="text-blueGray-500">
-             {book.author}
-           </h1>
-           <h1 className="text-blueGray-500">
-             Price: {book.price + ".000"}
-           </h1>
-           {currentUser.username?<button onClick = {()=>{dispatch(addCart(book))}} className="bg-lightBlue-500 text-white active:bg-lightBlue-600 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150" type="button">
-           Add to cart
-           </button>:<></>}
-         </div>
-                  </div>
-                </div>
+      {books.map((book) => (
+        <div className="lg:pt-12 pt-6 w-full md:w-3/12 px-4 text-center" key={book.id}>
+          <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+            <div className="px-2 py-5 flex-auto">
+
+              <img className="md:h-60 rounded px-12 md:w-64"
+                alt="..."
+                src={book.imageUrl}
+              />
+
+              <div className="px-3 py-3">
+                <h6 className="text-xl font-semibold">{book.title}</h6>
+                <h1 className="text-blueGray-500">
+                  {book.author}
+                </h1>
+                <h1 className="text-blueGray-500">
+                  Price: {(book.price * 1000).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}
+                </h1>
+                {currentUser.username ? <button onClick={() => { dispatch(addCart(book)) }} className="bg-lightBlue-500 text-white active:bg-lightBlue-600 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150" type="button">
+                  Add to cart
+                </button> : <></>}
               </div>
-    ))}
-      </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
   );
-    return (
-    //   <div className="lg:pt-12 pt-6 md:w-4/12 px-4 text-center items-center" key = {book.id}>
-    //   <div className="relative flex flex-col break-words bg-white mb-8 shadow-lg rounded-lg">
-    //   <div className="px-3 py-3 container flex flex-wrap items-center">
-    //     <img className = "h-28"
-    //         alt="..."
-    //         src={book.imageUrl}
-    //       /> 
-    //     </div>
-    //     <div className="px-3 py-3">
-    //       <h6 className="text-xl font-semibold">{book.title}</h6>
-    //       <h1 className="text-blueGray-500">
-    //         {book.author}
-    //       </h1>
-    //       <h1 className="text-blueGray-500">
-    //         Price: {book.price + ".000"}
-    //       </h1>
-    //       <button onClick = {()=>{dispatch(addCart(book))}} className="bg-lightBlue-500 text-white active:bg-lightBlue-600 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150" type="button">
-    //       Add to cart
-    //       </button>
-    //     </div>
-      
-    //   </div>
-    // </div>
-        <div>
-        <Navbar attr = "fixed"/>
-        <main>
+  return (
+    <div>
+      <Navbar attr="fixed" />
+      <main>
         <div className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-70">
           <div
-            className="absolute top-0 w-full h-full bg-center bg-cover"
+            className="absolute top-0 w-full h-full bg-center bg-cover bg-fixed"
             style={{
               backgroundImage:
-              "url(" + require("assets/img/landingBook.jpg").default + ")",
+                "url(" + require("assets/img/landingBook.jpg").default + ")",
             }}
           >
             <span
@@ -95,7 +74,7 @@ export default function HomePage(){
               </div>
             </div>
           </div>
-          <div
+          {/* <div
             className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px"
             style={{ transform: "translateZ(0)" }}
           >
@@ -113,74 +92,13 @@ export default function HomePage(){
                 points="2560 0 2560 100 0 100"
               ></polygon>
             </svg>
-          </div>
+          </div> */}
         </div>
 
         <section className="pb-20 bg-blueGray-200 -mt-24">
           <div className="container mx-auto px-4">
-          {booksShow}
-            {/* <div className="flex flex-wrap">
-              <div className="lg:pt-12 pt-6 md:w-4/12 px-4 text-center">
-                <div className="relative flex flex-row min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                <div className="px-3 py-3 w-6/12">
-                  <img
-                      alt="..."
-                      src={require("assets/img/book1.jpg").default}
-                    /> 
-                  </div>
-                  <div className="px-3 py-3 w-6/12">
-                    <h6 className="text-xl font-semibold">Percy Jackson Collection</h6>
-                    <h1 className="text-blueGray-500">
-                      Best Seller
-                    </h1>
-                    <button className="bg-lightBlue-500 w-full text-white active:bg-lightBlue-600 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150" type="button">
-                    Add to cart
-                    </button>
-                  </div>
-                
-                </div>
-              </div>
+            {booksShow}
 
-              <div className="w-full md:w-4/12 px-4 text-center">
-                <div className="relative flex flex-row min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                <div className="px-3 py-3 w-6/12">
-                  <img
-                      alt="..."
-                      src={require("assets/img/book1.jpg").default}
-                    /> 
-                  </div>
-                  <div className="px-3 py-3 w-6/12">
-                    <h6 className="text-xl font-semibold">Percy Jackson Collection</h6>
-                    <h1 className="text-blueGray-500">
-                      Best Seller
-                    </h1>
-                    <button className="bg-lightBlue-500 w-full text-white active:bg-lightBlue-600 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150" type="button">
-                    Add to cart
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="pt-6 w-full md:w-4/12 px-4 text-center">
-              <div className="relative flex flex-row min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                <div className="px-3 py-3 w-6/12">
-                  <img
-                      alt="..."
-                      src={require("assets/img/book1.jpg").default}
-                    /> 
-                  </div>
-                  <div className="px-3 py-3 w-6/12">
-                    <h6 className="text-xl font-semibold">Percy Jackson Collection</h6>
-                    <h1 className="text-blueGray-500">
-                      Best Seller
-                    </h1>
-                    <button className="bg-lightBlue-500 w-full text-white active:bg-lightBlue-600 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150" type="button">
-                    Add to cart
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div> */}
 
             {/* <div className="flex flex-wrap items-center mt-32">
               <div className="w-full md:w-5/12 px-4 mr-auto ml-auto">
@@ -632,6 +550,6 @@ export default function HomePage(){
           </div>
         </section> */}
       </main>
-      </div>
-    );
+    </div>
+  );
 }

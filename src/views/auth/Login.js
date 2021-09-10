@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { signIn } from "features/session/sessionSlice";
@@ -11,30 +11,28 @@ export default function Login() {
   const goToRegister = () => {
     history.push("/auth/register")
   }
-  const onChangeEmail = ({target})=>{
+  const onChangeEmail = ({ target }) => {
     const newEmail = target.value;
     setEmail(newEmail);
   }
-  const onChangePassword = ({target}) =>{
+  const onChangePassword = ({ target }) => {
     const newPassword = target.value;
     setPassword(newPassword);
   }
-  const validateAccount = async ()=>{
+  const validateAccount = async () => {
     console.log(email);
     console.log(password);
     try {
-      const logIn = {email: email, password: password};
+      const logIn = { email: email, password: password };
       const resp = await axios.post('https://reqres.in/api/login', logIn);
-      if(resp.status!=404)
-      {
-        dispatch(signIn({username: email}));
+      if (resp.status !== 404) {
+        dispatch(signIn({ username: email }));
         console.log(resp.data.token);
-      history.push("/homepage")
-    }
+        history.push("/homepage")
+      }
     } catch (err) {
-        // Handle Error Here
-        console.error(err);
-  }
+      console.error(err);
+    }
   }
   return (
     <>
@@ -79,8 +77,8 @@ export default function Login() {
                       type="email"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Email"
-                      value = {email}
-                      onChange = {onChangeEmail}
+                      value={email}
+                      onChange={(e) => onChangeEmail(e)}
                     />
                   </div>
 
@@ -95,8 +93,8 @@ export default function Login() {
                       type="password"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Password"
-                      value = {password}
-                      onChange = {onChangePassword}
+                      value={password}
+                      onChange={onChangePassword}
                     />
                   </div>
                   <div>
@@ -113,13 +111,13 @@ export default function Login() {
                   </div>
 
                   <div className="text-center mt-6">
-                    <button onClick = {validateAccount}
+                    <button onClick={validateAccount}
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       type="button"
                     >
                       Sign In
                     </button>
-                    <button onClick = {goToRegister}
+                    <button onClick={goToRegister}
                       className="bg-blueGray-700 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       type="button"
                     >

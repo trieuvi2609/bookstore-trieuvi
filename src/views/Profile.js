@@ -1,7 +1,6 @@
 import React from "react";
 
 import Navbar from "components/Navbars/IndexNavbar.js";
-import Footer from "components/Footers/Footer.js";
 import { selectCurrentUser } from "features/session/sessionSlice";
 import { useSelector } from "react-redux";
 export default function Profile() {
