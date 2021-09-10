@@ -1,5 +1,4 @@
-
-### Update
+### Update: Now you can add or remove an item from your cart at cart page
 To view more function (add to cart,...), please follow below SETUP step and register to continue:
 
 You can register (create new account) with this:

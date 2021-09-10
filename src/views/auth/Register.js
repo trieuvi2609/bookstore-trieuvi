@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { signUp } from "features/session/sessionSlice";
 import { useHistory } from "react-router-dom";
@@ -10,35 +10,34 @@ export default function Register() {
   const [name, setName] = useState('');
   const [checked, setChecked] = useState(false);
   const dispatch = useDispatch();
-  const onChangeEmail = ({target})=>{
+  const onChangeEmail = ({ target }) => {
     const newEmail = target.value;
     setEmail(newEmail);
   }
-  const onChangePassword = ({target}) =>{
+  const onChangePassword = ({ target }) => {
     const newPassword = target.value;
     setPassword(newPassword);
   }
-  const onChangeName = ({target}) =>{
+  const onChangeName = ({ target }) => {
     const newName = target.value;
     setName(newName);
   }
-  const createAccount = async ()=>{
+  const createAccount = async () => {
     console.log(email);
     console.log(password);
     try {
-      const signUpInfo = {email: email, password: password};
+      const signUpInfo = { email: email, password: password };
       const resp = await axios.post('https://reqres.in/api/register', signUpInfo);
-      if(resp.status!=404)
-      {
-        dispatch(signUp({username: name}));
+      if (resp.status !== 404) {
+        dispatch(signUp({ username: name }));
         console.log(resp.data.token);
         console.log(resp.data.id);
-      history.push("/homepage")
-    }
+        history.push("/homepage")
+      }
     } catch (err) {
-        // Handle Error Here
-        console.error(err);
-  }
+      // Handle Error Here
+      console.error(err);
+    }
   }
   return (
     <>
@@ -83,8 +82,8 @@ export default function Register() {
                       type="email"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Name"
-                      value = {name}
-                      onChange = {onChangeName}
+                      value={name}
+                      onChange={onChangeName}
                     />
                   </div>
 
@@ -99,8 +98,8 @@ export default function Register() {
                       type="email"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Email"
-                      value = {email}
-                      onChange = {onChangeEmail}
+                      value={email}
+                      onChange={onChangeEmail}
                     />
                   </div>
 
@@ -115,8 +114,8 @@ export default function Register() {
                       type="password"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Password"
-                      value = {password}
-                      onChange = {onChangePassword}
+                      value={password}
+                      onChange={onChangePassword}
                     />
                   </div>
 
@@ -126,8 +125,8 @@ export default function Register() {
                         id="customCheckLogin"
                         type="checkbox"
                         className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
-                        value = {checked}
-                        onChange = {() => setChecked(!checked)}
+                        value={checked}
+                        onChange={() => setChecked(!checked)}
                       />
                       <span className="ml-2 text-sm font-semibold text-blueGray-600">
                         I agree with the{" "}
@@ -143,12 +142,12 @@ export default function Register() {
                   </div>
 
                   <div className="text-center mt-6">
-                  {(!checked)? <button
+                    {(!checked) ? <button
                       className="bg-gray-400 text-white text-sm font-bold uppercase px-6 py-3 rounded shadow outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       type="button"
                     >
-                       Create Account
-                    </button>:<button onClick = {createAccount}
+                      Create Account
+                    </button> : <button onClick={createAccount}
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       type="button"
                     >

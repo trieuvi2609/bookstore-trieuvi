@@ -1,4 +1,4 @@
-import { configureStore, createReducer} from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 import sessionReducer from '../features/session/sessionSlice';
 import booksReducer from '../features/books/booksSlice';
@@ -19,9 +19,9 @@ const persistConfig = {
   storage,
 };
 const reducer = combineReducers({
-    session: sessionReducer,
-    books:booksReducer,
-    cart: cartReducer,
+  session: sessionReducer,
+  books: booksReducer,
+  cart: cartReducer,
 })
 const persistedReducer = persistReducer(persistConfig, reducer);
 export const store = configureStore({

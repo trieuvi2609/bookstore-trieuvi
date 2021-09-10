@@ -6,13 +6,16 @@ export const booksSlice = createSlice({
         books: BOOKS,
     },
     reducers: {
-    addBooks: (state, action) => {
-        state.books = action.payload;
+        setBooks: (state, action) => {
+            state.books = action.payload;
+        },
+        resetBooks: (state, action) => {
+            state.books = [];
         }
     }
-  });
-  
-  export const selectBooks = (state) => state.books.books;
-  export const filterBooks = (query, books) => Object.values(books).filter(book => book.title.toLowerCase().includes(query.toLowerCase()));
-  export const { addBooks } = booksSlice.actions;
-  export default booksSlice.reducer;
+});
+
+export const selectBooks = (state) => state.books.books;
+export const filterBooks = (query, books) => Object.values(books).filter(book => book.title.toLowerCase().includes(query.toLowerCase()));
+export const { setBooks, resetBooks } = booksSlice.actions;
+export default booksSlice.reducer;
