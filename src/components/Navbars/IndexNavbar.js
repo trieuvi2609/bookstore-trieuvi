@@ -6,6 +6,7 @@ import { logOut, selectCurrentUser } from "features/session/sessionSlice";
 import { selectCart, resetCart } from "features/cart/cartSlice";
 import { Link } from "react-router-dom";
 import Avatar from 'react-avatar';
+import PropTypes from 'prop-types';
 // components
 export default function Navbar(props) {
   const { attr } = props;
@@ -49,7 +50,7 @@ export default function Navbar(props) {
               <form className={"lg:flex flex-grow items-center bg-white lg:bg-opacity-0 lg:shadow-none" +
                 (navbarOpen ? " hidden" : " hidden")}>
                 {attr === "fixed" ? <div className="flex inline-flex border-b-2 py-2 ">
-                  <input className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight outline-none focus:outline-none focus:border-transparent" type="text" placeholder="Find your books" aria-label="Full name" />
+                  <input className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight outline-none focus:outline-none focus:border-transparent" type="text" placeholder="Find your books" aria-label="Full name" spellCheck = {false}/>
                   <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150" type="button">
                     Search
                   </button>
@@ -118,4 +119,7 @@ export default function Navbar(props) {
       </nav>
     </>
   );
+}
+Navbar.propTypes = {
+  attr: PropTypes.string
 }

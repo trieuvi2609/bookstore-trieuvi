@@ -22,9 +22,9 @@ export const BOOKS = [
     },
     {
         id: 4,
-      title: "This is marketing",
-      author: "Seth Godin",
-      imageUrl: "https://cdn0.fahasa.com/media/catalog/product/cache/1/small_image/400x400/9df78eab33525d08d6e5fb8d27136e95/i/m/image_195509_1_11940.jpg",
+      title: "Think and grow rich",
+      author: "Napoleon Hill",
+      imageUrl: "https://newshop.vn/public/uploads/products/6324/think-and-grow-rich-13-nguyen-tac-nghi-giau-lam-giau-1.jpg",
       price: 100
     },
     {

@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "components/Navbars/IndexNavbar";
-import { selectCart, addCart, removeCart } from "features/cart/cartSlice";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+import { addCart, removeCart } from "features/cart/cartSlice";
+import { useDispatch } from "react-redux";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 export default function CartItem(props) {
@@ -14,14 +13,11 @@ export default function CartItem(props) {
         if (number === 1) confirmAlert({
             customUI: ({ onClose }) => {
                 return (
-                    <div className="container mx-auto">
-                        <div className="flex flex-wrap">
-                            <div className="w-full px-4 text-center">
-                                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                                    <div className="px-2 py-5 flex-auto">
+                                <div className="bg-white shadow-lg rounded-lg text-center">
+                                    <div className="px-2 py-5">
                                         <div className="px-3 py-3">
-                                            <h1 className="text-xl font-semibold mx-10">Are you sure?</h1>
-                                            <p className="mx-10">Do you want to remove this item from your cart?</p>
+                                            <h1 className="text-xl font-semibold">Remove item</h1>
+                                            <p className="mx-10">Are you sure to remove this item from your cart?</p>
                                             <div className="flex flex-row justify-between px-10 py-2">
                                                 <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150" onClick={onClose}>No</button>
                                                 <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
@@ -32,13 +28,10 @@ export default function CartItem(props) {
                                                 >
                                                     Yes, Remove it!
                                                 </button>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                 );
             }
         });
@@ -47,13 +40,16 @@ export default function CartItem(props) {
         }
     }
     return (
-        <div className="relative relative flex flex-row justify-between min-w-0 break-words w-full border-b-2 py-2">
+        <div className="relative flex flex-row justify-between min-w-0 break-words w-full border-b-2 py-2">
             <div className="px-2 py-2 flex">
-                <img className="md:h-60 h-50 rounded px-12 md:w-64"
+                <div className = "px-12">
+                <img className="md:h-60 h-50 rounded md:w-40"
                     alt="..."
                     src={item.imageUrl}
                 />
-                <div>
+                </div>
+                
+                <div className = "px-2">
                     <h6 className="text-xl font-semibold">{item.title}</h6>
                     <h1 className="text-blueGray-500">
                         {item.author}
