@@ -17,14 +17,14 @@ export default function HomePage() {
     <div className="flex flex-wrap">
       {books.map((book) => (
         <div className="lg:pt-12 pt-6 w-full md:w-3/12 px-4 text-center" key={book.id}>
-          <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-            <div className="px-2 py-5 flex-auto">
-
-              <img className="md:h-60 rounded px-12 md:w-64"
+          <div className="relative flex flex-wrap justify-center min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+            <div className="py-5">
+            <div className = "px-12">
+              <img className="md:h-60 rounded md:w-40"
                 alt="..."
                 src={book.imageUrl}
               />
-
+              </div>
               <div className="px-3 py-3">
                 <h6 className="text-xl font-semibold">{book.title}</h6>
                 <h1 className="text-blueGray-500">

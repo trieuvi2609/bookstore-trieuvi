@@ -14,8 +14,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 Please install Nodejs, npm before do the following:
 Firstly, if you don't have Yarn, you run:
 ### `npm install -g yarn`
-After that, in the project directory, you can run:
-
+After that, in the project directory, to install all dependencies you run:
+### `yarn install`
+If you want to test website, in the project directory, run:
 ### `yarn start`
 
 Runs the app in the development mode.<br />
