@@ -17,7 +17,7 @@ export default function HomePage() {
     <div className="flex flex-wrap">
       {books.map((book) => (
         <div className="lg:pt-12 pt-6 w-full md:w-3/12 px-4 text-center" key={book.id}>
-          <div className="relative flex flex-wrap justify-center min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+          <div className="flex flex-wrap justify-center min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
             <div className="py-5">
             <div className = "px-12">
               <img className="md:h-60 rounded md:w-40"
@@ -60,7 +60,7 @@ export default function HomePage() {
               className="w-full h-full absolute opacity-50 bg-black"
             ></span>
           </div>
-          <div className="container relative mx-auto">
+          <div className="container absolute mx-auto">
             <div className="items-center flex flex-wrap">
               <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
                 <div className="pr-12">
@@ -96,7 +96,7 @@ export default function HomePage() {
         </div>
 
         <section className="pb-20 bg-blueGray-200 -mt-24">
-          <div className="container mx-auto px-4">
+          <div className="relative container mx-auto px-4">
             {booksShow}
 
 
