@@ -18,6 +18,7 @@ export default function Navbar(props) {
     textColor = "lg:text-blueGray-200 text-blueGray-400"
   }
   const currentUser = useSelector(selectCurrentUser);
+  console.log(currentUser);
   const dispatch = useDispatch();
   const history = useHistory();
   const items = useSelector(selectCart);
@@ -92,8 +93,8 @@ export default function Navbar(props) {
                 to="/profile"
                 className={"hover:text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold " + textColor}
               >
-                <Avatar size="30" round={true} src={require("assets/img/maleAvatar.png").default} />
-                <span className="inline-block ml-2">{currentUser.username ?? 'Unknown'}</span>
+                <Avatar size="30" round={true} src={currentUser.imageUrl??require("assets/img/maleAvatar.png").default} />
+                <span className="inline-block ml-2">{currentUser.username ? currentUser.name: 'Unknown'}</span>
               </Link>) : (<></>)}
               </li>
               <li className="flex items-center">

@@ -3,36 +3,46 @@ import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { signIn } from "features/session/sessionSlice";
+import GoogleLogin from "react-google-login";
 export default function Login() {
   const history = useHistory();
-  const [email, setEmail] = useState('');
+  const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const goToRegister = () => {
     history.push("/auth/register")
   }
-  const onChangeEmail = ({ target }) => {
-    const newEmail = target.value;
-    setEmail(newEmail);
+  const onChangeUserName = ({ target }) => {
+    const newUserName = target.value;
+    setUserName(newUserName);
   }
   const onChangePassword = ({ target }) => {
     const newPassword = target.value;
     setPassword(newPassword);
   }
   const validateAccount = async () => {
-    console.log(email);
+    console.log(userName);
     console.log(password);
-    try {
-      const logIn = { email: email, password: password };
-      const resp = await axios.post('https://reqres.in/api/login', logIn);
-      if (resp.status !== 404) {
-        dispatch(signIn({ username: email }));
-        console.log(resp.data.token);
-        history.push("/homepage")
-      }
-    } catch (err) {
-      console.error(err);
-    }
+    dispatch(signIn({ username: userName, name: userName }));
+    history.push("/homepage")
+    // try {
+    //   const logIn = { userName: userName, password: password };
+    //   const resp = await axios.post('https://reqres.in/api/login', logIn);
+    //   if (resp.status !== 404) {
+    //     console.log(resp.data.token);
+    //   }
+    // } catch (err) {
+    //   console.error(err);
+    // }
+  }
+  const responseGoogle = (response) => {
+    console.log(response.profileObj);
+    const userObj = response.profileObj;
+    const name = userObj.name;
+    const email = userObj.email;
+    const imageUrl = userObj.imageUrl;
+    dispatch(signIn({name:name, username: email, email: email, imageUrl: imageUrl }));
+    history.push("/homepage")
   }
   return (
     <>
@@ -47,7 +57,9 @@ export default function Login() {
                   </h6>
                 </div>
                 <div className="btn-wrapper text-center">
-                  <button
+                  <GoogleLogin
+                    render={renderProps => (
+                      <button onClick={renderProps.onClick} disabled={renderProps.disabled}
                     className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
                     type="button"
                   >
@@ -58,6 +70,12 @@ export default function Login() {
                     />
                     Google
                   </button>
+    )}
+                    clientId="38195780971-2khqdc32dvhtqrds4432s1e2j6b1mtob.apps.googleusercontent.com"
+                    onSuccess={responseGoogle}
+                    onFailure={responseGoogle}
+                    cookiePolicy={'single_host_origin'}
+                  />
                 </div>
                 <hr className="mt-6 border-b-1 border-blueGray-300" />
               </div>
@@ -71,14 +89,14 @@ export default function Login() {
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                       htmlFor="grid-password"
                     >
-                      Email
+                      UserName
                     </label>
                     <input
-                      type="email"
+                      type="userName"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Email"
-                      value={email}
-                      onChange={(e) => onChangeEmail(e)}
+                      placeholder="Username"
+                      value={userName}
+                      onChange={(e) => onChangeUserName(e)}
                     />
                   </div>
 
@@ -96,18 +114,6 @@ export default function Login() {
                       value={password}
                       onChange={onChangePassword}
                     />
-                  </div>
-                  <div>
-                    <label className="inline-flex items-center cursor-pointer">
-                      <input
-                        id="customCheckLogin"
-                        type="checkbox"
-                        className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
-                      />
-                      <span className="ml-2 text-sm font-semibold text-blueGray-600">
-                        Remember me
-                      </span>
-                    </label>
                   </div>
 
                   <div className="text-center mt-6">

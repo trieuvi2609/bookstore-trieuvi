@@ -3,16 +3,17 @@ import { useDispatch } from "react-redux";
 import { signUp } from "features/session/sessionSlice";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import GoogleLogin from "react-google-login";
 export default function Register() {
   const history = useHistory();
-  const [email, setEmail] = useState('');
+  const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [checked, setChecked] = useState(false);
   const dispatch = useDispatch();
-  const onChangeEmail = ({ target }) => {
-    const newEmail = target.value;
-    setEmail(newEmail);
+  const onChangeUserName = ({ target }) => {
+    const newUserName = target.value;
+    setUserName(newUserName);
   }
   const onChangePassword = ({ target }) => {
     const newPassword = target.value;
@@ -22,22 +23,39 @@ export default function Register() {
     const newName = target.value;
     setName(newName);
   }
+  const createNewAccount= (userName, password) =>{
+
+  }
   const createAccount = async () => {
-    console.log(email);
+    console.log(userName);
     console.log(password);
-    try {
-      const signUpInfo = { email: email, password: password };
-      const resp = await axios.post('https://reqres.in/api/register', signUpInfo);
-      if (resp.status !== 404) {
-        dispatch(signUp({ username: name }));
-        console.log(resp.data.token);
-        console.log(resp.data.id);
-        history.push("/homepage")
-      }
-    } catch (err) {
-      // Handle Error Here
-      console.error(err);
-    }
+    createNewAccount(userName, password);
+    dispatch(signUp({ username: name, name: name }));
+    history.push("/homepage")
+    // try {
+    //   const signUpInfo = { email: email, password: password };
+    //   const resp = await axios.post('https://reqres.in/api/register', signUpInfo);
+    //   if (resp.status !== 404) {
+        
+    //     console.log(resp.data.token);
+    //     console.log(resp.data.id);
+        
+    //   }
+    // } catch (err) {
+    //   // Handle Error Here
+    //   console.error(err);
+    // }
+  }
+  const responseGoogle = (response) => {
+    console.log(response.profileObj);
+    const userObj =response.profileObj;
+    const googleName = userObj.name;
+    const googleEmail = userObj.email;
+    const googlePassword = "abcd";
+    const imageUrl = userObj.imageUrl;
+    createNewAccount(googleEmail, googlePassword);
+    dispatch(signUp({name:googleName, username: googleEmail, email: googleEmail, imageUrl: imageUrl }));
+    history.push("/homepage")
   }
   return (
     <>
@@ -52,7 +70,9 @@ export default function Register() {
                   </h6>
                 </div>
                 <div className="btn-wrapper text-center">
-                  <button
+                <GoogleLogin
+                    render={renderProps => (
+                      <button onClick={renderProps.onClick} disabled={renderProps.disabled}
                     className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
                     type="button"
                   >
@@ -63,6 +83,12 @@ export default function Register() {
                     />
                     Google
                   </button>
+    )}
+                    clientId="38195780971-2khqdc32dvhtqrds4432s1e2j6b1mtob.apps.googleusercontent.com"
+                    onSuccess={responseGoogle}
+                    onFailure={responseGoogle}
+                    cookiePolicy={'single_host_origin'}
+                  />
                 </div>
                 <hr className="mt-6 border-b-1 border-blueGray-300" />
               </div>
@@ -92,14 +118,14 @@ export default function Register() {
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                       htmlFor="grid-password"
                     >
-                      Email
+                      UserName
                     </label>
                     <input
-                      type="email"
+                      type="userName"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Email"
-                      value={email}
-                      onChange={onChangeEmail}
+                      placeholder="UserName"
+                      value={userName}
+                      onChange={onChangeUserName}
                     />
                   </div>
 
