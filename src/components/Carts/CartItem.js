@@ -13,7 +13,7 @@ export default function CartItem(props) {
         if (number === 1) confirmAlert({
             customUI: ({ onClose }) => {
                 return (
-                                <div className="bg-white shadow-lg rounded-lg text-center">
+                                <div className="bg-white shadow-lg rounded-lg text-center border-1">
                                     <div className="px-2 py-5">
                                         <div className="px-3 py-3">
                                             <h1 className="text-xl font-semibold">Remove item</h1>

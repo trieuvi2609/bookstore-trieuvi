@@ -9,8 +9,9 @@ Cart
 ### Update: Now you can add or remove an item from your cart at cart page
 To view more function (add to cart,...), please follow below SETUP step and register to continue:
 
-You can register (create new account) with this:
-email: eve.holt@reqres.in
+You can sign in with Google or register (create new account) with this:
+
+userName: (anything you want)
 
 password: (anything you want)
 

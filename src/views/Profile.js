@@ -51,8 +51,8 @@ export default function Profile() {
                     <div className="relative">
                       <img
                         alt="..."
-                        src={require("assets/img/maleAvatar.png").default}
-                        className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-auto max-w-180-px"
+                        src={currentUser.imageUrl??require("assets/img/maleAvatar.png").default}
+                        className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-auto max-w-180-px h-150-px"
                       />
                     </div>
                   </div>
@@ -73,31 +73,23 @@ export default function Profile() {
                           22
                         </span>
                         <span className="text-sm text-blueGray-400">
-                          Friends
+                          Orders
                         </span>
                       </div>
                       <div className="mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          10
+                          100
                         </span>
                         <span className="text-sm text-blueGray-400">
-                          Photos
-                        </span>
-                      </div>
-                      <div className="lg:mr-4 p-3 text-center">
-                        <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          89
-                        </span>
-                        <span className="text-sm text-blueGray-400">
-                          Comments
+                          Books
                         </span>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="text-center mt-12">
+                <div className="text-center mt-10">
                   <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
-                    {currentUser.username??'Unknown'}
+                    {currentUser.username?currentUser.name:'Unknown'}
                   </h3>
                   <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
                     <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>{" "}
