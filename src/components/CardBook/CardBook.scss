@@ -65,7 +65,7 @@
 }
 
 .cardbook__body {
-  height: 23%;
+  height: 13%;
   padding: 15px 15px 5px 15px;
   overflow: hidden;
 
@@ -98,5 +98,18 @@
   }
   &-right {
     font-size: 9pt;
+  }
+}
+.cardbook__btn {
+  height: 7%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px;
+  & button {
+    align-items: center;
+    border-radius: 5px;
+    width: 50%;
   }
 }

@@ -28,7 +28,7 @@ function ListBookPage() {
           {books.slice(0, visible).map((book) => {
             return (
               <div
-                key={book._id}
+                key={book.id}
                 className="col-10 col-md-6 col-lg-3 mx-auto mb-3"
               >
                 <CardBook book={book} />

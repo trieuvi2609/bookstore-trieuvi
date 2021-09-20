@@ -24,17 +24,19 @@ function CardBook(props) {
   const currentBook = props.book;
 
   const {
-    title,
-    price,
+    id,
     hot,
+    price,
+    title,
     address,
     type,
     author,
     time,
     imgDemo,
-    description,
+    description
   } = currentBook;
-
+  const typeField = type.join(', ');
+  console.log(typeField);
   const url = "/product/:id";
 
   return (
@@ -45,33 +47,30 @@ function CardBook(props) {
         </Link>
         {hot && <span className="cardbook__top-hot">HOT</span>}
         <span className="cardbook__top-price">{price + " VND"}</span>
-        {currentUser.username && (
-          <span
-            className="cardbook__top-get"
-            onClick={() => {
-              dispatch(addCart(currentBook));
-            }}
-          >
-            <IoIosAddCircleOutline /> GET
-          </span>
-        )}
       </div>
       <div className="cardbook__body">
         <h2 className="cardbook__body-title">
           <Link to={url}>{title}</Link>
         </h2>
-        <p className="cardbook__body-address">
-          <IoIosCellular /> {address}
-        </p>
-        <p className="cardbook__body-type">{type.join(", ")}</p>
+        <p className="cardbook__body-type">{typeField}</p>
       </div>
-      <hr />
       <div className="cardbook__end">
         <span className="cardbook__end-left">
           <IoMdContacts /> {author}
         </span>
         <span className="cardbook__end-right">{time}</span>
       </div>
+      <div className="cardbook__btn">
+      {currentUser.username && (
+          <button
+            onClick={() => {
+              dispatch(addCart(currentBook));
+            }}
+          >
+            <IoIosAddCircleOutline /> Add to cart
+          </button>
+        )}
+        </div>
     </div>
   );
 }
