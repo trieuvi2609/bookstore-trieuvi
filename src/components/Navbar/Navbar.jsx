@@ -51,11 +51,14 @@ function Navbar() {
               {currentUser.username ? (
                 <>
                   <Link to="/profile" className="navbar__user">
-                    <img
+                    {!currentUser.imageUrl?<img
                       src={require("assets/images/maleAvatar.png").default}
                       alt=""
                       className="navbar__user-avt"
-                    />
+                    />: <img
+                      src={currentUser.imageUrl}
+                      alt=""
+                      className="navbar__user-avt"/>}
                     <span className="navbar__user-name">{currentUser.fullName}</span>
                   </Link>
                   <button className="navbar__btn" onClick={handleLogout}>

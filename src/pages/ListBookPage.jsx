@@ -43,7 +43,7 @@ function ListBookPage() {
               className="col-10 mx-auto pt-3"
             >
               <hr />
-              <button onClick={showMoreProducts} className="btn btn-grey mb-5">
+              <button onClick={showMoreProducts} className="mb-5">
                 Show more
               </button>
             </div>

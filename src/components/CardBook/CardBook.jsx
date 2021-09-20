@@ -46,7 +46,7 @@ function CardBook(props) {
           <img src={imgDemo} alt="" className="cardbook__top-img" />
         </Link>
         {hot && <span className="cardbook__top-hot">HOT</span>}
-        <span className="cardbook__top-price">{price + " VND"}</span>
+        <span className="cardbook__top-price">{price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span>
       </div>
       <div className="cardbook__body">
         <h2 className="cardbook__body-title">
