@@ -56,7 +56,7 @@ function Navbar() {
                       alt=""
                       className="navbar__user-avt"
                     />
-                    <span className="navbar__user-name">username</span>
+                    <span className="navbar__user-name">{currentUser.fullName}</span>
                   </Link>
                   <button className="navbar__btn" onClick={handleLogout}>
                     Logout

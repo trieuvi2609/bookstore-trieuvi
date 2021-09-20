@@ -23,7 +23,7 @@ export default function Login() {
   const validateAccount = async () => {
     console.log(userName);
     console.log(password);
-    dispatch(signIn({ username: userName, name: userName }));
+    dispatch(signIn({ username: userName, fullName: userName }));
     history.push("/home")
     // try {
     //   const logIn = { userName: userName, password: password };
@@ -41,7 +41,7 @@ export default function Login() {
     const name = userObj.name;
     const email = userObj.email;
     const imageUrl = userObj.imageUrl;
-    dispatch(signIn({ name: name, username: email, email: email, imageUrl: imageUrl }));
+    dispatch(signIn({ fullName: name, username: email, email: email, imageUrl: imageUrl }));
     history.push("/home")
   }
   return (

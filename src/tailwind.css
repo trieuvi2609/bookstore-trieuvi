@@ -543,7 +543,7 @@ video {
   line-height: 1.5rem;
 }
 
-[type='url']:focus, [type='number']:focus, [type='month']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus {
+[type='url']:focus, [type='month']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
   --tw-ring-inset: var(--tw-empty,/*!*/ /*!*/);
@@ -2108,7 +2108,12 @@ select {
 .pl-4 {
   padding-left: 1rem;
 }
-
+.pt-3 {
+  padding-top: 0.75rem;
+}
+.pr-3 {
+  padding-right: 0.75rem;
+}
 .pt-6 {
   padding-top: 1.5rem;
 }
@@ -2542,7 +2547,9 @@ select {
 .w-16 {
   width: 4rem;
 }
-
+.w-32	{
+  width: 8rem;
+}
 .w-auto {
   width: auto;
 }

@@ -67,7 +67,7 @@ function CardBook(props) {
               dispatch(addCart(currentBook));
             }}
           >
-            <IoIosAddCircleOutline /> Add to cart
+            Add to cart
           </button>
         )}
         </div>

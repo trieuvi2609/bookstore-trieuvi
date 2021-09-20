@@ -1528,6 +1528,11 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
+"@onefifteen-z/react-input-otp@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@onefifteen-z/react-input-otp/-/react-input-otp-1.0.5.tgz#6a4fe37f82eedb71813dec694d2696b6a80ae757"
+  integrity sha512-JIOuycHoEObFQF4ko6AJFsqOazJpv3YKnyOIliJ6faXDsr4AU2RWdNyiAdsx6dDEv3flCKqDDxJpksJcA0qArg==
+
 "@pmmmwh/react-refresh-webpack-plugin@0.4.3":
   version "0.4.3"
   resolved "https://registry.yarnpkg.com/@pmmmwh/react-refresh-webpack-plugin/-/react-refresh-webpack-plugin-0.4.3.tgz#1eec460596d200c0236bf195b078a5d1df89b766"
@@ -9969,6 +9974,11 @@ react-bootstrap@^2.0.0-beta.6:
     react-transition-group "^4.4.1"
     uncontrollable "^7.2.1"
     warning "^4.0.3"
+
+react-confirm-alert@^2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/react-confirm-alert/-/react-confirm-alert-2.7.0.tgz#7cdbf2e052e03554ac6a7d8956c9c227010c8a53"
+  integrity sha512-21NWtGK/e85+ZX3TLRpMc3IsU5Kj6Z9ElCOrkTIlwMzV9EancyXNlkqHGbtKP63a2iS6g5hOxROokmJOqKQiXA==
 
 react-dev-utils@^11.0.3:
   version "11.0.4"
