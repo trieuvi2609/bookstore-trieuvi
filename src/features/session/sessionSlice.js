@@ -1,24 +1,25 @@
-import { createSlice } from '@reduxjs/toolkit';
-const user = {
-  name: null,
+import { createSlice } from "@reduxjs/toolkit";
+const userProfile = {
+  fullName: null,
+  username: null,
   email: null,
   imageUrl: null,
-  address: null,
-  userName: null,
-}
+  contact: null,
+  password: null,
+};
 export const sessionSlice = createSlice({
-  name: 'session',
+  name: "session",
   initialState: {
-    user: user,
-    isLoggedIn: false
+    user: userProfile,
+    isLoggedIn: false,
   },
   reducers: {
     signUp: (state, action) => {
-      state.user = {...state.user,...action.payload};
+      state.user = { ...state.user, ...action.payload };
       state.isLoggedIn = true;
     },
     signIn: (state, action) => {
-      state.user = {...state.user,...action.payload};
+      state.user = { ...state.user, ...action.payload };
       state.isLoggedIn = true;
     },
     editUser: (state, action) => {
@@ -27,8 +28,8 @@ export const sessionSlice = createSlice({
     logOut: (state, action) => {
       state.user = {};
       state.isLoggedIn = false;
-    }
-  }
+    },
+  },
 });
 
 export const selectCurrentUser = (state) => state.session.user;

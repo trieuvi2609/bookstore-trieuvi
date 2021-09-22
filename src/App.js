@@ -1,36 +1,53 @@
-import React from "react";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./tailwind.css"
+import { Footer, Navbar, ScrollToTop } from "components";
+import {
+  BookPage,
+  ErrorPage,
+  HomePage,
+  ListBookPage,
+  LoginPage,
+  RegisterPage,
+  ProfilePage,
+  CartPage,
+} from "pages";
+import { Suspense } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import "assets/styles/tailwind.css";
+function App() {
+  return (
+    <Suspense fallback={<div>Loading..</div>}>
+      <BrowserRouter>
+        {/* Scoll to top page when redirect  */}
+        <ScrollToTop />
+        {/* Nagivation bar for all pages */}
+        <Navbar />
 
-// layouts
+        <Switch>
+          {/* Home page */}
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/home" component={HomePage} />
+          {/* List of all books in the store */}
+          <Route exact path="/books" component={ListBookPage} />
+          {/* View book details */}
+          <Route path="/book/:id" component={BookPage} />
+          {/* Profile page */}
+          <Route exact path="/profile" component={ProfilePage} />
+          {/* Shopping cart page */}
+          <Route exact path="/cart" component={CartPage} />
+          {/* Login page */}
+          <Route exact path="/login" component={LoginPage} />
+          {/* Register page */}
+          <Route exact path="/register" component={RegisterPage} />
+          {/* Error page */}
+          <Route path="*" component={ErrorPage} />
+        </Switch>
 
-import Admin from "layouts/Admin.js";
-import Auth from "layouts/Auth.js";
-
-// views without layouts
-
-import Landing from "views/Landing.js";
-import Profile from "views/Profile.js";
-import Index from "views/Index.js";
-import HomePage from "views/HomePage";
-import Cart from "views/Cart";
-export default function App(){
-    return(
-    <BrowserRouter>
-    <Switch>
-      {/* add routes with layouts */}
-      <Route path = "/cart" component = {Cart}/>
-      <Route path = "/homepage" component = {HomePage}/>
-      <Route path="/admin" component={Admin} />
-      <Route path="/auth" component={Auth} />
-      {/* add routes without layouts */}
-      <Route path="/landing" exact component={Landing} />
-      <Route path="/profile" exact component={Profile} />
-      <Route path="/index" exact component={Index} />
-      {/* add redirect for first page */}
-      <Redirect from="*" to="/homepage" />
-    </Switch>
-  </BrowserRouter>);
+        {/* Footer for all pages */}
+        <Footer />
+      </BrowserRouter>
+    </Suspense>
+  );
 }
+
+export default App;
