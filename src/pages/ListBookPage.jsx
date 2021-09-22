@@ -12,9 +12,8 @@ function ListBookPage() {
   };
 
   return (
-    <main>
+    <main className = "py-10 bg-blueGray-200">
       <div className="container">
-        <hr />
         <Title
           title="List of Books"
           text="

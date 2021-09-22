@@ -1,56 +1,75 @@
-// import axios from "axios";
-import { signIn } from "features/session/sessionSlice";
 import React, { useState } from "react";
-import GoogleLogin from "react-google-login";
-import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import instance from "api/axios";
+import { signIn } from "features/session/sessionSlice";
+import { Modal } from "react-bootstrap";
 export default function Login() {
   const history = useHistory();
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+  const [showFailed, setShowFailed] = useState(false);
+  const errorCommon = 'This field must not be empty';
+  const [showErrorUserName, setShowErrorUserName] = useState('hidden');
+  const [showErrorPassword, setShowErrorPassword] = useState('hidden');
+  const [disable, setDisable] = useState(false);
   const dispatch = useDispatch();
   const goToRegister = () => {
-    history.push("/register");
-  };
+    history.push("/register")
+  }
   const onChangeUserName = ({ target }) => {
+    setShowErrorUserName('hidden');
     const newUserName = target.value;
     setUserName(newUserName);
-  };
+  }
   const onChangePassword = ({ target }) => {
+    setShowErrorPassword('hidden');
     const newPassword = target.value;
     setPassword(newPassword);
-  };
+  }
+  const handleClose = () => {
+    setShowFailed(false);
+    setDisable(false);
+  }
+  const showError = () => setShowFailed(true);
   const validateAccount = async () => {
-    console.log(userName);
-    console.log(password);
-    dispatch(signIn({ username: userName, fullName: userName }));
-    history.push("/home");
-    // try {
-    //   const logIn = { userName: userName, password: password };
-    //   const resp = await axios.post('https://reqres.in/api/login', logIn);
-    //   if (resp.status !== 404) {
-    //     console.log(resp.data.token);
-    //   }
-    // } catch (err) {
-    //   console.error(err);
-    // }
-  };
-  const responseGoogle = (response) => {
-    console.log(response.profileObj);
-    const userObj = response.profileObj;
-    const name = userObj.name;
-    const email = userObj.email;
-    const imageUrl = userObj.imageUrl;
-    dispatch(
-      signIn({
-        fullName: name,
-        username: email,
-        email: email,
-        imageUrl: imageUrl,
-      })
-    );
-    history.push("/home");
-  };
+    setDisable(true);
+    let check = true;
+    if (!userName) {
+      setShowErrorUserName('');
+      check = false;
+    }
+    if (!password) {
+      setShowErrorPassword('');
+      check = false;
+    }
+    if (check) {
+      console.log(userName);
+      console.log(password);
+      const signInInfo = { username: userName, password: password };
+      try {
+        const resp = await instance.post('/login', signInInfo);
+        const id = resp.data.userId;
+        const respUser = await instance.get(`/user/${id}`);
+        dispatch(signIn(respUser.data.user));
+        history.push("/home")
+      }
+      catch (err) {
+        showError();
+      }
+    }
+  }
+  const googleLogin = async () => {
+    try {
+      const resp = await instance.get('/oauth/google/login');
+      if (resp.status !== 404) {
+        console.log(resp.data);
+        history.push("/home")
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
   return (
     <main>
       <section className="relative w-full h-full py-10 min-h-screen">
@@ -66,6 +85,33 @@ export default function Login() {
             className="w-full h-full absolute opacity-50 bg-black"
           ></span>
         </div>
+        <Modal
+          show={showFailed}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Body style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-16 text-center text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <div className="text-center"><p>Your username or password is wrong !</p><p> Please try again!</p></div>
+
+          </Modal.Body>
+          <Modal.Footer style={{
+            display: "flex",
+            justifyContent: "center",
+          }}>
+            <button className="bg-lightBlue-500 text-white active:bg-blueGray-600 text-xs font-bold uppercase px-3 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150" onClick={handleClose}>Close</button>
+
+          </Modal.Footer>
+        </Modal>
         <div className="container mx-auto px-4 h-full py-4">
           <div className="flex content-center items-center justify-center h-full">
             <div className="w-full lg:w-4/12 px-4">
@@ -77,27 +123,17 @@ export default function Login() {
                     </h6>
                   </div>
                   <div className="btn-wrapper text-center">
-                    <GoogleLogin
-                      render={(renderProps) => (
-                        <button
-                          onClick={renderProps.onClick}
-                          disabled={renderProps.disabled}
-                          className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                          type="button"
-                        >
-                          <img
-                            alt="..."
-                            className="w-5 mr-1"
-                            src={require("assets/images/google.svg").default}
-                          />
-                          Google
-                        </button>
-                      )}
-                      clientId="38195780971-2khqdc32dvhtqrds4432s1e2j6b1mtob.apps.googleusercontent.com"
-                      onSuccess={responseGoogle}
-                      onFailure={responseGoogle}
-                      cookiePolicy={"single_host_origin"}
-                    />
+                    <button onClick={googleLogin}
+                      className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
+                      type="button"
+                    >
+                      <img
+                        alt="..."
+                        className="w-5 mr-1"
+                        src={require("assets/images/google.svg").default}
+                      />
+                      Google
+                    </button>
                   </div>
                   <hr className="mt-6 border-b-1 border-blueGray-300" />
                 </div>
@@ -121,7 +157,13 @@ export default function Login() {
                         onChange={(e) => onChangeUserName(e)}
                       />
                     </div>
-
+                    <div className="relative w-full pt-1">
+                      <h1
+                        className={"block text-red-500 font-bold text-xs mb-2 " + showErrorUserName}
+                      >
+                        {errorCommon}
+                      </h1>
+                    </div>
                     <div className="relative w-full mb-3">
                       <label
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -137,17 +179,23 @@ export default function Login() {
                         onChange={onChangePassword}
                       />
                     </div>
+                    <div className="relative w-full pt-1">
+                      <h1
+                        className={"block text-red-500 font-bold text-xs mb-2 " + showErrorPassword}
+                      >
+                        {errorCommon}
+                      </h1>
+                    </div>
 
                     <div className="text-center mt-6">
-                      <button
-                        onClick={validateAccount}
+                      <button onClick={validateAccount}
                         className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                         type="button"
+                        disabled={disable}
                       >
                         Sign In
                       </button>
-                      <button
-                        onClick={goToRegister}
+                      <button onClick={goToRegister}
                         className="bg-blueGray-700 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                         type="button"
                       >

@@ -6,24 +6,29 @@
   height: 22rem;
   width: 20%;
   border-radius: 4px;
+  margin-left: 10px;
+  margin-bottom: 20px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   overflow: hidden;
   transition: all 0.5s;
-  background-image: url("https://432351-1355220-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/2016/03/chicago.jpg");
+  color:white;
+  // background-image: url("https://432351-1355220-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/2016/03/chicago.jpg");
   background-size: cover;
 
   @include atLgScreen {
-    width: 90%;
+    width: 80%;
     margin: auto;
     margin-bottom: 20px;
   }
 
   &__top {
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 20px;
+    position: relative;
+    border-radius: 2px;
+    padding: 5px;
+    text-align: center;
     z-index: 5;
+    height: 3rem;
+    font-size: small;
   }
 
   &__bot {
@@ -38,12 +43,20 @@
     & button{
       border-radius: 5px;
       font-weight:500;
-      background-color: white;
-      color: rgb(0, 153, 255);
+      --tw-bg-opacity: 1;
+  background-color: rgba(241, 245, 249, var(--tw-bg-opacity));
+    --tw-text-opacity: 1;
+    color: rgba(100, 116, 139, var(--tw-text-opacity));
     }
   }
 }
-
+.cardtype::before{
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  top: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.212);
+}
 .cardtype:hover {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }

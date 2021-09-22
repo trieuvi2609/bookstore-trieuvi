@@ -1,13 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./CardTypesBook.scss";
-
+import { imageType } from "app/data";
 function CardTypesBook(props) {
-  const { count, name, path } = props.type;
+  const name = props.name;
+  const id = props.id;
+  const path = `/type/${name}`;
+  console.log(id);
+  console.log(imageType[Number(id)-1]);
+  const imageUrl = imageType[Number(id)-1];
   return (
-    <div className="cardtype">
+    <div className="cardtype" style= {{backgroundImage: `url(${imageUrl})`}}>
       <div className="cardtype__top">
-        <p className="cardtype__top-num">{count} Book</p>
         <h2 className="cardtype__top-name">{name}</h2>
       </div>
       <div className="cardtype__bot">
