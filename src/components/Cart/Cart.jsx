@@ -50,7 +50,7 @@ export default function Cart() {
                 </h6>
                 {cartItems.length === 0 ? (
                   <div className="px-12 relative relative flex flex-row min-w-0 w-full border-b-2 py-2">
-                    <div className="px-12 py-2 flex">
+                    <div className="px-2 py-2 flex">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-60 w-60"
@@ -65,7 +65,7 @@ export default function Cart() {
                           d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                         />
                       </svg>
-                      <div className="px-12 py-2 flex flex-col">
+                      <div className="px-12 py-2 flex flex-col break-words">
                         <h6 className="text-xl font-semibold">
                           Your cart is now empty
                         </h6>
