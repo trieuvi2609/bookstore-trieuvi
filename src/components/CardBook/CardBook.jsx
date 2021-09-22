@@ -3,11 +3,7 @@ import { setBooks } from "features/books/booksSlice";
 import { addCart } from "features/cart/cartSlice";
 import { selectCurrentUser } from "features/session/sessionSlice";
 import React, { useEffect } from "react";
-import {
-  IoIosAddCircleOutline,
-  IoIosCellular,
-  IoMdContacts,
-} from "react-icons/io";
+import { IoMdContacts } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "./CardBook.scss";
@@ -23,21 +19,11 @@ function CardBook(props) {
 
   const currentBook = props.book;
 
-  const {
-    id,
-    hot,
-    price,
-    title,
-    address,
-    type,
-    author,
-    time,
-    imgDemo,
-    description
-  } = currentBook;
-  const typeField = type.join(', ');
-  console.log(typeField);
-  const url = "/product/:id";
+  const { id, hot, price, title, type, author, time, imgDemo, description } =
+    currentBook;
+  const typeField = type.join(", ");
+
+  const url = "/book/" + id;
 
   return (
     <div className="cardbook">
@@ -46,7 +32,12 @@ function CardBook(props) {
           <img src={imgDemo} alt="" className="cardbook__top-img" />
         </Link>
         {hot && <span className="cardbook__top-hot">HOT</span>}
-        <span className="cardbook__top-price">{price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span>
+        <span className="cardbook__top-price">
+          {price.toLocaleString("it-IT", {
+            style: "currency",
+            currency: "VND",
+          })}
+        </span>
       </div>
       <div className="cardbook__body">
         <h2 className="cardbook__body-title">
@@ -61,7 +52,7 @@ function CardBook(props) {
         <span className="cardbook__end-right">{time}</span>
       </div>
       <div className="cardbook__btn">
-      {currentUser.username && (
+        {currentUser.username && (
           <button
             onClick={() => {
               dispatch(addCart(currentBook));
@@ -70,7 +61,7 @@ function CardBook(props) {
             Add to cart
           </button>
         )}
-        </div>
+      </div>
     </div>
   );
 }

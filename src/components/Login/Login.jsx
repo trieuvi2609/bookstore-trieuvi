@@ -1,30 +1,30 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import axios from "axios";
+// import axios from "axios";
 import { signIn } from "features/session/sessionSlice";
+import React, { useState } from "react";
 import GoogleLogin from "react-google-login";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 export default function Login() {
   const history = useHistory();
-  const [userName, setUserName] = useState('');
-  const [password, setPassword] = useState('');
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const goToRegister = () => {
-    history.push("/register")
-  }
+    history.push("/register");
+  };
   const onChangeUserName = ({ target }) => {
     const newUserName = target.value;
     setUserName(newUserName);
-  }
+  };
   const onChangePassword = ({ target }) => {
     const newPassword = target.value;
     setPassword(newPassword);
-  }
+  };
   const validateAccount = async () => {
     console.log(userName);
     console.log(password);
     dispatch(signIn({ username: userName, fullName: userName }));
-    history.push("/home")
+    history.push("/home");
     // try {
     //   const logIn = { userName: userName, password: password };
     //   const resp = await axios.post('https://reqres.in/api/login', logIn);
@@ -34,16 +34,23 @@ export default function Login() {
     // } catch (err) {
     //   console.error(err);
     // }
-  }
+  };
   const responseGoogle = (response) => {
     console.log(response.profileObj);
     const userObj = response.profileObj;
     const name = userObj.name;
     const email = userObj.email;
     const imageUrl = userObj.imageUrl;
-    dispatch(signIn({ fullName: name, username: email, email: email, imageUrl: imageUrl }));
-    history.push("/home")
-  }
+    dispatch(
+      signIn({
+        fullName: name,
+        username: email,
+        email: email,
+        imageUrl: imageUrl,
+      })
+    );
+    history.push("/home");
+  };
   return (
     <main>
       <section className="relative w-full h-full py-10 min-h-screen">
@@ -71,8 +78,10 @@ export default function Login() {
                   </div>
                   <div className="btn-wrapper text-center">
                     <GoogleLogin
-                      render={renderProps => (
-                        <button onClick={renderProps.onClick} disabled={renderProps.disabled}
+                      render={(renderProps) => (
+                        <button
+                          onClick={renderProps.onClick}
+                          disabled={renderProps.disabled}
                           className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
                           type="button"
                         >
@@ -87,7 +96,7 @@ export default function Login() {
                       clientId="38195780971-2khqdc32dvhtqrds4432s1e2j6b1mtob.apps.googleusercontent.com"
                       onSuccess={responseGoogle}
                       onFailure={responseGoogle}
-                      cookiePolicy={'single_host_origin'}
+                      cookiePolicy={"single_host_origin"}
                     />
                   </div>
                   <hr className="mt-6 border-b-1 border-blueGray-300" />
@@ -130,13 +139,15 @@ export default function Login() {
                     </div>
 
                     <div className="text-center mt-6">
-                      <button onClick={validateAccount}
+                      <button
+                        onClick={validateAccount}
                         className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                         type="button"
                       >
                         Sign In
                       </button>
-                      <button onClick={goToRegister}
+                      <button
+                        onClick={goToRegister}
                         className="bg-blueGray-700 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                         type="button"
                       >
