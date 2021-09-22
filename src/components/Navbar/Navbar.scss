@@ -59,9 +59,9 @@
   display: block;
 }
 .dropdown-content ul {
-  -webkit-column-count: 3;
-  -moz-column-count: 3;
-  column-count: 3;
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  column-count: 2;
 }
 .dropdown-content a:hover {background-color: white; color: rgb(0, 153, 255);}
 
