@@ -5,7 +5,7 @@ import { useSelector} from "react-redux";
 function HomePage(props) {
   const books = useSelector(selectBooks);
   console.log(books);
-  const hotbook = books.filter((book) => book.hot === true);
+  const hotbook = books.filter((book) => book.b_hot === true);
   return (
     <main>
       <Banner />

@@ -1,33 +1,43 @@
-import { CardBook, SearchBar, Title } from "components";
-import { selectBooks } from "features/books/booksSlice";
-import React, { useState } from "react";
+import { useParams } from "react-router";
 import { useSelector } from "react-redux";
+import { selectTypes } from "features/books/booksSlice";
+import { useEffect, useState } from "react";
+import Title from "components/Title/Title";
+import CardBook from "components/CardBook/CardBook";
+import instance from "api/axios";
 import NewCardBook from "components/CardBook/NewCardBook";
-function ListBookPage() {
-  const [visible, setVisible] = useState(8);
-  const books = useSelector(selectBooks);
-
+export default function TypePage(){
+    const types = useSelector(selectTypes);
+    const { name } = useParams();
+    const [listBook, setListBook] = useState([]);
+    console.log(listBook);
+    const [visible, setVisible] = useState(8);
   const showMore = () => {
     setVisible((oldValue) => oldValue + 4);
   };
-
-  return (
-    <main className = "py-10 bg-blueGray-200">
+  const typeUsed = types.findIndex((type)=>type.cat_nm===name);
+    useEffect(()=>{
+        const getBookOfType = async ()=>{
+            const listBookResp = await instance.get(`/categories/${typeUsed+1}`);
+            const list = listBookResp.data.book_list;
+            setListBook(list);
+        }
+        getBookOfType();
+    },[name])
+    return(
+        <main className = "py-10 bg-blueGray-200">
       <div className="container">
         <Title
-          title="List of Books"
+          title={`${name} Books`}
           text="
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis rerum aliquid pariatur fugiat alias voluptatum expedita ducimus optio deleniti autem voluptatibus rem, accusamus eligendi harum officiis laudantium adipisci, non dolorum."
         />
         <hr />
-
-        <SearchBar />
-
         <div className="row">
-          {books.slice(0, visible).map((book) => {
+          {listBook.slice(0, visible).map((book) => {
             return (
               <div
-                key={book.id}
+                key={book.b_id}
                 className="col-10 col-md-6 col-lg-3 mx-auto mb-3"
               >
                 <NewCardBook book={book} />
@@ -35,7 +45,7 @@ function ListBookPage() {
             );
           })}
         </div>
-        {visible === books.length ? null : (
+        {visible === listBook.length ? null : (
           <div className="row">
             <div
               style={{ textAlign: "center" }}
@@ -50,7 +60,5 @@ function ListBookPage() {
         )}
       </div>
     </main>
-  );
+    )
 }
-
-export default ListBookPage;

@@ -45,17 +45,17 @@ export default function CartItem(props) {
                 <div className="px-12">
                     <img className="rounded w-32"
                         alt="..."
-                        src={item.imgDemo}
+                        src={item.b_img}
                     />
                 </div>
 
-                <div className="px-1">
-                    <h6 className="text-xl font-semibold">{item.title}</h6>
+                <div className="px-1 flex flex-col items-start">
+                    <h6 className="text-xl font-semibold text-left">{item.b_nm}</h6>
                     <p className="text-blueGray-500">
-                        {item.author}
+                        {item.b_publisher}
                     </p>
                     <p className="text-blueGray-500">
-                        Price: {(item.price).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}
+                        Price: {(Number(item.b_price)).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}
                     </p>
                 </div>
 
@@ -76,7 +76,7 @@ export default function CartItem(props) {
                 </div>
                 <h6 className="text-xl font-semibold">SubTotal</h6>
                 <p className="text-blueGray-500">
-                    {(number * item.price).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}
+                    {(number * Number(item.b_price)).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}
                 </p>
             </div>
         </div>

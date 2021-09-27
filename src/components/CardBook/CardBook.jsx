@@ -1,5 +1,5 @@
 import { BOOKS } from "app/data";
-import { setBooks } from "features/books/booksSlice";
+import { selectTypes, setBooks } from "features/books/booksSlice";
 import { addCart } from "features/cart/cartSlice";
 import { selectCurrentUser } from "features/session/sessionSlice";
 import React, { useEffect } from "react";
@@ -11,29 +11,24 @@ import "./CardBook.scss";
 function CardBook(props) {
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
-
-  useEffect(() => {
-    const setMyBooks = () => dispatch(setBooks(BOOKS));
-    setMyBooks();
-  }, [dispatch]);
-
+  const types = useSelector(selectTypes);
   const currentBook = props.book;
 
-  const { id, hot, price, title, type, author, time, imgDemo, description } =
-    currentBook;
-  const typeField = type.join(", ");
+  const { b_id, b_hot, b_price, b_nm, b_subcat, b_publisher, b_edition, b_img, b_desc} = currentBook;
+  const typeUsed = types.findIndex((type)=>type.cat_id===b_subcat);
+  const typeField = types[typeUsed].cat_nm.toUpperCase();
 
-  const url = "/book/" + id;
+  const url = "/book/" + b_id;
 
   return (
     <div className="cardbook">
       <div className="cardbook__top">
-        <Link to={url} title={description}>
-          <img src={imgDemo} alt="" className="cardbook__top-img" />
+        <Link to={url} title={b_desc}>
+          <img src={b_img} alt="" className="cardbook__top-img" />
         </Link>
-        {hot && <span className="cardbook__top-hot">HOT</span>}
+        {b_hot && <span className="cardbook__top-hot">HOT</span>}
         <span className="cardbook__top-price">
-          {price.toLocaleString("it-IT", {
+          {Number(b_price).toLocaleString("it-IT", {
             style: "currency",
             currency: "VND",
           })}
@@ -41,15 +36,15 @@ function CardBook(props) {
       </div>
       <div className="cardbook__body">
         <h2 className="cardbook__body-title">
-          <Link to={url}>{title}</Link>
+          <Link to={url}>{b_nm}</Link>
         </h2>
         <p className="cardbook__body-type">{typeField}</p>
       </div>
       <div className="cardbook__end">
         <span className="cardbook__end-left">
-          <IoMdContacts /> {author}
+          <IoMdContacts /> {b_publisher}
         </span>
-        <span className="cardbook__end-right">{time}</span>
+        <span className="cardbook__end-right">{b_edition}</span>
       </div>
       <div className="cardbook__btn">
         {currentUser.username && (

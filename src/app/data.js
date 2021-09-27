@@ -1,143 +1,133 @@
 export const BOOKS = [
   {
-    id: 1,
-    hot: true,
-    price: 125000,
-    title: "Mountain Tales",
-    address: "2436 SW 8th St, Miami, FL 33135, USA",
-    type: ["DRAMA", "ROMANTIC"],
-    author: "Mikel Michellin",
-    time: "2014",
-    imgDemo:
+    b_id: "1",
+    b_hot: true,
+    b_price: "125000",
+    b_nm: "Mountain Tales",
+    b_publisher: "Mikel Michellin",
+    b_edition: "2014",
+    b_img:
       "https://kbimages1-a.akamaihd.net/0c1158a5-0e69-4fa8-8f39-e36655da1d05/1200/1200/False/mountain-tales.jpg",
-    description:
+    b_desc:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vel qui minus mollitia quis neque, modi voluptatibus quas aut nesciunt numquam earum animi delectus, ex assumenda magnam reprehenderit, quam dolores alias.",
+    b_subcat: "4"
   },
   {
-    id: 2,
-    hot: true,
-    price: 125000,
-    title: "Mountain Tales",
-    address: "2436 SW 8th St, Miami, FL 33135, USA",
-    type: ["DRAMA", "ROMANTIC"],
-    author: "Mikel Michellin",
-    time: "2014",
-    imgDemo:
+    b_id: "2",
+    b_hot: true,
+    b_price: "125000",
+    b_nm: "Mountain Tales",
+    b_publisher: "Mikel Michellin",
+    b_edition: "2014",
+    b_img:
       "https://kbimages1-a.akamaihd.net/0c1158a5-0e69-4fa8-8f39-e36655da1d05/1200/1200/False/mountain-tales.jpg",
-    description:
+    b_desc:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vel qui minus mollitia quis neque, modi voluptatibus quas aut nesciunt numquam earum animi delectus, ex assumenda magnam reprehenderit, quam dolores alias.",
+    b_subcat: "4"
   },
   {
-    id: 3,
-    hot: true,
-    price: 125000,
-    title: "Mountain Tales",
-    address: "2436 SW 8th St, Miami, FL 33135, USA",
-    type: ["DRAMA", "ROMANTIC"],
-    author: "Mikel Michellin",
-    time: "2014",
-    imgDemo:
+    b_id: "3",
+    b_hot: true,
+    b_price: "125000",
+    b_nm: "Mountain Tales",
+    b_publisher: "Mikel Michellin",
+    b_edition: "2014",
+    b_img:
       "https://kbimages1-a.akamaihd.net/0c1158a5-0e69-4fa8-8f39-e36655da1d05/1200/1200/False/mountain-tales.jpg",
-    description:
+    b_desc:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vel qui minus mollitia quis neque, modi voluptatibus quas aut nesciunt numquam earum animi delectus, ex assumenda magnam reprehenderit, quam dolores alias.",
+    b_subcat: "4"
   },
   {
-    id: 4,
-    hot: true,
-    price: 125000,
-    title: "Mountain Tales",
-    address: "2436 SW 8th St, Miami, FL 33135, USA",
-    type: ["DRAMA", "ROMANTIC"],
-    author: "Mikel Michellin",
-    time: "2014",
-    imgDemo:
+    b_id: "4",
+    b_hot: true,
+    b_price: "125000",
+    b_nm: "Mountain Tales",
+    b_publisher: "Mikel Michellin",
+    b_edition: "2014",
+    b_img:
       "https://kbimages1-a.akamaihd.net/0c1158a5-0e69-4fa8-8f39-e36655da1d05/1200/1200/False/mountain-tales.jpg",
-    description:
+    b_desc:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vel qui minus mollitia quis neque, modi voluptatibus quas aut nesciunt numquam earum animi delectus, ex assumenda magnam reprehenderit, quam dolores alias.",
+    b_subcat: "4"
   },
   {
-    id: 5,
-    hot: true,
-    price: 125000,
-    title: "Mountain Tales",
-    address: "2436 SW 8th St, Miami, FL 33135, USA",
-    type: ["DRAMA", "ROMANTIC"],
-    author: "Mikel Michellin",
-    time: "2014",
-    imgDemo:
+    b_id: "5",
+    b_hot: true,
+    b_price: "125000",
+    b_nm: "Mountain Tales",
+    b_publisher: "Mikel Michellin",
+    b_edition: "2014",
+    b_img:
       "https://kbimages1-a.akamaihd.net/0c1158a5-0e69-4fa8-8f39-e36655da1d05/1200/1200/False/mountain-tales.jpg",
-    description:
+    b_desc:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vel qui minus mollitia quis neque, modi voluptatibus quas aut nesciunt numquam earum animi delectus, ex assumenda magnam reprehenderit, quam dolores alias.",
+    b_subcat: "4"
   },
   {
-    id: 6,
-    hot: false,
-    price: 125000,
-    title: "Mountain Tales",
-    address: "2436 SW 8th St, Miami, FL 33135, USA",
-    type: ["DRAMA", "ROMANTIC"],
-    author: "Mikel Michellin",
-    time: "2014",
-    imgDemo:
+    b_id: "6",
+    b_hot: true,
+    b_price: "125000",
+    b_nm: "Mountain Tales",
+    b_publisher: "Mikel Michellin",
+    b_edition: "2014",
+    b_img:
       "https://kbimages1-a.akamaihd.net/0c1158a5-0e69-4fa8-8f39-e36655da1d05/1200/1200/False/mountain-tales.jpg",
-    description:
+    b_desc:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vel qui minus mollitia quis neque, modi voluptatibus quas aut nesciunt numquam earum animi delectus, ex assumenda magnam reprehenderit, quam dolores alias.",
+    b_subcat: "4"
   },
   {
-    id: 7,
-    hot: false,
-    price: 125000,
-    title: "Mountain Tales",
-    address: "2436 SW 8th St, Miami, FL 33135, USA",
-    type: ["DRAMA", "ROMANTIC"],
-    author: "Mikel Michellin",
-    time: "2014",
-    imgDemo:
+    b_id: "7",
+    b_hot: false,
+    b_price: "125000",
+    b_nm: "Mountain Tales",
+    b_publisher: "Mikel Michellin",
+    b_edition: "2014",
+    b_img:
       "https://kbimages1-a.akamaihd.net/0c1158a5-0e69-4fa8-8f39-e36655da1d05/1200/1200/False/mountain-tales.jpg",
-    description:
+    b_desc:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vel qui minus mollitia quis neque, modi voluptatibus quas aut nesciunt numquam earum animi delectus, ex assumenda magnam reprehenderit, quam dolores alias.",
+    b_subcat: "4"
   },
   {
-    id: 8,
-    hot: false,
-    price: 125000,
-    title: "Mountain Tales",
-    address: "2436 SW 8th St, Miami, FL 33135, USA",
-    type: ["DRAMA", "ROMANTIC"],
-    author: "Mikel Michellin",
-    time: "2014",
-    imgDemo:
+    b_id: "8",
+    b_hot: false,
+    b_price: "125000",
+    b_nm: "Mountain Tales",
+    b_publisher: "Mikel Michellin",
+    b_edition: "2014",
+    b_img:
       "https://kbimages1-a.akamaihd.net/0c1158a5-0e69-4fa8-8f39-e36655da1d05/1200/1200/False/mountain-tales.jpg",
-    description:
+    b_desc:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vel qui minus mollitia quis neque, modi voluptatibus quas aut nesciunt numquam earum animi delectus, ex assumenda magnam reprehenderit, quam dolores alias.",
+    b_subcat: "4"
   },
   {
-    id: 9,
-    hot: false,
-    price: 125000,
-    title: "Mountain Tales",
-    address: "2436 SW 8th St, Miami, FL 33135, USA",
-    type: ["DRAMA", "ROMANTIC"],
-    author: "Mikel Michellin",
-    time: "2014",
-    imgDemo:
+    b_id: "9",
+    b_hot: false,
+    b_price: "125000",
+    b_nm: "Mountain Tales",
+    b_publisher: "Mikel Michellin",
+    b_edition: "2014",
+    b_img:
       "https://kbimages1-a.akamaihd.net/0c1158a5-0e69-4fa8-8f39-e36655da1d05/1200/1200/False/mountain-tales.jpg",
-    description:
+    b_desc:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vel qui minus mollitia quis neque, modi voluptatibus quas aut nesciunt numquam earum animi delectus, ex assumenda magnam reprehenderit, quam dolores alias.",
+    b_subcat: "4"
   },
   {
-    id: 10,
-    hot: false,
-    price: 125000,
-    title: "Mountain Tales",
-    address: "2436 SW 8th St, Miami, FL 33135, USA",
-    type: ["DRAMA", "ROMANTIC"],
-    author: "Mikel Michellin",
-    time: "2014",
-    imgDemo:
+    b_id: "10",
+    b_hot: false,
+    b_price: "125000",
+    b_nm: "Mountain Tales",
+    b_publisher: "Mikel Michellin",
+    b_edition: "2014",
+    b_img:
       "https://kbimages1-a.akamaihd.net/0c1158a5-0e69-4fa8-8f39-e36655da1d05/1200/1200/False/mountain-tales.jpg",
-    description:
+    b_desc:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vel qui minus mollitia quis neque, modi voluptatibus quas aut nesciunt numquam earum animi delectus, ex assumenda magnam reprehenderit, quam dolores alias.",
+    b_subcat: "4"
   },
 ];
 export const imageType = [

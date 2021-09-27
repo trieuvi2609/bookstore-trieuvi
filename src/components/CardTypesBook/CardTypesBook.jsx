@@ -6,8 +6,6 @@ function CardTypesBook(props) {
   const name = props.name;
   const id = props.id;
   const path = `/type/${name}`;
-  console.log(id);
-  console.log(imageType[Number(id)-1]);
   const imageUrl = imageType[Number(id)-1];
   return (
     <div className="cardtype" style= {{backgroundImage: `url(${imageUrl})`}}>

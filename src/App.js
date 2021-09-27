@@ -10,11 +10,12 @@ import {
   RegisterPage,
   ProfilePage,
   CartPage,
+  TypePage
 } from "pages";
 import { Suspense,useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import {useDispatch} from 'react-redux';
-import {setTypes} from "features/books/booksSlice";
+import {setTypes,setBooks} from "features/books/booksSlice";
 import instance from "api/axios";
 function App() {
   const dispatch = useDispatch();
@@ -29,8 +30,11 @@ function App() {
     }
     const getBooks = async ()=>{
       const bookGetResp = await instance.get('/books');
-      const bookGet = bookGetResp.data;
-      console.log(bookGet.book_list);
+      const bookGet = bookGetResp.data.book_list;
+      bookGet.sort(function(a, b) {
+        return Number(a.b_id) - Number(b.b_id);
+      });
+      dispatch(setBooks(bookGet));
     };
     getBooks();
     fetchType();
@@ -58,6 +62,7 @@ function App() {
           {/* Login page */}
           <Route exact path="/login" component={LoginPage} />
           {/* Register page */}
+          <Route exact path ="/type/:name" component = {TypePage}/>
           <Route exact path="/register" component={RegisterPage} />
           {/* Error page */}
           <Route path="*" component={ErrorPage} />
