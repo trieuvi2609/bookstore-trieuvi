@@ -2,7 +2,7 @@
 @import "assets/styles/_variables.scss";
 
 .cardbook {
-  height: 30rem;
+  height: 33rem;
   padding: 0;
   margin: 0 10px;
   border-radius: 5px;
@@ -67,28 +67,24 @@
 }
 
 .cardbook__body {
-  height: 13%;
+  height: 15%;
+  position:flex;
   padding: 15px 15px 5px 15px;
   overflow: hidden;
 
   &-title {
+    height: 60%;
     font-size: 13pt;
     font-weight: 500;
   }
-
-  &-address {
-    font-size: 9pt;
-    font-weight: 200;
-  }
-
   &-type {
-    font-size: 9pt;
+    font-size: 10pt;
     font-weight: 600;
   }
 }
 
 .cardbook__end {
-  height: 7%;
+  height: 4%;
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -97,14 +93,17 @@
 
   &-left {
     display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     font-size: 10pt;
   }
   &-right {
-    font-size: 9pt;
+    font-size: 10pt;
   }
 }
 .cardbook__btn {
-  height: 10%;
+  height: 9%;
   position: relative;
   display: flex;
   justify-content: center;

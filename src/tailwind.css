@@ -1438,7 +1438,9 @@ select {
   -webkit-align-items: center;
           align-items: center;
 }
-
+.items-start	{
+  align-items: flex-start;
+}
 .items-stretch {
   -webkit-align-items: stretch;
           align-items: stretch;
@@ -1463,7 +1465,9 @@ select {
   -webkit-justify-content: space-between;
           justify-content: space-between;
 }
-
+.self-center	{
+  align-self: center;
+}
 .flex-1 {
   -webkit-flex: 1 1 0%;
           flex: 1 1 0%;
@@ -1537,6 +1541,9 @@ select {
 }
 .h-50 {
   height: 7rem;
+}
+.h-80	{
+  height: 20rem;
 }
 .h-auto {
   height: auto;
@@ -1959,7 +1966,13 @@ select {
 .overflow-y-auto {
   overflow-y: auto;
 }
-
+.truncate	{
+  display: -webkit-box;
+  -webkit-line-clamp: var(--line-clamp, 2);
+  -webkit-box-orient: vertical;
+  word-break: var(--word-break, 'none');
+  overflow: hidden;
+}
 .overflow-x-hidden {
   overflow-x: hidden;
 }
