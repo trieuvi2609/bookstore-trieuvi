@@ -36,8 +36,8 @@ function App() {
       });
       dispatch(setBooks(bookGet));
     };
-    getBooks();
     fetchType();
+    getBooks();
   },[dispatch]);
   return (
     <Suspense fallback={<div>Loading..</div>}>
