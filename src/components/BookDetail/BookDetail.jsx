@@ -48,7 +48,10 @@ function BookDetail(props) {
                 Author: {b_publisher}
               </div>
               <div className="bookdetail__banner-title-price">
-                Price: {b_price}
+                Price: {Number(b_price).toLocaleString("it-IT", {
+            style: "currency",
+            currency: "VND",
+          })}
               </div>
               <div className="bookdetail__banner-title-type">
                 Book category: {typeField}

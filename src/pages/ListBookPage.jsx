@@ -1,4 +1,4 @@
-import { CardBook, SearchBar, Title } from "components";
+import { SearchBar, Title } from "components";
 import { selectBooks } from "features/books/booksSlice";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";

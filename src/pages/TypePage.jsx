@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { selectTypes } from "features/books/booksSlice";
 import { useEffect, useState } from "react";
 import Title from "components/Title/Title";
-import CardBook from "components/CardBook/CardBook";
 import instance from "api/axios";
 import NewCardBook from "components/CardBook/NewCardBook";
 export default function TypePage(){
@@ -23,7 +22,7 @@ export default function TypePage(){
             setListBook(list);
         }
         getBookOfType();
-    },[name])
+    },[name,typeUsed])
     return(
         <main className = "py-10 bg-blueGray-200">
       <div className="container">

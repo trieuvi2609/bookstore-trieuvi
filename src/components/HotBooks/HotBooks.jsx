@@ -1,5 +1,5 @@
 import { SLIDE_VIEW_4 } from "app/slide";
-import { CardBook, Title } from "components";
+import { Title } from "components";
 import React from "react";
 import Slider from "react-slick";
 import "./HotBooks.scss";

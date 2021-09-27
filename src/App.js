@@ -12,31 +12,23 @@ import {
   CartPage,
   TypePage
 } from "pages";
-import { Suspense,useEffect } from "react";
+import { Suspense,useEffect} from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import {useDispatch} from 'react-redux';
-import {setTypes,setBooks} from "features/books/booksSlice";
+import {setBooks} from "features/books/booksSlice";
 import instance from "api/axios";
 function App() {
   const dispatch = useDispatch();
   useEffect(()=>{
-    const fetchType = async ()=>{
-      const typeResp = await instance.get('/categories');
-      const type = typeResp.data.category_list;
-      type.sort(function(a, b) {
-        return Number(a.cat_id) - Number(b.cat_id);
-      });
-      dispatch(setTypes(type));
-    }
     const getBooks = async ()=>{
       const bookGetResp = await instance.get('/books');
       const bookGet = bookGetResp.data.book_list;
       bookGet.sort(function(a, b) {
         return Number(a.b_id) - Number(b.b_id);
       });
+      console.log(bookGet);
       dispatch(setBooks(bookGet));
     };
-    fetchType();
     getBooks();
   },[dispatch]);
   return (

@@ -1,8 +1,7 @@
-import { BOOKS } from "app/data";
-import { selectTypes, setBooks } from "features/books/booksSlice";
+import { selectTypes} from "features/books/booksSlice";
 import { addCart } from "features/cart/cartSlice";
 import { selectCurrentUser } from "features/session/sessionSlice";
-import React, { useEffect } from "react";
+import React from "react";
 import { IoMdContacts } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";

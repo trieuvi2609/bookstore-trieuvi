@@ -1,7 +1,7 @@
-import { selectTypes, setBooks } from "features/books/booksSlice";
+import { selectTypes} from "features/books/booksSlice";
 import { addCart } from "features/cart/cartSlice";
 import { selectCurrentUser } from "features/session/sessionSlice";
-import React, { useEffect } from "react";
+import React from "react";
 import { IoMdContacts } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -12,19 +12,14 @@ function NewCardBook(props) {
   const currentUser = useSelector(selectCurrentUser);
   const types = useSelector(selectTypes);
   const currentBook = props.book;
-  const { b_id, b_hot, b_price, b_nm, b_subcat, b_publisher, b_edition, b_img, b_desc} = currentBook;
-  console.log(b_hot);
+  const { b_id, b_hot, b_price, b_nm, b_subcat, b_publisher, b_edition, b_img} = currentBook;
   const typeUsed = types.findIndex((type)=>type.cat_id===b_subcat);
   const typeField = types[typeUsed].cat_nm.toUpperCase();
-  const price = Number(b_price).toLocaleString("it-IT", {
-    style: "currency",
-    currency: "VND",
-  })
   const url = "/book/" + b_id;
   return (
   <div className ="relative flex flex-col rounded-lg overflow-hidden shadow-2xl mx-3 my-2">
   <div className = "relative px-4 bg-blueGray-50 py-2 h-80">
-      <img className = "w-full" src={b_img}></img>
+      <img className = "w-full" src={b_img} alt = {b_nm}></img>
       <div className = "absolute right-0 top-0 text-white"> {b_hot && <span className="cardbook__top-hot">HOT</span>}</div>
       <div className = "absolute bottom-0 left-0"><span className="cardbook__top-price text-white">
           {Number(b_price).toLocaleString("it-IT", {
