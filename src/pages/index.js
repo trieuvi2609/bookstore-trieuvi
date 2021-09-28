@@ -6,7 +6,7 @@ import RegisterPage from "./RegisterPage";
 import CartPage from "./CartPage";
 import BookPage from "./BookPage";
 import ListBookPage from "./ListBookPage";
-
+import TypePage from "./TypePage";
 export {
   HomePage,
   ErrorPage,
@@ -16,4 +16,5 @@ export {
   CartPage,
   BookPage,
   ListBookPage,
+  TypePage
 };

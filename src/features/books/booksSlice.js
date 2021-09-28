@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { BOOKS } from "app/data";
+import { types } from "app/data";
 export const booksSlice = createSlice({
     name: 'books',
     initialState: {
         books: BOOKS,
-        types: []
+        types: types
     },
     reducers: {
         setBooks: (state, action) => {
@@ -15,6 +16,9 @@ export const booksSlice = createSlice({
         },
         resetBooks: (state, action) => {
             state.books = [];
+        },
+        resetTypes:(state,action)=>{
+            state.types = [];
         }
     }
 });
@@ -22,5 +26,5 @@ export const booksSlice = createSlice({
 export const selectBooks = (state) => state.books.books;
 export const selectTypes = (state) => state.books.types;
 export const filterBooks = (query, books) => Object.values(books).filter(book => book.title.toLowerCase().includes(query.toLowerCase()));
-export const { setBooks, resetBooks,setTypes } = booksSlice.actions;
+export const { setBooks, resetBooks,setTypes,resetTypes } = booksSlice.actions;
 export default booksSlice.reducer;

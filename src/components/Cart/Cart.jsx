@@ -28,7 +28,7 @@ export default function Cart() {
     return acc + obj.number;
   }, 0);
   const price = cartItems.reduce(function (acc, obj) {
-    return acc + obj.item.price * obj.number;
+    return acc + Number(obj.item.b_price) * obj.number;
   }, 0);
   return (
     <div>
