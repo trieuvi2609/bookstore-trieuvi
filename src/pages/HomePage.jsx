@@ -1,11 +1,11 @@
 import { AboutUs, Banner, HotBooks, TypesBook } from "components";
-import { selectBooks} from "features/books/booksSlice";
+import { selectBooks } from "features/books/booksSlice";
 import React from "react";
-import { useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 function HomePage(props) {
   const books = useSelector(selectBooks);
-  console.log(books);
   const hotbook = books.filter((book) => book.b_hot === true);
+
   return (
     <main>
       <Banner />

@@ -1,6 +1,6 @@
 import { resetCart, selectCart } from "features/cart/cartSlice";
 import { logOut, selectCurrentUser } from "features/session/sessionSlice";
-import { selectTypes} from "features/books/booksSlice";
+import { selectTypes } from "features/books/booksSlice";
 import React from "react";
 import { TiShoppingCart, TiDeleteOutline } from "react-icons/ti";
 import { CgMenuGridR } from "react-icons/cg";
@@ -9,20 +9,23 @@ import { Link, useHistory } from "react-router-dom";
 import "./Navbar.scss";
 import { STORE_NAME } from "utils/static";
 import instance from "api/axios";
+
 function Navbar() {
   const currentUser = useSelector(selectCurrentUser);
   const items = useSelector(selectCart);
   const bookTypes = useSelector(selectTypes);
   const history = useHistory();
   const [navbarOpen, setNavbarOpen] = React.useState(false);
-  const dispatch= useDispatch();
-  const handleLogout = async() => {
+  const dispatch = useDispatch();
+  const handleLogout = async () => {
     const logOutSession = await instance.post("/logout");
     console.log(logOutSession.data);
     dispatch(logOut());
     dispatch(resetCart());
     history.push("/");
   };
+
+  // console.log(bookTypes);
 
   return (
     <>
@@ -53,14 +56,20 @@ function Navbar() {
               <Link to="/books" className="navbar__link dropdown">
                 List of Books
               </Link>
-              <div className="navbar__link dropdown">
-              Books Type
-              <div className="dropdown-content">
-                <ul>
-                {bookTypes.map((type)=><li key={type.cat_id} ><Link to={`/type/${type.cat_nm}`}>{type.cat_nm}</Link></li>)}
-                </ul>
-  </div>
-  </div>
+              {bookTypes && (
+                <div className="navbar__link dropdown">
+                  Books Type
+                  <div className="dropdown-content">
+                    <ul>
+                      {bookTypes.map((type) => (
+                        <li key={type.cat_id}>
+                          <Link to={`/type/${type.cat_nm}`}>{type.cat_nm}</Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
               <Link to="/cart" className="navbar__cart">
                 {items.length !== 0 && (
                   <span className="navbar__cart-count">{items.length}</span>
@@ -139,7 +148,9 @@ function Navbar() {
                 className="navbar__user menu-hidden-link"
                 onClick={() => setNavbarOpen(!navbarOpen)}
               >
-                <span className="navbar__user-name">{currentUser.fullName}</span>
+                <span className="navbar__user-name">
+                  {currentUser.fullName}
+                </span>
               </Link>
               <hr />
               <button className="navbar__btn " onClick={handleLogout}>

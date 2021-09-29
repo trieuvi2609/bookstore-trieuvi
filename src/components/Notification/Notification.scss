@@ -1,0 +1,15 @@
+.notification {
+  position: absolute;
+  top: 2rem;
+  left: 50%;
+  z-index: 10;
+  transform: translateX(-50%);
+
+  & .toast-header button {
+    border: none;
+    background: none;
+    & .sr-only {
+      display: none;
+    }
+  }
+}

@@ -1,18 +1,51 @@
-import { SearchBar, Title } from "components";
+import { CardBook, SearchBar, Title } from "components";
 import { selectBooks } from "features/books/booksSlice";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import NewCardBook from "components/CardBook/NewCardBook";
-function ListBookPage() {
+
+function ListBookPage(props) {
   const [visible, setVisible] = useState(8);
   const books = useSelector(selectBooks);
+  const [bookShow, setBookShow] = useState([...books]);
+
+  const handleSearchString = (searchString) => {
+    let newBooks = [];
+    if (searchString === "") {
+      newBooks = [...books];
+    } else {
+      newBooks = books.filter((book) => {
+        const name = book.b_nm.toLowerCase();
+        return name.includes(searchString.toLowerCase());
+      });
+    }
+    setBookShow([...newBooks]);
+  };
+
+  function handleClickType(types) {
+    const newBooks = bookShow.filter((book) => {
+      let check = false;
+      const n = types.length;
+      for (let i = 0; i < n; i++) {
+        if (types[i].cat_id === book.b_subcat) {
+          check = true;
+          break;
+        }
+      }
+      return check;
+    });
+    setBookShow([...newBooks]);
+  }
+
+  function handleClear() {
+    setBookShow([...books]);
+  }
 
   const showMore = () => {
     setVisible((oldValue) => oldValue + 4);
   };
 
   return (
-    <main className = "py-10 bg-blueGray-200">
+    <main className="py-10 bg-blueGray-200">
       <div className="container">
         <Title
           title="List of Books"
@@ -21,21 +54,25 @@ function ListBookPage() {
         />
         <hr />
 
-        <SearchBar />
+        <SearchBar
+          handleSearchString={handleSearchString}
+          handleClickType={handleClickType}
+          handleClear={handleClear}
+        />
 
         <div className="row">
-          {books.slice(0, visible).map((book) => {
+          {bookShow.slice(0, visible).map((book, index) => {
             return (
               <div
-                key={book.id}
+                key={index}
                 className="col-10 col-md-6 col-lg-3 mx-auto mb-3"
               >
-                <NewCardBook book={book} />
+                <CardBook book={book} />
               </div>
             );
           })}
         </div>
-        {visible === books.length ? null : (
+        {visible === bookShow.length ? null : (
           <div className="row">
             <div
               style={{ textAlign: "center" }}

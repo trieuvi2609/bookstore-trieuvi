@@ -1,12 +1,11 @@
-import { SLIDE_VIEW_4 } from "app/slide";
-import { Title } from "components";
+import { SLIDE_VIEW_4 } from "utils/slide";
+import { CardBook, Title } from "components";
 import React from "react";
 import Slider from "react-slick";
 import "./HotBooks.scss";
-import NewCardBook from "components/CardBook/NewCardBook";
 function HotBooks(props) {
   const books = props.books;
-  console.log(books);
+
   return (
     <section>
       <div className="hotproducts">
@@ -22,7 +21,7 @@ function HotBooks(props) {
               {books.map((book) => {
                 return (
                   <div key={book.b_id}>
-                    <NewCardBook book={book} />
+                    <CardBook book={book} />
                   </div>
                 );
               })}

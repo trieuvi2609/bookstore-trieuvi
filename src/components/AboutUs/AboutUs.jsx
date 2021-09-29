@@ -1,4 +1,4 @@
-import { SLIDE_VIEW_5 } from "app/slide";
+import { SLIDE_VIEW_5 } from "utils/slide";
 import { CardAboutUs, Title } from "components";
 import React from "react";
 import Slider from "react-slick";

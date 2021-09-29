@@ -8,6 +8,7 @@ import { addCart } from "features/cart/cartSlice";
 import { selectCurrentUser } from "features/session/sessionSlice";
 import { Comment } from "components";
 import { selectTypes } from "features/books/booksSlice";
+
 function BookDetail(props) {
   const books = useSelector(selectBooks);
   const { id } = useParams();
@@ -22,11 +23,12 @@ function BookDetail(props) {
   };
 
   const test_array_comment = [1, 2, 3, 4, 5, 6, 7, 8];
-  console.log(currentBook);
+  // console.log(currentBook);
   const { b_publisher, b_price, b_nm, b_subcat, b_img, b_desc, b_edition } =
     currentBook;
-    const typeUsed = types.findIndex((type)=>type.cat_id===b_subcat);
+  const typeUsed = types.findIndex((type) => type.cat_id === b_subcat);
   const typeField = types[typeUsed].cat_nm.toUpperCase();
+
   return (
     <div className="bg-bookdetail">
       <div className="container">
@@ -48,10 +50,11 @@ function BookDetail(props) {
                 Author: {b_publisher}
               </div>
               <div className="bookdetail__banner-title-price">
-                Price: {Number(b_price).toLocaleString("it-IT", {
-            style: "currency",
-            currency: "VND",
-          })}
+                Price:{" "}
+                {Number(b_price).toLocaleString("it-IT", {
+                  style: "currency",
+                  currency: "VND",
+                })}
               </div>
               <div className="bookdetail__banner-title-type">
                 Book category: {typeField}
@@ -86,7 +89,7 @@ function BookDetail(props) {
             <div className="bookdetail__comment-list">
               {test_array_comment.slice(0, visible).map((idx) => {
                 return (
-                  <div key = {idx}>
+                  <div key={idx}>
                     <Comment />
                     <hr />
                   </div>

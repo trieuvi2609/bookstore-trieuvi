@@ -3,6 +3,13 @@ import { BANNER_HOME } from "utils/static";
 import "./Banner.scss";
 
 function Banner(props) {
+  const handleSearch = () => {
+    // history.push({
+    //   pathname: "/books",
+    //   state: { searchHomeString: searchString },
+    // });
+  };
+
   return (
     <section>
       <div
@@ -20,7 +27,9 @@ function Banner(props) {
             className="banner__search-input"
             placeholder={BANNER_HOME.searchInput}
           />
-          <button className="banner__search-btn">Search</button>
+          <button className="banner__search-btn" onClick={handleSearch}>
+            Search
+          </button>
         </div>
       </div>
     </section>
