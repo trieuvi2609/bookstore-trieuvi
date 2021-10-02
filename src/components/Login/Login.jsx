@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector} from "react-redux";
 import instance from "api/axios";
 import { signIn } from "features/session/sessionSlice";
 import { Modal } from "react-bootstrap";
+import { selectBooks } from "features/books/booksSlice";
+import { setCart } from "features/cart/cartSlice";
 export default function Login() {
   const history = useHistory();
+  const books = useSelector(selectBooks);
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [showFailed, setShowFailed] = useState(false);
@@ -51,7 +54,13 @@ export default function Login() {
         const resp = await instance.post('/login', signInInfo);
         const id = resp.data.userId;
         const respUser = await instance.get(`/user/${id}`);
-        dispatch(signIn(respUser.data.user));
+        const respShipping = await instance.get(`shipping_address/${id}`);
+        const cart = await instance.get(`cart/${id}`);
+        const cartUse = cart.data.cart;
+        const cartExist = cartUse.map((item)=>{const idx = books.findIndex((i)=>Number(i.b_id)===Number(item.itemId)); return {item:books[idx], number:item.quantity}; });
+        dispatch(setCart(cartExist));
+        const userInfo = {id:id,...respUser.data.user,shippingAddress:respShipping.data.shipping_address};
+        dispatch(signIn(userInfo));
         history.push("/home")
       }
       catch (err) {

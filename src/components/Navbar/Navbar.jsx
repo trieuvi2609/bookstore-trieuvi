@@ -19,7 +19,10 @@ function Navbar() {
   const dispatch = useDispatch();
   const handleLogout = async () => {
     const logOutSession = await instance.post("/logout");
-    console.log(logOutSession.data);
+    const itemUpdate = items.map((item)=>({itemId:item.item.b_id,price:item.item.b_price,quantity:item.number}));
+    console.log(itemUpdate);
+    const updateCart = await instance.post(`/cart/${currentUser.id}`,itemUpdate);
+    // console.log(logOutSession.data,updateCart.data);
     dispatch(logOut());
     dispatch(resetCart());
     history.push("/");

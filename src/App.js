@@ -26,8 +26,6 @@ function App() {
     const getData = async () => {
       const books = await bookApi.getAllBook();
       const types = await typeApi.getAlltype();
-      // console.log(books);
-      // console.log(types);
       dispatch(setBooks(books));
       dispatch(setTypes(types));
     };

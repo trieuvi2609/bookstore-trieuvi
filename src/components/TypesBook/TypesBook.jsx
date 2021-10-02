@@ -17,7 +17,7 @@ function TypesBook(props) {
           <div className="typesbook__header">
             <Title
               title="List type of book"
-              text="LOREM IPSUM DOLOR SIT AMET CONSECTETUR ADIPISICING ELIT. NATUS, EUM ET. VERITATIS IPSUM IUSTO CORRUPTI ELIGENDI ISTE ODIO INVENTORE DOLORES SAEPE FUGA, MAGNAM EXERCITATIONEM! MAGNAM EXPEDITA NOBIS ILLO LAUDANTIUM POSSIMUS."
+              text="This is all categories of books you can buy"
             />
           </div>
           <div>
