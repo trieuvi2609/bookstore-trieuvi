@@ -1,7 +1,8 @@
-import { selectTypes} from "features/books/booksSlice";
+import { selectTypes } from "features/books/booksSlice";
 import { addCart } from "features/cart/cartSlice";
 import { selectCurrentUser } from "features/session/sessionSlice";
 import React from "react";
+import { Button } from "react-bootstrap";
 import { IoMdContacts } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -13,8 +14,18 @@ function CardBook(props) {
   const types = useSelector(selectTypes);
   const currentBook = props.book;
 
-  const { b_id, b_hot, b_price, b_nm, b_subcat, b_publisher, b_edition, b_img, b_desc} = currentBook;
-  const typeUsed = types.findIndex((type)=>type.cat_id===b_subcat);
+  const {
+    b_id,
+    b_hot,
+    b_price,
+    b_nm,
+    b_subcat,
+    b_publisher,
+    b_edition,
+    b_img,
+    b_desc,
+  } = currentBook;
+  const typeUsed = types.findIndex((type) => type.cat_id === b_subcat);
   const typeField = types[typeUsed].cat_nm.toUpperCase();
 
   const url = "/book/" + b_id;
@@ -38,23 +49,25 @@ function CardBook(props) {
           <Link to={url}>{b_nm}</Link>
         </h2>
         <p className="cardbook__body-type">{typeField}</p>
+        <div className="cardbook__btn">
+          {currentUser.username && (
+            <Button
+              variant="outline-warning"
+              onClick={() => {
+                dispatch(addCart(currentBook));
+              }}
+            >
+              Add to cart
+            </Button>
+          )}
+        </div>
       </div>
+      <hr />
       <div className="cardbook__end">
         <span className="cardbook__end-left">
           <IoMdContacts /> {b_publisher}
         </span>
         <span className="cardbook__end-right">{b_edition}</span>
-      </div>
-      <div className="cardbook__btn">
-        {currentUser.username && (
-          <button
-            onClick={() => {
-              dispatch(addCart(currentBook));
-            }}
-          >
-            Add to cart
-          </button>
-        )}
       </div>
     </div>
   );

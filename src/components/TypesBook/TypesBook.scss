@@ -1,19 +1,8 @@
 @import "assets/styles/_mixins.scss";
+@import "assets/styles/_variables.scss";
 
 .typesbook {
-  padding: 50px 0;
-
-  &__header {
-    text-align: center;
-    margin-bottom: 50px;
-  }
-  &__list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-
-    @include atLgScreen {
-      display: list-item;
-    }
-  }
+  --tw-bg-opacity: 1;
+  background-color: rgba(226, 232, 240, var(--tw-bg-opacity));
+  padding: 100px 0 50px 0;
 }

@@ -1,30 +1,34 @@
-import { useParams } from "react-router";
-import { useSelector } from "react-redux";
+import instance from "api/axios";
+import { CardBook } from "components";
+import Title from "components/Title/Title";
 import { selectTypes } from "features/books/booksSlice";
 import { useEffect, useState } from "react";
-import Title from "components/Title/Title";
-import instance from "api/axios";
-import NewCardBook from "components/CardBook/NewCardBook";
-export default function TypePage(){
-    const types = useSelector(selectTypes);
-    const { name } = useParams();
-    const [listBook, setListBook] = useState([]);
-    console.log(listBook);
-    const [visible, setVisible] = useState(8);
+import { useSelector } from "react-redux";
+import { useParams } from "react-router";
+export default function TypePage() {
+  const types = useSelector(selectTypes);
+  const { name } = useParams();
+  const [listBook, setListBook] = useState([]);
+  // console.log(listBook);
+
+  const [visible, setVisible] = useState(8);
+
   const showMore = () => {
     setVisible((oldValue) => oldValue + 4);
   };
-  const typeUsed = types.findIndex((type)=>type.cat_nm===name);
-    useEffect(()=>{
-        const getBookOfType = async ()=>{
-            const listBookResp = await instance.get(`/categories/${typeUsed+1}`);
-            const list = listBookResp.data.book_list;
-            setListBook(list);
-        }
-        getBookOfType();
-    },[name,typeUsed])
-    return(
-        <main className = "py-10 bg-blueGray-200">
+  const typeUsed = types.findIndex((type) => type.cat_nm === name);
+
+  useEffect(() => {
+    const getBookOfType = async () => {
+      const listBookResp = await instance.get(`/categories/${typeUsed + 1}`);
+      const list = listBookResp.data.book_list;
+      setListBook(list);
+    };
+    getBookOfType();
+  }, [name, typeUsed]);
+
+  return (
+    <main className="py-10 bg-blueGray-200">
       <div className="container">
         <Title
           title={`${name} Books`}
@@ -39,7 +43,7 @@ export default function TypePage(){
                 key={book.b_id}
                 className="col-10 col-md-6 col-lg-3 mx-auto mb-3"
               >
-                <NewCardBook book={book} />
+                <CardBook book={book} />
               </div>
             );
           })}
@@ -59,5 +63,5 @@ export default function TypePage(){
         )}
       </div>
     </main>
-    )
+  );
 }

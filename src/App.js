@@ -10,27 +10,30 @@ import {
   RegisterPage,
   ProfilePage,
   CartPage,
-  TypePage
+  TypePage,
 } from "pages";
-import { Suspense,useEffect} from "react";
+import { Suspense, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import {useDispatch} from 'react-redux';
-import {setBooks} from "features/books/booksSlice";
-import instance from "api/axios";
+import { useDispatch } from "react-redux";
+import { setBooks, setTypes } from "features/books/booksSlice";
+import bookApi from "api/bookApi";
+import typeApi from "api/typeApi";
+
 function App() {
   const dispatch = useDispatch();
-  useEffect(()=>{
-    const getBooks = async ()=>{
-      const bookGetResp = await instance.get('/books');
-      const bookGet = bookGetResp.data.book_list;
-      bookGet.sort(function(a, b) {
-        return Number(a.b_id) - Number(b.b_id);
-      });
-      console.log(bookGet);
-      dispatch(setBooks(bookGet));
+
+  useEffect(() => {
+    const getData = async () => {
+      const books = await bookApi.getAllBook();
+      const types = await typeApi.getAlltype();
+      // console.log(books);
+      // console.log(types);
+      dispatch(setBooks(books));
+      dispatch(setTypes(types));
     };
-    getBooks();
-  },[dispatch]);
+    getData();
+  }, [dispatch]);
+
   return (
     <Suspense fallback={<div>Loading..</div>}>
       <BrowserRouter>
@@ -54,7 +57,7 @@ function App() {
           {/* Login page */}
           <Route exact path="/login" component={LoginPage} />
           {/* Register page */}
-          <Route exact path ="/type/:name" component = {TypePage}/>
+          <Route exact path="/type/:name" component={TypePage} />
           <Route exact path="/register" component={RegisterPage} />
           {/* Error page */}
           <Route path="*" component={ErrorPage} />
