@@ -29,10 +29,13 @@ export const sessionSlice = createSlice({
       state.user = {};
       state.isLoggedIn = false;
     },
+    setUser: (state,action)=>{
+      state.user = { ...state.user, ...action.payload };
+    }
   },
 });
 
 export const selectCurrentUser = (state) => state.session.user;
 export const selectIsLoggedIn = (state) => state.session.isLoggedIn;
-export const { signUp, logOut, editUser, signIn } = sessionSlice.actions;
+export const { signUp, logOut, editUser, signIn, setUser} = sessionSlice.actions;
 export default sessionSlice.reducer;

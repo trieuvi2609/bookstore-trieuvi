@@ -1,9 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { selectCurrentUser } from "features/session/sessionSlice";
-import { useSelector } from "react-redux";
-
+import { useSelector,useDispatch } from "react-redux";
+import { setUser } from "features/session/sessionSlice";
+import instance from "api/axios";
 export default function ProfilePage() {
   const currentUser = useSelector(selectCurrentUser);
+  console.log(currentUser);
+  const dispatch = useDispatch();
+  const [show,setShow] = useState(false);
+  const hidden = show?'hidden':'';
+  const hidden2 = !show?'hidden':'';
+  const [name,setName] = useState(currentUser.fullName);
+  const [phone,setPhone] = useState(currentUser.contact);
+  const [email, setEmail] = useState(currentUser.email);
+  const handleName = ({target})=>{
+    setName(target.value);
+  }
+  const handlePhone = ({target})=>{
+    setPhone(target.value);
+  }
+  const handleEmail = ({target})=>{
+    setEmail(target.value);
+  }
+  const updateInfo = async(phone,email,fullName)=>{
+    const updateBody = {email:email, contact:phone,fullName:fullName};
+    await instance.post(`/updateInfo/${currentUser.id}`, updateBody);
+    dispatch(setUser(updateBody));
+  }
   return (
     <>
       <main className="profile-page">
@@ -42,7 +65,7 @@ export default function ProfilePage() {
         </section>
         <section className="relative py-16 bg-blueGray-200">
           <div className="container flex justify-center">
-            <div className="relative flex flex-col min-w-0 break-words bg-white mb-6 shadow-xl rounded-lg -mt-64 w-6/12">
+            <div className="relative flex flex-col min-w-0 break-words bg-white mb-6 shadow-xl rounded-lg -mt-64 w-7/12">
               <div className="px-6">
                 <div className="flex flex-wrap justify-center">
                   <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
@@ -55,35 +78,46 @@ export default function ProfilePage() {
                     </div>
                   </div>
                 </div>
-                <h3 className="text-center mt-12 pt-20 text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
-                    {currentUser.fullName ?? "Unknown"}
+                <h3 className={"text-center mt-12 pt-20 text-3xl font-semibold leading-normal text-blueGray-700 mb-2 ml-3 "+ hidden}>
+                    {name}
                   </h3>
-                <div className = "flex flex-row justify-center">
-                <div className="text-lg leading-normal text-blueGray-400 font-bold uppercase px-4 ">
-                  <div className="pb-6">
-                    Address
+                  <div className={"text-center mt-12 pt-20 text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2 ml-3 " + hidden2}>
+                  <input value= {name} type="text" className="border rounded-lg" onChange={handleName}/>
                   </div>
-                  <div className="pb-6">
-                    Phone number
+                <div className = "flex flex-row justify-center flex-wrap">
+                <div className="w-1/3 text-lg leading-normal text-blueGray-400 font-bold uppercase px-4 ">
+                  <div className="mb-10">
+                    Phone
                   </div>
-                  <div className="pb-6">
+                  <div className="mb-10">
                     Email
                   </div>
+                  <div className="mb-10">
+                    Address
+                  </div>
                 </div>
-                <div className="text-lg leading-normal text-blueGray-400">
-                  <div className="pb-6">
+                <div className="text-lg leading-normal text-blueGray-400">{}
+                  <div className={"mb-10 "+hidden}>
+                    {phone}
+                  </div>
+                  <div className={"mb-6 "+hidden2}>
+                    <input className="w-full border rounded-lg text-sm p-2 text-black" value={phone} onChange={handlePhone}/>
+                  </div>
+
+                  <div className={"mb-10 "+hidden}>
+                    {email}
+                  </div>
+                  <div className={"mb-8 "+hidden2}>
+                    <input className="border rounded-lg text-sm p-2 text-black w-full" value={email} onChange={handleEmail}/>
+                  </div>
+                  <div className="mb-8">
                     475 Cong Hoa, Tan Binh District, Ho Chi Minh City, VietNam
-                  </div>
-                  <div className="pb-6">
-                    {currentUser.contact}
-                  </div>
-                  <div className="pb-6">
-                    {currentUser.email}
                   </div>
                 </div>
               </div>
               <div className= "flex justify-center py-6">
-              <button className="bg-lightBlue-500 active:bg-blueGray-600 text-white font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150">Update</button>
+              <button onClick={()=>setShow(true)} className={"bg-lightBlue-500 active:bg-blueGray-600 text-white font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150 " + hidden}>Update</button>
+              <button onClick={()=>{updateInfo(phone,email,name);setShow(false)}} className={"bg-lightBlue-500 active:bg-blueGray-600 text-white font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150 " + hidden2}>Confirm</button>
               </div>
             </div>
           </div>

@@ -13,8 +13,7 @@ function AboutUs(props) {
           <div className="aboutus__header">
             <Title
               title="About Us"
-              text="
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla veniam voluptatem, quod, nesciunt tempore impedit molestias et quos at fugit repudiandae explicabo similique asperiores. Rem doloremque dolores eos soluta ea."
+              text="We are E-commerce team No. 1"
             />
           </div>
           <div>

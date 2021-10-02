@@ -49,8 +49,7 @@ function ListBookPage(props) {
       <div className="container">
         <Title
           title="List of Books"
-          text="
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis rerum aliquid pariatur fugiat alias voluptatum expedita ducimus optio deleniti autem voluptatibus rem, accusamus eligendi harum officiis laudantium adipisci, non dolorum."
+          text="You can search all the books you want to buy here!"
         />
         <hr />
 

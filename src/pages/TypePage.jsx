@@ -9,18 +9,18 @@ export default function TypePage() {
   const types = useSelector(selectTypes);
   const { name } = useParams();
   const [listBook, setListBook] = useState([]);
-  // console.log(listBook);
 
   const [visible, setVisible] = useState(8);
-
+  console.log(types);
   const showMore = () => {
     setVisible((oldValue) => oldValue + 4);
   };
-  const typeUsed = types.findIndex((type) => type.cat_nm === name);
-
+  const idx = types.findIndex((type) => type.cat_nm === name);
+  const typeUsed = types[idx].cat_id;
+  console.log(typeUsed);
   useEffect(() => {
     const getBookOfType = async () => {
-      const listBookResp = await instance.get(`/categories/${typeUsed + 1}`);
+      const listBookResp = await instance.get(`/categories/${typeUsed}`);
       const list = listBookResp.data.book_list;
       setListBook(list);
     };
@@ -32,8 +32,8 @@ export default function TypePage() {
       <div className="container">
         <Title
           title={`${name} Books`}
-          text="
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis rerum aliquid pariatur fugiat alias voluptatum expedita ducimus optio deleniti autem voluptatibus rem, accusamus eligendi harum officiis laudantium adipisci, non dolorum."
+          text={`
+          List of books in ${name} category`}
         />
         <hr />
         <div className="row">

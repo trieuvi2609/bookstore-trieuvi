@@ -42,7 +42,7 @@
 
 .searchbar__types {
   width: 60%;
-  overflow: hidden;
+  overflow-x: auto;
   white-space: nowrap;
   text-overflow: ellipsis;
   display: flex;

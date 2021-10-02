@@ -275,10 +275,26 @@ export const BOOKS =
 ]
 
 export const imageType = [
-  "https://i.pinimg.com/originals/fa/9e/bc/fa9ebce553bb0494ff8f752e4c4e4b3a.jpg",
+    "https://i.pinimg.com/originals/fa/9e/bc/fa9ebce553bb0494ff8f752e4c4e4b3a.jpg",
   "https://www.kantar.com/-/media/project/kantar/global/expertise/consulting/consulting_human-and-cultural-insight--850697428.jpg?h=1000&w=1500&hash=80A1702FD2E29C185AAD04903E28AA3F",
   "https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80",
-  "https://c4.wallpaperflare.com/wallpaper/971/967/737/sports-images-for-desktop-background-wallpaper-preview.jpg"
+  "https://c4.wallpaperflare.com/wallpaper/971/967/737/sports-images-for-desktop-background-wallpaper-preview.jpg",
+  "https://badgerherald.com/wordpress/wp-content/uploads/2020/11/40043078063_eba07ef03c_o.jpg",
+  "https://hocvienagile.com/wp-content/uploads/2021/06/5.-business-analysis-manager.jpeg",
+  "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F61087d7b46c544dc3d1910e1%2F0x0.jpg",
+  "https://thinkwritten.com/wp-content/uploads/2020/09/blank-notebook-example.jpg",
+  "http://images.mini-ielts.com/images/2017/17/tourism-01.jpg",
+  "https://thumbs.dreamstime.com/b/silhouette-girl-doing-yoga-night-90470912.jpg",
+  "https://merchantfly.com/wp-content/uploads/2020/11/BV-Acharya-17.jpg",
+  "https://cdn.thukyluat.vn//uploads/NewsThumbnail/2018/12/06/094814DN_SIEUNHO.jpg",
+  "https://www.gcsp.ch/sites/default/files/2019-03/shutterstock_499799137_resize.jpg",
+  "http://freelancervietnam.vn/wp-content/uploads/2020/02/post-thumb-1.jpg",
+  "https://www.teachthought.com/wp-content/uploads/2012/11/storytelling.jpg",
+  "https://image.freepik.com/free-vector/comic-strip-speech-bubble-expressions-template_1017-17128.jpg",
+  "https://i.pcmag.com/imagery/articles/00tLYTqwmgFvacZlYPc5ecO-8..1583853669.jpg",
+  "https://vcdn-giadinh.vnecdn.net/2021/09/09/GettyImages-849177432-0-5624-1631151607.jpg",
+  "https://assets.weforum.org/community/image/3v8PB95CCSn86e5fowthRAybW4ajSY18z2FfVPi2spk.jpeg",
+  "https://blmllc.com/wp-content/uploads/bottomline-marketing-competitive-frame-reference.gif"
 
 ];
 export const types = [
