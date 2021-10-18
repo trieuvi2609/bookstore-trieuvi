@@ -1,13 +1,13 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./CardTypesBook.scss";
-import { imageType } from "app/data";
+import React from 'react'
+import { Link } from 'react-router-dom'
+import './CardTypesBook.scss'
+import { imageType } from 'app/data'
 
 function CardTypesBook(props) {
-  const name = props.name;
-  const id = props.id;
-  const path = `/type/${name}`;
-  const imageUrl = imageType[Number(id) - 1];
+  const name = props.name
+  const id = props.id
+  const path = `/type/${name}`
+  const imageUrl = imageType[Number(id) - 1]
 
   return (
     <div className="cardtype" style={{ backgroundImage: `url(${imageUrl})` }}>
@@ -20,7 +20,7 @@ function CardTypesBook(props) {
         </Link>
       </div>
     </div>
-  );
+  )
 }
 
-export default CardTypesBook;
+export default CardTypesBook

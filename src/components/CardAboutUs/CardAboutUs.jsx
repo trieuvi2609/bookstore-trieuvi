@@ -1,8 +1,8 @@
-import React from "react";
-import "./CardAboutUs.scss";
+import React from 'react'
+import './CardAboutUs.scss'
 
 function CardAboutUs(props) {
-  const { img, name, title, text, url } = props.info;
+  const { img, name, title, text, url } = props.info
   return (
     <div className="teamhome__card">
       <img src={img} alt="" className="teamhome__card-img" />
@@ -17,7 +17,7 @@ function CardAboutUs(props) {
         View Profile
       </a>
     </div>
-  );
+  )
 }
 
-export default CardAboutUs;
+export default CardAboutUs

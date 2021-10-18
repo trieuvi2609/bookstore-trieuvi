@@ -1,34 +1,24 @@
-import { selectTypes } from "features/books/booksSlice";
-import { addCart } from "features/cart/cartSlice";
-import { selectCurrentUser } from "features/session/sessionSlice";
-import React from "react";
-import { Button } from "react-bootstrap";
-import { IoMdContacts } from "react-icons/io";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import "./CardBook.scss";
+import { selectTypes } from 'features/books/booksSlice'
+import { addCart } from 'features/cart/cartSlice'
+import { selectCurrentUser } from 'features/session/sessionSlice'
+import React from 'react'
+import { Button } from 'react-bootstrap'
+import { IoMdContacts } from 'react-icons/io'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import './CardBook.scss'
 
 function CardBook(props) {
-  const dispatch = useDispatch();
-  const currentUser = useSelector(selectCurrentUser);
-  const types = useSelector(selectTypes);
-  const currentBook = props.book;
+  const dispatch = useDispatch()
+  const currentUser = useSelector(selectCurrentUser)
+  const types = useSelector(selectTypes)
+  const currentBook = props.book
 
-  const {
-    b_id,
-    b_hot,
-    b_price,
-    b_nm,
-    b_subcat,
-    b_publisher,
-    b_edition,
-    b_img,
-    b_desc,
-  } = currentBook;
-  const typeUsed = types.findIndex((type) => type.cat_id === b_subcat);
-  const typeField = types[typeUsed].cat_nm.toUpperCase();
+  const { b_id, b_hot, b_price, b_nm, b_subcat, b_publisher, b_edition, b_img, b_desc } = currentBook
+  const typeUsed = types.findIndex(type => type.cat_id === b_subcat)
+  const typeField = types[typeUsed].cat_nm.toUpperCase()
 
-  const url = "/book/" + b_id;
+  const url = '/book/' + b_id
 
   return (
     <div className="cardbook">
@@ -38,9 +28,9 @@ function CardBook(props) {
         </Link>
         {b_hot && <span className="cardbook__top-hot">HOT</span>}
         <span className="cardbook__top-price">
-          {Number(b_price).toLocaleString("it-IT", {
-            style: "currency",
-            currency: "VND",
+          {Number(b_price).toLocaleString('it-IT', {
+            style: 'currency',
+            currency: 'VND'
           })}
         </span>
       </div>
@@ -54,7 +44,7 @@ function CardBook(props) {
             <Button
               variant="outline-warning"
               onClick={() => {
-                dispatch(addCart(currentBook));
+                dispatch(addCart(currentBook))
               }}
             >
               Add to cart
@@ -70,7 +60,7 @@ function CardBook(props) {
         <span className="cardbook__end-right">{b_edition}</span>
       </div>
     </div>
-  );
+  )
 }
 
-export default CardBook;
+export default CardBook

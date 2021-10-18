@@ -1,6 +1,6 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./tailwind.css";
-import { Footer, Navbar, ScrollToTop } from "components";
+import 'bootstrap/dist/css/bootstrap.min.css'
+import './tailwind.css'
+import { Footer, Navbar, ScrollToTop } from 'components'
 import {
   BookPage,
   ErrorPage,
@@ -10,27 +10,27 @@ import {
   RegisterPage,
   ProfilePage,
   CartPage,
-  TypePage,
-} from "pages";
-import { Suspense, useEffect } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setBooks, setTypes } from "features/books/booksSlice";
-import bookApi from "api/bookApi";
-import typeApi from "api/typeApi";
+  TypePage
+} from 'pages'
+import { Suspense, useEffect } from 'react'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setBooks, setTypes } from 'features/books/booksSlice'
+import bookApi from 'api/bookApi'
+import typeApi from 'api/typeApi'
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const getData = async () => {
-      const books = await bookApi.getAllBook();
-      const types = await typeApi.getAlltype();
-      dispatch(setBooks(books));
-      dispatch(setTypes(types));
-    };
-    getData();
-  }, [dispatch]);
+      const books = await bookApi.getAllBook()
+      const types = await typeApi.getAlltype()
+      dispatch(setBooks(books))
+      dispatch(setTypes(types))
+    }
+    getData()
+  }, [dispatch])
 
   return (
     <Suspense fallback={<div>Loading..</div>}>
@@ -65,6 +65,6 @@ function App() {
         <Footer />
       </BrowserRouter>
     </Suspense>
-  );
+  )
 }
-export default App;
+export default App

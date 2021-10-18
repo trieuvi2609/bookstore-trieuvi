@@ -1,32 +1,32 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { Toast } from "react-bootstrap";
-import "./Notification.scss";
+import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
+import { Toast } from 'react-bootstrap'
+import './Notification.scss'
 
 Notification.propTypes = {
   isShow: PropTypes.bool,
   header: PropTypes.string,
-  bobdy: PropTypes.string,
-};
+  bobdy: PropTypes.string
+}
 
 Notification.defaultProps = {
   isShow: false,
-  header: "",
-  body: "",
-};
+  header: '',
+  body: ''
+}
 
 function Notification(props) {
-  const { isShow, header, body } = props;
-  const [show, setShow] = useState(false);
+  const { isShow, header, body } = props
+  const [show, setShow] = useState(false)
 
   useEffect(() => {
-    setShow(isShow);
+    setShow(isShow)
     setTimeout(function () {
-      setShow(false);
-    }, 2500);
-  }, [isShow]);
+      setShow(false)
+    }, 2500)
+  }, [isShow])
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => setShow(false)
 
   return (
     <Toast className="notification" show={show} onClose={handleClose}>
@@ -35,7 +35,7 @@ function Notification(props) {
       </Toast.Header>
       <Toast.Body className="Dark">{body}</Toast.Body>
     </Toast>
-  );
+  )
 }
 
-export default Notification;
+export default Notification
