@@ -7,16 +7,36 @@ import './SearchBar.scss'
 function SearchBar(props) {
   const [searchString, setSearchString] = useState('')
   const [typeSearch, setTypeSearch] = useState([])
+  const [priceSearch, setPriceSearch] = useState([])
   const types = useSelector(selectTypes)
-
+  const price = [0, 100, 200, 300, 400]
   function handleSearchString() {
     props.handleSearchString(searchString)
   }
-
+  function countPrice(price) {
+    const pr1 = (price * 1000).toLocaleString('it-IT', {
+      style: 'currency',
+      currency: 'VND'
+    })
+    const pr2 = ((price + 99) * 1000).toLocaleString('it-IT', {
+      style: 'currency',
+      currency: 'VND'
+    })
+    return `${pr1} - ${pr2}`
+  }
+  function handleClickPrice(price) {
+    if (priceSearch.length === 0) {
+      const newPrices = [...priceSearch, price]
+      setPriceSearch(newPrices)
+      props.handleClickPrice(newPrices)
+    }
+  }
   function handleClickType(type) {
-    const newTypes = [...typeSearch, type]
-    setTypeSearch(newTypes)
-    props.handleClickType(newTypes)
+    if (typeSearch.length === 0) {
+      const newTypes = [...typeSearch, type]
+      setTypeSearch(newTypes)
+      props.handleClickType(newTypes)
+    }
   }
 
   function handleRemoveType(type) {
@@ -33,6 +53,7 @@ function SearchBar(props) {
   function handleClear() {
     props.handleClear()
     setTypeSearch([])
+    setPriceSearch([])
     setSearchString('')
   }
 
@@ -69,6 +90,13 @@ function SearchBar(props) {
               </button>
             ))}
           </div>
+          <div className="searchbar__types">
+            {price.map((item, idx) => (
+              <button key={idx} onClick={() => handleClickPrice(item)}>
+                {countPrice(item)}
+              </button>
+            ))}
+          </div>
           <hr />
           <div className="currentsearch">
             <div className="currentsearch__title">
@@ -84,6 +112,9 @@ function SearchBar(props) {
                 <button key={type.cat_id} onClick={() => handleRemoveType(type)}>
                   {type.cat_nm}
                 </button>
+              ))}
+              {priceSearch.map((item, idx) => (
+                <button key={idx}>{countPrice(item)}</button>
               ))}
             </div>
           </div>

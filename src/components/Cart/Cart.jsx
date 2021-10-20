@@ -7,42 +7,28 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useLocation } from 'react-router'
 import './Cart.scss'
 import CartItem from './CartItem'
+import CartAddress from './CartAddress'
 export default function Cart() {
   const cartItems = useSelector(selectCart)
+  const [cost, setCost] = useState(0)
+  const [address, setAddress] = useState('')
   const location = useLocation()
-  const success = location.pathname === '/cart' ? false : true
+  const success = location.search === '' ? false : true
   const dispatch = useDispatch()
   const arrayOfItem = cartItems => {
-    const listItem = cartItems.map(item => {
-      return <CartItem item={item.item} number={item.number} key={item.item.title} />
+    const listItem = cartItems.map((item, idx) => {
+      return <CartItem item={item.item} number={item.number} key={idx} />
     })
     return listItem
   }
   const [show, setShow] = useState(false)
-
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
   const [show2, setShow2] = useState(success)
-
   const handleClose2 = () => setShow2(false)
-  const handleShow2 = () => setShow2(true)
-
-  const [country, setCountry] = useState('')
-  const onChangeCountry = ({ target }) => {
-    setCountry(target.value)
-  }
-  const [city, setCity] = useState('')
-  const onChangeCity = ({ target }) => {
-    setCity(target.value)
-  }
-  const [district, setDistrict] = useState('')
-  const onChangeDistrict = ({ target }) => {
-    setDistrict(target.value)
-  }
-  const [address, setAddress] = useState('')
-  const onChangeAddress = ({ target }) => {
-    setAddress(target.value)
-  }
+  const [show3, setShow3] = useState(success)
+  const handleShow3 = () => setShow3(true)
+  const handleClose3 = () => setShow3(false)
   const discount = 1234
   const number = cartItems.length
   const numberAll = cartItems.reduce(function (acc, obj) {
@@ -51,6 +37,8 @@ export default function Cart() {
   const price = cartItems.reduce(function (acc, obj) {
     return acc + Number(obj.item.b_price) * obj.number
   }, 0)
+  const handleCost = cost => setCost(cost)
+  const handleAddress = address => setAddress(address)
   console.log(location)
   const deleteAllCart = () => {
     confirmAlert({
@@ -152,8 +140,20 @@ export default function Cart() {
                 })}
               </p>
               <div className="cart__price-btn">
-                <button onClick={() => deleteAllCart()}>Delete cart</button>
-                <button onClick={() => handleShow()}>Payment</button>
+                <button
+                  onClick={() => {
+                    if (number > 0) deleteAllCart()
+                  }}
+                >
+                  Delete cart
+                </button>
+                <button
+                  onClick={() => {
+                    if (number > 0) handleShow()
+                  }}
+                >
+                  Payment
+                </button>
                 <Modal
                   show={show}
                   onHide={handleClose}
@@ -171,87 +171,94 @@ export default function Cart() {
                     <Modal.Title>Verify shipping address</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <p className="text-center">
-                      Please fill in your shipping address. We will ship your order to this address
-                    </p>
-                    <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-                      <form>
-                        <div className="relative w-full mb-3">
-                          <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                            Your Country
-                          </label>
-                          <input
-                            type="text"
-                            className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                            placeholder="Country"
-                            value={country}
-                            onChange={e => onChangeCountry(e)}
-                          />
-                        </div>
-                        <div className="relative w-full mb-3">
-                          <label className="block text-blueGray-600 text-xs font-bold mb-2 uppercase">
-                            Your City/Province
-                          </label>
-                          <input
-                            type="text"
-                            className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                            placeholder="City/Province"
-                            value={city}
-                            onChange={onChangeCity}
-                          />
-                        </div>
-                        <div className="relative w-full mb-3">
-                          <label className="block text-blueGray-600 text-xs font-bold mb-2 uppercase">
-                            Your District
-                          </label>
-                          <input
-                            type="text"
-                            className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                            placeholder="District"
-                            value={district}
-                            onChange={onChangeDistrict}
-                          />
-                        </div>
-                        <div className="relative w-full mb-3">
-                          <label className="block text-blueGray-600 text-xs font-bold mb-2 uppercase">
-                            Your Address
-                          </label>
-                          <input
-                            type="text"
-                            className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                            placeholder="Address"
-                            value={address}
-                            onChange={onChangeAddress}
-                          />
-                        </div>
-                      </form>
-                    </div>
+                    <CartAddress
+                      handleCost={handleCost}
+                      handleClose={handleClose}
+                      handleShow={handleShow3}
+                      handleAddress={handleAddress}
+                    />
                   </Modal.Body>
-                  <Modal.Footer
+                </Modal>
+                <Modal
+                  show={show3}
+                  onHide={handleClose3}
+                  aria-labelledby="contained-modal-title-vcenter"
+                  centered
+                  keyboard={false}
+                >
+                  <Modal.Header
                     style={{
                       display: 'flex',
-                      justifyContent: 'space-between'
+                      justifyContent: 'center',
+                      alignItems: 'center'
                     }}
                   >
-                    <button
-                      className="bg-lightBlue-500 text-white active:bg-blueGray-600 text-xs font-bold uppercase px-2 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
-                      onClick={handleClose}
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      className="bg-lightBlue-500 text-white active:bg-blueGray-600 text-xs font-bold uppercase px-2 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
-                      onClick={async () => {
-                        const pay = await instance.post('/momo/payment/transaction/1000')
-                        window.open(pay.data.payUrl, '_self')
-                        handleClose()
-                        handleShow2()
-                        dispatch(resetCart())
-                      }}
-                    >
-                      Confirm
-                    </button>
-                  </Modal.Footer>
+                    <Modal.Title>Confirm receipt</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <div className="px-2">
+                      <div className="flex flex-col">
+                        <p>
+                          Shipping Address: <span className="font-bold">{address}</span>
+                        </p>
+                        <p>
+                          Total price of books in your cart:{' '}
+                          <span className="font-bold">
+                            {price.toLocaleString('it-IT', {
+                              style: 'currency',
+                              currency: 'VND'
+                            })}
+                          </span>
+                        </p>
+                        <p>
+                          Your discount:{' '}
+                          <span className="font-bold">
+                            {discount.toLocaleString('it-IT', {
+                              style: 'currency',
+                              currency: 'VND'
+                            })}
+                          </span>
+                        </p>
+                        <p>
+                          Shipping price:{' '}
+                          <span className="font-bold">
+                            {cost.toLocaleString('it-IT', {
+                              style: 'currency',
+                              currency: 'VND'
+                            })}
+                          </span>
+                        </p>
+                        <hr />
+                        <p className="font-bold text-xl">
+                          TOTAL:{' '}
+                          {(price - discount + cost).toLocaleString('it-IT', {
+                            style: 'currency',
+                            currency: 'VND'
+                          })}
+                        </p>
+                      </div>
+                      <div className="flex w-full justify-between">
+                        <button
+                          className="bg-lightBlue-500 text-white active:bg-blueGray-600 text-xs font-bold uppercase px-3 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 mb-3 ease-linear transition-all duration-150"
+                          onClick={handleClose3}
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          className="bg-lightBlue-500 text-white active:bg-blueGray-600 text-xs font-bold uppercase px-3 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mb-0 mb-3 ease-linear transition-all duration-150"
+                          onClick={async () => {
+                            const pr = 1000
+                            const pay = await instance.post(`/momo/payment/transaction/${pr}`)
+                            window.open(pay.data.payUrl, '_self')
+                            dispatch(resetCart())
+                            handleClose3()
+                          }}
+                        >
+                          Confirm
+                        </button>
+                      </div>
+                    </div>
+                  </Modal.Body>
                 </Modal>
                 <Modal
                   show={show2}
