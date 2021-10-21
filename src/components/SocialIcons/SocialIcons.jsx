@@ -1,6 +1,6 @@
-import { ImFacebook, ImTwitter, ImLinkedin2 } from "react-icons/im";
+import { ImFacebook, ImTwitter, ImLinkedin2 } from 'react-icons/im'
 
-import "./SocialIcons.scss";
+import './SocialIcons.scss'
 
 const SocialIcons = () => {
   return (
@@ -15,7 +15,7 @@ const SocialIcons = () => {
         <ImLinkedin2 />
       </span>
     </div>
-  );
-};
+  )
+}
 
-export default SocialIcons;
+export default SocialIcons

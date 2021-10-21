@@ -1,10 +1,10 @@
-import { AboutUs, Banner, HotBooks, TypesBook } from "components";
-import { selectBooks } from "features/books/booksSlice";
-import React from "react";
-import { useSelector } from "react-redux";
+import { AboutUs, Banner, HotBooks, TypesBook } from 'components'
+import { selectBooks } from 'features/books/booksSlice'
+import React from 'react'
+import { useSelector } from 'react-redux'
 function HomePage(props) {
-  const books = useSelector(selectBooks);
-  const hotbook = books.filter((book) => book.b_hot === true);
+  const books = useSelector(selectBooks)
+  const hotbook = books.filter(book => book.b_hot === true)
 
   return (
     <main>
@@ -13,7 +13,7 @@ function HomePage(props) {
       <TypesBook />
       <AboutUs />
     </main>
-  );
+  )
 }
 
-export default HomePage;
+export default HomePage

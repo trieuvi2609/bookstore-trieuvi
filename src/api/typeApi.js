@@ -1,21 +1,21 @@
-import axios from "./axios";
+import axios from './axios'
 
 const typeApi = {
   getAlltype: async () => {
     // const url = "/api/categories";
-    const path = "/categories";
-    let types = [];
+    const path = '/categories'
+    let types = []
     await axios
       .get(path)
-      .then((res) => {
-        types = res.data.category_list;
+      .then(res => {
+        types = res.data.category_list
       })
-      .catch((error) => {
+      .catch(error => {
         //   handle error follow messages
-        console.log(error);
-      });
-    return types;
-  },
-};
+        console.log(error)
+      })
+    return types
+  }
+}
 
-export default typeApi;
+export default typeApi

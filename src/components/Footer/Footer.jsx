@@ -1,10 +1,10 @@
-import React from "react";
-import { ImFacebook, ImLinkedin2, ImTwitter } from "react-icons/im";
-import { FOOTER_INFO, STORE_NAME } from "utils/static";
-import "./Footer.scss";
+import React from 'react'
+import { ImFacebook, ImLinkedin2, ImTwitter } from 'react-icons/im'
+import { FOOTER_INFO, STORE_NAME } from 'utils/static'
+import './Footer.scss'
 
 function Footer() {
-  const { contact, other, services, linksSocial } = FOOTER_INFO;
+  const { contact, other, services, linksSocial } = FOOTER_INFO
   return (
     <footer>
       <div className="footer">
@@ -20,11 +20,7 @@ function Footer() {
           <hr />
           <div className="footer__body">
             <div className="footer__body-side">
-              <img
-                className="footer__body-side-img"
-                src={require("assets/images/footer-book.png").default}
-                alt=""
-              />
+              <img className="footer__body-side-img" src={require('assets/images/footer-book.png').default} alt="" />
             </div>
             <div className="footer__body-side">
               <h5 className="footer__body-side-title">Contact</h5>
@@ -33,7 +29,7 @@ function Footer() {
                   <p className="footer__body-side-text" key={index}>
                     {text}
                   </p>
-                );
+                )
               })}
             </div>
             <div className="footer__body-side">
@@ -43,7 +39,7 @@ function Footer() {
                   <p className="footer__body-side-text" key={index}>
                     {text}
                   </p>
-                );
+                )
               })}
             </div>
             <div className="footer__body-side">
@@ -53,38 +49,26 @@ function Footer() {
                   <p className="footer__body-side-text" key={index}>
                     {text}
                   </p>
-                );
+                )
               })}
             </div>
           </div>
           <hr />
           <div className="footer__icons">
-            <a
-              className="footer__icon"
-              href={linksSocial.facebook}
-              target="blank"
-            >
+            <a className="footer__icon" href={linksSocial.facebook} target="blank">
               <ImFacebook />
             </a>
-            <a
-              className="footer__icon"
-              href={linksSocial.twitter}
-              target="blank"
-            >
+            <a className="footer__icon" href={linksSocial.twitter} target="blank">
               <ImTwitter />
             </a>
-            <a
-              className="footer__icon"
-              href={linksSocial.linkedin}
-              target="blank"
-            >
+            <a className="footer__icon" href={linksSocial.linkedin} target="blank">
               <ImLinkedin2 />
             </a>
           </div>
         </div>
       </div>
     </footer>
-  );
+  )
 }
 
-export default Footer;
+export default Footer

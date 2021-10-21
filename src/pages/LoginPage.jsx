@@ -1,14 +1,14 @@
-import { Login } from "components";
-import React from "react";
+import { Login } from 'components'
+import React from 'react'
 
-LoginPage.propTypes = {};
+LoginPage.propTypes = {}
 
 function LoginPage(props) {
   return (
     <main>
       <Login />
     </main>
-  );
+  )
 }
 
-export default LoginPage;
+export default LoginPage

@@ -1,4 +1,4 @@
-import "./Title.scss";
+import './Title.scss'
 
 const Title = ({ title, text }) => {
   return (
@@ -10,7 +10,7 @@ const Title = ({ title, text }) => {
       </div>
       <div className="title__line"></div>
     </div>
-  );
-};
+  )
+}
 
-export default Title;
+export default Title

@@ -1,32 +1,32 @@
-import { resetCart, selectCart } from "features/cart/cartSlice";
-import { logOut, selectCurrentUser } from "features/session/sessionSlice";
-import { selectTypes } from "features/books/booksSlice";
-import React from "react";
-import { TiShoppingCart, TiDeleteOutline } from "react-icons/ti";
-import { CgMenuGridR } from "react-icons/cg";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
-import "./Navbar.scss";
-import { STORE_NAME } from "utils/static";
-import instance from "api/axios";
+import { resetCart, selectCart } from 'features/cart/cartSlice'
+import { logOut, selectCurrentUser } from 'features/session/sessionSlice'
+import { selectTypes } from 'features/books/booksSlice'
+import React from 'react'
+import { TiShoppingCart, TiDeleteOutline } from 'react-icons/ti'
+import { CgMenuGridR } from 'react-icons/cg'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, useHistory } from 'react-router-dom'
+import './Navbar.scss'
+import { STORE_NAME } from 'utils/static'
+import instance from 'api/axios'
 
 function Navbar() {
-  const currentUser = useSelector(selectCurrentUser);
-  const items = useSelector(selectCart);
-  const bookTypes = useSelector(selectTypes);
-  const history = useHistory();
-  const [navbarOpen, setNavbarOpen] = React.useState(false);
-  const dispatch = useDispatch();
+  const currentUser = useSelector(selectCurrentUser)
+  const items = useSelector(selectCart)
+  const bookTypes = useSelector(selectTypes)
+  const history = useHistory()
+  const [navbarOpen, setNavbarOpen] = React.useState(false)
+  const dispatch = useDispatch()
   const handleLogout = async () => {
-    const logOutSession = await instance.post("/logout");
-    const itemUpdate = items.map((item)=>({itemId:item.item.b_id,price:item.item.b_price,quantity:item.number}));
-    console.log(itemUpdate);
-    const updateCart = await instance.post(`/cart/${currentUser.id}`,itemUpdate);
+    await instance.post('/logout')
+    const itemUpdate = items.map(item => ({ itemId: item.item.b_id, price: item.item.b_price, quantity: item.number }))
+    console.log(itemUpdate)
+    await instance.post(`/cart/${currentUser.id}`, itemUpdate)
     // console.log(logOutSession.data,updateCart.data);
-    dispatch(logOut());
-    dispatch(resetCart());
-    history.push("/");
-  };
+    dispatch(logOut())
+    dispatch(resetCart())
+    history.push('/')
+  }
 
   // console.log(bookTypes);
 
@@ -36,12 +36,7 @@ function Navbar() {
         <div className="navbar">
           <div className="container">
             <Link to="/" className="navbar__logo">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -64,7 +59,7 @@ function Navbar() {
                   Books Type
                   <div className="dropdown-content">
                     <ul>
-                      {bookTypes.map((type) => (
+                      {bookTypes.map(type => (
                         <li key={type.cat_id}>
                           <Link to={`/type/${type.cat_nm}`}>{type.cat_nm}</Link>
                         </li>
@@ -74,30 +69,18 @@ function Navbar() {
                 </div>
               )}
               <Link to="/cart" className="navbar__cart">
-                {items.length !== 0 && (
-                  <span className="navbar__cart-count">{items.length}</span>
-                )}
+                {items.length !== 0 && <span className="navbar__cart-count">{items.length}</span>}
                 <TiShoppingCart fontSize="20pt" />
               </Link>
               {currentUser.username ? (
                 <>
                   <Link to="/profile" className="navbar__user">
                     {!currentUser.imageUrl ? (
-                      <img
-                        src={require("assets/images/maleAvatar.png").default}
-                        alt=""
-                        className="navbar__user-avt"
-                      />
+                      <img src={require('assets/images/maleAvatar.png').default} alt="" className="navbar__user-avt" />
                     ) : (
-                      <img
-                        src={currentUser.imageUrl}
-                        alt=""
-                        className="navbar__user-avt"
-                      />
+                      <img src={currentUser.imageUrl} alt="" className="navbar__user-avt" />
                     )}
-                    <span className="navbar__user-name">
-                      {currentUser.fullName}
-                    </span>
+                    <span className="navbar__user-name">{currentUser.fullName}</span>
                   </Link>
                   <button className="navbar__btn" onClick={handleLogout}>
                     Logout
@@ -111,10 +94,7 @@ function Navbar() {
             </div>
 
             <div className="navbar__hidden">
-              <CgMenuGridR
-                fontSize="20pt"
-                onClick={() => setNavbarOpen(!navbarOpen)}
-              />
+              <CgMenuGridR fontSize="20pt" onClick={() => setNavbarOpen(!navbarOpen)} />
             </div>
           </div>
         </div>
@@ -122,38 +102,21 @@ function Navbar() {
 
       {navbarOpen && (
         <div className="navbar__hidden menu-hidden">
-          <div
-            className="menu-hidden-close"
-            onClick={() => setNavbarOpen(!navbarOpen)}
-          >
+          <div className="menu-hidden-close" onClick={() => setNavbarOpen(!navbarOpen)}>
             <TiDeleteOutline fontSize="30pt" />
           </div>
-          <Link
-            to="/"
-            className="menu-hidden-link"
-            onClick={() => setNavbarOpen(!navbarOpen)}
-          >
+          <Link to="/" className="menu-hidden-link" onClick={() => setNavbarOpen(!navbarOpen)}>
             Home
           </Link>
           <hr />
-          <Link
-            to="/books"
-            className="menu-hidden-link"
-            onClick={() => setNavbarOpen(!navbarOpen)}
-          >
+          <Link to="/books" className="menu-hidden-link" onClick={() => setNavbarOpen(!navbarOpen)}>
             List of Books
           </Link>
           <hr />
           {currentUser.username ? (
             <>
-              <Link
-                to="/profile"
-                className="navbar__user menu-hidden-link"
-                onClick={() => setNavbarOpen(!navbarOpen)}
-              >
-                <span className="navbar__user-name">
-                  {currentUser.fullName}
-                </span>
+              <Link to="/profile" className="navbar__user menu-hidden-link" onClick={() => setNavbarOpen(!navbarOpen)}>
+                <span className="navbar__user-name">{currentUser.fullName}</span>
               </Link>
               <hr />
               <button className="navbar__btn " onClick={handleLogout}>
@@ -170,13 +133,11 @@ function Navbar() {
 
       <Link to="/cart" className="navbar__cart-hidden navbar__hidden">
         <div className="navbar__cart">
-          {items.length !== 0 && (
-            <span className="navbar__cart-count">{items.length}</span>
-          )}
+          {items.length !== 0 && <span className="navbar__cart-count">{items.length}</span>}
           <TiShoppingCart fontSize="20pt" />
         </div>
       </Link>
     </>
-  );
+  )
 }
-export default Navbar;
+export default Navbar

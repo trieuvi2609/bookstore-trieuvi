@@ -7,7 +7,7 @@ export const SLIDE_VIEW_4 = {
   arrows: false,
   speed: 1000,
   autoplaySpeed: 2500,
-  cssEase: "linear",
+  cssEase: 'linear',
   responsive: [
     {
       breakpoint: 1024,
@@ -15,26 +15,26 @@ export const SLIDE_VIEW_4 = {
         slidesToShow: 3,
         slidesToScroll: 3,
         infinite: true,
-        dots: false,
-      },
+        dots: false
+      }
     },
     {
       breakpoint: 600,
       settings: {
         slidesToShow: 2,
         slidesToScroll: 2,
-        initialSlide: 2,
-      },
+        initialSlide: 2
+      }
     },
     {
       breakpoint: 480,
       settings: {
         slidesToShow: 1,
-        slidesToScroll: 1,
-      },
-    },
-  ],
-};
+        slidesToScroll: 1
+      }
+    }
+  ]
+}
 
 export const SLIDE_VIEW_5 = {
   dots: false,
@@ -45,7 +45,7 @@ export const SLIDE_VIEW_5 = {
   arrows: false,
   speed: 1000,
   autoplaySpeed: 2500,
-  cssEase: "linear",
+  cssEase: 'linear',
   responsive: [
     {
       breakpoint: 1024,
@@ -53,23 +53,23 @@ export const SLIDE_VIEW_5 = {
         slidesToShow: 3,
         slidesToScroll: 3,
         infinite: true,
-        dots: false,
-      },
+        dots: false
+      }
     },
     {
       breakpoint: 600,
       settings: {
         slidesToShow: 2,
         slidesToScroll: 2,
-        initialSlide: 2,
-      },
+        initialSlide: 2
+      }
     },
     {
       breakpoint: 480,
       settings: {
         slidesToShow: 1,
-        slidesToScroll: 1,
-      },
-    },
-  ],
-};
+        slidesToScroll: 1
+      }
+    }
+  ]
+}
