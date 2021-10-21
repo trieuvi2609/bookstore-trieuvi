@@ -26,10 +26,9 @@ export default function Cart() {
   const handleShow = () => setShow(true)
   const [show2, setShow2] = useState(success)
   const handleClose2 = () => setShow2(false)
-  const [show3, setShow3] = useState(success)
+  const [show3, setShow3] = useState(false)
   const handleShow3 = () => setShow3(true)
   const handleClose3 = () => setShow3(false)
-  const discount = 1234
   const number = cartItems.length
   const numberAll = cartItems.reduce(function (acc, obj) {
     return acc + obj.number
@@ -39,6 +38,7 @@ export default function Cart() {
   }, 0)
   const handleCost = cost => setCost(cost)
   const handleAddress = address => setAddress(address)
+  const discount = (price * 99) / 100
   console.log(location)
   const deleteAllCart = () => {
     confirmAlert({
@@ -125,7 +125,7 @@ export default function Cart() {
                 })}
               </p>
               <p className="cart__price-discount">
-                Discount:
+                Discount (voucher 99%):{' '}
                 {discount.toLocaleString('it-IT', {
                   style: 'currency',
                   currency: 'VND'
@@ -211,15 +211,6 @@ export default function Cart() {
                           </span>
                         </p>
                         <p>
-                          Your discount:{' '}
-                          <span className="font-bold">
-                            {discount.toLocaleString('it-IT', {
-                              style: 'currency',
-                              currency: 'VND'
-                            })}
-                          </span>
-                        </p>
-                        <p>
                           Shipping price:{' '}
                           <span className="font-bold">
                             {cost.toLocaleString('it-IT', {
@@ -228,10 +219,19 @@ export default function Cart() {
                             })}
                           </span>
                         </p>
+                        <p>
+                          Your discount:{' '}
+                          <span className="font-bold">
+                            {discount.toLocaleString('it-IT', {
+                              style: 'currency',
+                              currency: 'VND'
+                            }) + ' & Free ship voucher'}
+                          </span>
+                        </p>
                         <hr />
                         <p className="font-bold text-xl">
                           TOTAL:{' '}
-                          {(price - discount + cost).toLocaleString('it-IT', {
+                          {(price - discount).toLocaleString('it-IT', {
                             style: 'currency',
                             currency: 'VND'
                           })}
@@ -247,7 +247,7 @@ export default function Cart() {
                         <button
                           className="bg-lightBlue-500 text-white active:bg-blueGray-600 text-xs font-bold uppercase px-3 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mb-0 mb-3 ease-linear transition-all duration-150"
                           onClick={async () => {
-                            const pr = 1000
+                            const pr = price - discount
                             const pay = await instance.post(`/momo/payment/transaction/${pr}`)
                             window.open(pay.data.payUrl, '_self')
                             dispatch(resetCart())
@@ -290,7 +290,7 @@ export default function Cart() {
                       />
                     </svg>
                     <div className="text-center">
-                      <p>Your shipping address is updated, we will ship your order as soon as possible</p>
+                      <p>Successful payment, we will ship your order as soon as possible</p>
                     </div>
                   </Modal.Body>
                   <Modal.Footer
