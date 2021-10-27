@@ -1,61 +1,28 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { selectCurrentUser } from 'features/session/sessionSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { setUser } from 'features/session/sessionSlice'
 import instance from 'api/axios'
 import { selectBooks } from 'features/books/booksSlice'
-import { template } from '@babel/core'
 export default function ProfilePage() {
   const books = useSelector(selectBooks)
-  const [history, setHistory] = useState([
-    {
-      created_at: 'Sun, 24 Oct 2021 18:19:22 GMT',
-      list_item: [
-        {
-          itemId: '2',
-          price: '150000',
-          quantity: '2'
-        },
-        {
-          itemId: '1',
-          price: '240000',
-          quantity: '2'
-        }
-      ],
-      purchased: true,
-      total: 780000
-    },
-    {
-      created_at: 'Sun, 24 Oct 2021 03:20:00 GMT',
-      list_item: [
-        {
-          itemId: '1',
-          price: '240000',
-          quantity: '1'
-        }
-      ],
-      purchased: true,
-      total: 240000
-    }
-  ])
+  const currentUser = useSelector(selectCurrentUser)
   const historyTable = []
-  for (let i of history) {
-    const historyGet = i?.list_item?.map(item => {
-      const idx = books.findIndex(i => Number(i.b_id) === Number(item.itemId))
-      return { item: books[idx], number: item.quantity }
+  if (currentUser.history) {
+    for (let i of currentUser.history) {
+      const historyGet = i?.list_item?.map(item => {
+        const idx = books.findIndex(i => Number(i.b_id) === Number(item.itemId))
+        return { item: books[idx], number: item.quantity }
+      })
+      historyTable.push({ list_item: historyGet, purchased: i.purchased, total: i.total, created_at: i.created_at })
+    }
+    historyTable.sort((a, b) => {
+      const d1 = new Date(a.created_at)
+      const d2 = new Date(b.created_at)
+      return d1 - d2
     })
-    historyTable.push({ list_item: historyGet, purchased: i.purchased, total: i.total, created_at: i.created_at })
   }
   console.log(historyTable)
-  const currentUser = useSelector(selectCurrentUser)
-  const id = currentUser.id
-  useEffect(() => {
-    const fetchHistory = async () => {
-      const resp = await instance.get(`/history/${id}`)
-      setHistory(resp.data.list_order)
-    }
-    fetchHistory()
-  }, [id])
   const dispatch = useDispatch()
   const [show, setShow] = useState(false)
   const hidden = show ? 'hidden' : ''
@@ -108,7 +75,7 @@ export default function ProfilePage() {
         </section>
         <section className="relative py-16 bg-blueGray-200 flex">
           <div className="container flex flex-row justify-between">
-            <div className="w-5/12">
+            <div className="w-5/12 mr-4">
               <div className="relative flex flex-col break-words bg-white mb-6 shadow-xl rounded-lg -mt-64 w-full">
                 <div className="flex flex-wrap justify-center">
                   <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
@@ -182,63 +149,71 @@ export default function ProfilePage() {
               </div>
             </div>
             <div className="relative flex flex-col break-words bg-white mb-6 shadow-xl rounded-lg -mt-64 w-7/12 px-3">
+              {historyTable.length === 0 && (
+                <div className="w-full py-3">
+                  <p className="text-xl font-bold text-center">You don't have any purchase order </p>
+                  <p className="text-center">
+                    Now you don't have any purchase order. If you are interesting in our books, go to homepage and buy
+                    some.
+                  </p>
+                </div>
+              )}
               {historyTable.map((item, idx) => (
-                <>
-                  <div className="w-full py-3 border-b-2" key={idx}>
-                    <p className="text-xl font-bold text-center">Purchase Order {idx + 1} </p>
-                    <p>
-                      <span className="text-blueGray-700 font-semibold">Ordered Date</span>:{' '}
-                      {new Date(item.created_at).toLocaleDateString('vi-VN')}{' '}
-                    </p>
-                    <p>
-                      <span className="text-blueGray-700 font-semibold">Price</span>:{' '}
-                      {Number(item.total).toLocaleString('it-IT', {
-                        style: 'currency',
-                        currency: 'VND'
-                      })}
-                    </p>
-                    <p>
-                      <span className="text-blueGray-700 font-semibold">Purchase Status</span>:{' '}
-                      {item.purchased === true ? 'Yes' : 'No'}
-                    </p>
-                    <div class="block w-full rounded-lg overflow-x-auto border-1">
-                      <table class="items-center bg-transparent w-full">
-                        <thead>
-                          <tr>
-                            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                              Book Name
-                            </th>
-                            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                              Quantity
-                            </th>
-                            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                              Price each book
-                            </th>
-                          </tr>
-                        </thead>
+                <div className="w-full py-3 border-b-2" key={idx}>
+                  <p className="text-xl font-bold text-center">Purchase Order {idx + 1} </p>
+                  <p>
+                    <span className="text-blueGray-700 font-semibold">Ordered Date</span>:{' '}
+                    {new Date(item.created_at).toLocaleDateString('vi-VN')}{' '}
+                    {new Date(item.created_at).toLocaleTimeString()}
+                  </p>
+                  <p>
+                    <span className="text-blueGray-700 font-semibold">Price</span>:{' '}
+                    {Number(item.total).toLocaleString('it-IT', {
+                      style: 'currency',
+                      currency: 'VND'
+                    })}
+                  </p>
+                  <p>
+                    <span className="text-blueGray-700 font-semibold">Purchase Status</span>:{' '}
+                    {item.purchased === true ? 'Yes' : 'No'}
+                  </p>
+                  <div className="block w-full overflow-x-auto">
+                    <table className="items-center bg-transparent w-full">
+                      <thead>
+                        <tr>
+                          <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                            Book Name
+                          </th>
+                          <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                            Quantity
+                          </th>
+                          <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                            Price each book
+                          </th>
+                        </tr>
+                      </thead>
 
-                        <tbody>
-                          {item.list_item.map(book => (
-                            <tr className="border">
-                              <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
-                                {book.item.b_nm}
-                              </th>
-                              <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
-                                {book.number}
-                              </td>
-                              <td class="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                {Number(book.item.b_price).toLocaleString('it-IT', {
-                                  style: 'currency',
-                                  currency: 'VND'
-                                })}
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
+                      <tbody>
+                        {item.list_item.map((book, idx) => (
+                          <tr className="border" key={idx}>
+                            <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
+                              {book.item.b_nm}
+                            </th>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
+                              {book.number}
+                            </td>
+                            <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                              {Number(book.item.b_price).toLocaleString('it-IT', {
+                                style: 'currency',
+                                currency: 'VND'
+                              })}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
-                </>
+                </div>
               ))}
             </div>
           </div>

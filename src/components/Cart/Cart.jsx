@@ -8,7 +8,7 @@ import { useLocation } from 'react-router'
 import './Cart.scss'
 import CartItem from './CartItem'
 import CartAddress from './CartAddress'
-import { selectCurrentUser } from 'features/session/sessionSlice'
+import { selectCurrentUser, setUser } from 'features/session/sessionSlice'
 export default function Cart() {
   const cartItems = useSelector(selectCart)
   const currentUser = useSelector(selectCurrentUser)
@@ -45,7 +45,6 @@ export default function Cart() {
   }, 0)
   const handleCost = cost => setCost(cost)
   const handleAddress = address => setAddress(address)
-  const discount = (price * 99) / 100
   console.log(location)
   const deleteAllCart = () => {
     confirmAlert({
@@ -132,20 +131,12 @@ export default function Cart() {
                 })}
               </p>
               <p className="cart__price-discount">
-                Discount:{' '}
-                {discount.toLocaleString('it-IT', {
-                  style: 'currency',
-                  currency: 'VND'
-                })}{' '}
-              </p>
-              <p className="cart__price-discount">
-                <span className="bg-yellow-500 rounded-lg py-2 px-2 text-white mr-2">Voucher discount 99%</span>
                 <span className="bg-yellow-500 rounded-lg py-2 px-2 text-white">Voucher freeship</span>
               </p>
               <hr />
               <p className="cart__price-cost">
                 Total:{' '}
-                {(price - discount > 0.0 ? price - discount : 0.0).toLocaleString('it-IT', {
+                {(price > 0.0 ? price : 0.0).toLocaleString('it-IT', {
                   style: 'currency',
                   currency: 'VND'
                 })}
@@ -231,18 +222,12 @@ export default function Cart() {
                           </span>
                         </p>
                         <p>
-                          Your discount:{' '}
-                          <span className="font-bold">
-                            {discount.toLocaleString('it-IT', {
-                              style: 'currency',
-                              currency: 'VND'
-                            }) + ' & Free ship voucher'}
-                          </span>
+                          Your discount: <span className="font-bold">Freeship voucher</span>
                         </p>
                         <hr />
                         <p className="font-bold text-xl">
                           TOTAL:{' '}
-                          {(price - discount).toLocaleString('it-IT', {
+                          {price.toLocaleString('it-IT', {
                             style: 'currency',
                             currency: 'VND'
                           })}
@@ -320,13 +305,7 @@ export default function Cart() {
                       <button
                         className="bg-lightBlue-500 text-white active:bg-blueGray-600 text-xs font-bold uppercase px-3 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mb-0 mb-3 ease-linear transition-all duration-150"
                         onClick={async () => {
-                          let purchased = false
-                          if (checked === 'momo') {
-                            const pr = price - discount
-                            const pay = await instance.post(`/momo/payment/transaction/${pr}`)
-                            window.open(pay.data.payUrl, '_self')
-                            purchased = true
-                          }
+                          const purchased = checked === 'momo' ? true : false
                           const item = cartItems.map(item => ({
                             itemId: item.item.b_id,
                             price: item.item.b_price,
@@ -339,9 +318,18 @@ export default function Cart() {
                           }
                           const resp = await instance.post('/history/save', data)
                           console.log(resp)
+                          const respShipping = await instance.get(`history/${currentUser.id}`)
                           dispatch(resetCart())
-                          handleClose4()
+                          dispatch(setUser({ ...currentUser, history: respShipping.data.list_order }))
+                          if (checked === 'momo') {
+                            const pr = 1000
+                            const pay = await instance.post(`/momo/payment/transaction/${pr}`)
+                            dispatch(resetCart())
+                            handleClose4()
+                            window.open(pay.data.payUrl, '_self')
+                          }
                           if (checked !== 'momo') {
+                            handleClose4()
                             handleShow2()
                           }
                         }}

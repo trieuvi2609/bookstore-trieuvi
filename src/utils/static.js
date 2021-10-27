@@ -1,4 +1,4 @@
-export const STORE_NAME = 'BOOK STORE'
+export const STORE_NAME = 'HCMUT BOOKSTORE'
 
 export const FOOTER_INFO = {
   contact: [

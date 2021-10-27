@@ -56,13 +56,19 @@ export default function Login() {
         const respUser = await instance.get(`/user/${id}`)
         const respShipping = await instance.get(`shipping_address/${id}`)
         const cart = await instance.get(`cart/${id}`)
+        const historyResp = await instance.get(`/history/${id}`)
         const cartUse = cart.data.cart
         const cartExist = cartUse.map(item => {
           const idx = books.findIndex(i => Number(i.b_id) === Number(item.itemId))
           return { item: books[idx], number: item.quantity }
         })
         dispatch(setCart(cartExist))
-        const userInfo = { id: id, ...respUser.data.user, shippingAddress: respShipping.data.shipping_address }
+        const userInfo = {
+          id: id,
+          ...respUser.data.user,
+          shippingAddress: respShipping.data.shipping_address,
+          history: historyResp.data.list_order
+        }
         dispatch(signIn(userInfo))
         history.push('/home')
       } catch (err) {
