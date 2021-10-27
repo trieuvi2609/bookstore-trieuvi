@@ -18,7 +18,7 @@ export const FOOTER_INFO = {
 
 export const BANNER_HOME = {
   title: 'Welcome to book store',
-  text: 'This is a website we created to serve people who loves old books and wants to buy it!',
+  text: 'This is a website we created to serve people who loves books and wants to buy it!',
   searchTitle: 'Search book',
   searchInput: 'Name or type of book ...',
   img: require('assets/images/banner-bg.png').default
@@ -72,7 +72,7 @@ export const ABOUT_US = [
   },
   {
     id: 3,
-    img: 'https://scontent.fsgn2-1.fna.fbcdn.net/v/t39.30808-6/241381050_2632206193749359_2197315290033660078_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=KK_hkPo7h1sAX8pgHwQ&_nc_ht=scontent.fsgn2-1.fna&oh=a67e87fa6385b16ad988190f00cbd782&oe=617252FF',
+    img: 'https://scontent.fsgn2-1.fna.fbcdn.net/v/t39.30808-6/241381050_2632206193749359_2197315290033660078_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=WDxKqS69HbEAX9jfwJQ&_nc_ht=scontent.fsgn2-1.fna&oh=88df91341d135e9cfcdeba99249491e0&oe=617E307F',
 
     name: 'Tran Minh Hien',
     title: 'Member',

@@ -8,8 +8,10 @@ import { useLocation } from 'react-router'
 import './Cart.scss'
 import CartItem from './CartItem'
 import CartAddress from './CartAddress'
+import { selectCurrentUser } from 'features/session/sessionSlice'
 export default function Cart() {
   const cartItems = useSelector(selectCart)
+  const currentUser = useSelector(selectCurrentUser)
   const [cost, setCost] = useState(0)
   const [address, setAddress] = useState('')
   const location = useLocation()
@@ -26,9 +28,14 @@ export default function Cart() {
   const handleShow = () => setShow(true)
   const [show2, setShow2] = useState(success)
   const handleClose2 = () => setShow2(false)
+  const handleShow2 = () => setShow2(true)
   const [show3, setShow3] = useState(false)
   const handleShow3 = () => setShow3(true)
   const handleClose3 = () => setShow3(false)
+  const [show4, setShow4] = useState(false)
+  const handleShow4 = () => setShow4(true)
+  const handleClose4 = () => setShow4(false)
+  const [checked, setChecked] = useState('')
   const number = cartItems.length
   const numberAll = cartItems.reduce(function (acc, obj) {
     return acc + obj.number
@@ -125,11 +132,15 @@ export default function Cart() {
                 })}
               </p>
               <p className="cart__price-discount">
-                Discount (voucher 99%):{' '}
+                Discount:{' '}
                 {discount.toLocaleString('it-IT', {
                   style: 'currency',
                   currency: 'VND'
                 })}{' '}
+              </p>
+              <p className="cart__price-discount">
+                <span className="bg-yellow-500 rounded-lg py-2 px-2 text-white mr-2">Voucher discount 99%</span>
+                <span className="bg-yellow-500 rounded-lg py-2 px-2 text-white">Voucher freeship</span>
               </p>
               <hr />
               <p className="cart__price-cost">
@@ -246,17 +257,97 @@ export default function Cart() {
                         </button>
                         <button
                           className="bg-lightBlue-500 text-white active:bg-blueGray-600 text-xs font-bold uppercase px-3 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mb-0 mb-3 ease-linear transition-all duration-150"
-                          onClick={async () => {
-                            const pr = price - discount
-                            const pay = await instance.post(`/momo/payment/transaction/${pr}`)
-                            window.open(pay.data.payUrl, '_self')
-                            dispatch(resetCart())
+                          onClick={() => {
+                            handleShow4()
                             handleClose3()
                           }}
                         >
                           Confirm
                         </button>
                       </div>
+                    </div>
+                  </Modal.Body>
+                </Modal>
+                <Modal
+                  show={show4}
+                  onHide={handleClose4}
+                  backdrop="static"
+                  keyboard={false}
+                  aria-labelledby="contained-modal-title-vcenter"
+                  centered
+                >
+                  <Modal.Header
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center'
+                    }}
+                  >
+                    <Modal.Title>Choose your payment method</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <div className="flex flex-row mb-3 px-10 justify-between px-5">
+                      <div className="flex items-center">
+                        <input
+                          id="cod"
+                          type="radio"
+                          className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
+                          value="cod"
+                          name="method"
+                          onChange={e => setChecked(e.target.value)}
+                        />
+                        <span className="ml-2 text-sm font-semibold text-blueGray-600">COD Payment</span>
+                      </div>
+                      <div className="flex items-center">
+                        <input
+                          id="momo"
+                          type="radio"
+                          className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
+                          value="momo"
+                          name="method"
+                          onChange={e => setChecked(e.target.value)}
+                        />
+                        <span className="ml-2 text-sm font-semibold text-blueGray-600">Momo payment</span>
+                      </div>
+                    </div>
+                    <div className="flex w-full justify-between">
+                      <button
+                        className="bg-lightBlue-500 text-white active:bg-blueGray-600 text-xs font-bold uppercase px-3 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 mb-3 ease-linear transition-all duration-150"
+                        onClick={handleClose4}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        className="bg-lightBlue-500 text-white active:bg-blueGray-600 text-xs font-bold uppercase px-3 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mb-0 mb-3 ease-linear transition-all duration-150"
+                        onClick={async () => {
+                          let purchased = false
+                          if (checked === 'momo') {
+                            const pr = price - discount
+                            const pay = await instance.post(`/momo/payment/transaction/${pr}`)
+                            window.open(pay.data.payUrl, '_self')
+                            purchased = true
+                          }
+                          const item = cartItems.map(item => ({
+                            itemId: item.item.b_id,
+                            price: item.item.b_price,
+                            quantity: item.number
+                          }))
+                          const data = {
+                            list_item: item,
+                            userId: currentUser.id,
+                            purchased: purchased
+                          }
+                          const resp = await instance.post('/history/save', data)
+                          console.log(resp)
+                          dispatch(resetCart())
+                          handleClose4()
+                          if (checked !== 'momo') {
+                            handleShow2()
+                          }
+                        }}
+                      >
+                        Confirm
+                      </button>
                     </div>
                   </Modal.Body>
                 </Modal>
