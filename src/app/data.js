@@ -382,9 +382,5 @@ export const types = [
   {
     cat_id: '20',
     cat_nm: 'Compititive Exam'
-  },
-  {
-    cat_id: '21',
-    cat_nm: 'tess'
   }
 ]
