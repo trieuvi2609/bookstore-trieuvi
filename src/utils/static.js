@@ -8,6 +8,7 @@ export const FOOTER_INFO = {
     'Mon - Sun / 9:00 AM - 8:00 PM'
   ],
   services: ['Home page', 'List of Books', 'Profile user', 'Login & register'],
+  link_services: ['/', '/books', '/profile', '/login'],
   other: ['About Us', 'Returns', 'Custom Service', 'Terms & Condition'],
   linksSocial: {
     facebook: 'http://www.facebook.com/',

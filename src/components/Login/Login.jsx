@@ -6,9 +6,11 @@ import { signIn } from 'features/session/sessionSlice'
 import { Modal } from 'react-bootstrap'
 import { selectBooks } from 'features/books/booksSlice'
 import { setCart } from 'features/cart/cartSlice'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 export default function Login() {
   const history = useHistory()
   const books = useSelector(selectBooks)
+  const [loading, setLoading] = useState('hidden')
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
   const [showFailed, setShowFailed] = useState(false)
@@ -51,10 +53,10 @@ export default function Login() {
       console.log(password)
       const signInInfo = { username: userName, password: password }
       try {
+        setLoading('')
         const resp = await instance.post('/login', signInInfo)
         const id = resp.data.userId
         const respUser = await instance.get(`/user/${id}`)
-        const respShipping = await instance.get(`shipping_address/${id}`)
         const cart = await instance.get(`cart/${id}`)
         const historyResp = await instance.get(`/history/${id}`)
         const cartUse = cart.data.cart
@@ -66,10 +68,10 @@ export default function Login() {
         const userInfo = {
           id: id,
           ...respUser.data.user,
-          shippingAddress: respShipping.data.shipping_address,
           history: historyResp.data.list_order
         }
         dispatch(signIn(userInfo))
+        setLoading('hidden')
         history.push('/home')
       } catch (err) {
         showError()
@@ -219,7 +221,10 @@ export default function Login() {
                         type="button"
                         disabled={disable}
                       >
-                        Sign In
+                        <div className="flex justify-center items-center">
+                          <span>Sign In</span>
+                          <AiOutlineLoading3Quarters className={'ml-2 animate-spin text-xl ' + loading} />
+                        </div>
                       </button>
                       <button
                         onClick={goToRegister}

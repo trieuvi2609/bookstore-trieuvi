@@ -1705,8 +1705,8 @@ select {
   margin-bottom: 0.25rem;
 }
 
-.ml-1 {
-  margin-left: 0.25rem;
+.ml-2 {
+  margin-left: 0.5rem;
 }
 
 .mt-2 {
@@ -1826,6 +1826,9 @@ select {
 
 .-ml-4 {
   margin-left: -1rem;
+}
+.-ml-4 {
+  margin-top: -1rem;
 }
 
 .-mt-20 {
@@ -2228,7 +2231,9 @@ select {
 .right-0 {
   right: 0px;
 }
-
+.left-10 {
+  left: 10px;
+}
 .bottom-0 {
   bottom: 0px;
 }
@@ -2634,7 +2639,18 @@ select {
 .duration-150 {
   transition-duration: 150ms;
 }
+.animate-spin {
+  animation: spin 1s linear infinite;
 
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
 @-webkit-keyframes spin {
   to {
     -webkit-transform: rotate(360deg);
