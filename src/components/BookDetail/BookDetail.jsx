@@ -10,6 +10,9 @@ import { Comment } from 'components'
 import { selectTypes } from 'features/books/booksSlice'
 
 function BookDetail(props) {
+  const [hidden, setHidden] = useState('hidden')
+  const [comment, setComment] = useState('')
+  const [listComment, setListComment] = useState([])
   const books = useSelector(selectBooks)
   const { id } = useParams()
   const dispatch = useDispatch()
@@ -21,8 +24,10 @@ function BookDetail(props) {
   const showMore = () => {
     setVisible(oldValue => oldValue + 2)
   }
-
-  const test_array_comment = [1, 2, 3, 4, 5, 6, 7, 8]
+  const handleComment = ({ target }) => {
+    setComment(target.value)
+  }
+  const test_array_comment = [1, 2, 3, 4, 5]
   // console.log(currentBook);
   const { b_publisher, b_price, b_nm, b_subcat, b_img, b_desc, b_edition } = currentBook
   const typeUsed = types.findIndex(type => type.cat_id === b_subcat)
@@ -77,9 +82,79 @@ function BookDetail(props) {
           <div className="bookdetail__comment">
             <div className="bookdetail__comment-title">
               <h4>Comments</h4>
-              <button>Add new +</button>
+              <button onClick={() => setHidden('')}>Add new +</button>
             </div>
             <div className="bookdetail__comment-list">
+              <div className={'w-full bg-white flex ' + hidden}>
+                <img
+                  alt="..."
+                  src={require('assets/images/maleAvatar.png').default}
+                  style={{
+                    width: '3.75rem',
+                    height: '3.75rem'
+                  }}
+                />
+                <div style={{ padding: '0 15px' }} className="w-full">
+                  <p
+                    style={{
+                      fontSize: 'large',
+                      fontWeight: 500
+                    }}
+                  >
+                    {currentUser.fullName}
+                  </p>
+                  <textarea
+                    className="w-full px-2 border rounded"
+                    style={{
+                      height: '5rem'
+                    }}
+                    spellCheck={false}
+                    value={comment}
+                    onChange={handleComment}
+                    placeholder="What you think about this book"
+                  />
+                  <button
+                    style={{
+                      marginTop: '0.5rem',
+                      marginBottom: '1rem'
+                    }}
+                    onClick={() => {
+                      if (comment) setListComment(prev => [comment, ...prev])
+                      setComment('')
+                      setHidden('hidden')
+                    }}
+                  >
+                    Submit Comment
+                  </button>
+                </div>
+              </div>
+              {listComment.map((item, idx) => (
+                <div className="w-full bg-white flex border-b-2 py-2" key={idx}>
+                  <img
+                    alt="..."
+                    src={require('assets/images/maleAvatar.png').default}
+                    style={{
+                      width: '3.75rem',
+                      height: '3.75rem'
+                    }}
+                  />
+                  <div style={{ padding: '0 15px' }} className="w-full">
+                    <p
+                      style={{
+                        fontSize: 'large',
+                        fontWeight: 500,
+                        margin: '0px'
+                      }}
+                    >
+                      {currentUser.fullName}
+                    </p>
+                    <p className="-mt-4" style={{ color: 'grey' }}>
+                      {item}
+                    </p>
+                  </div>
+                  <hr />
+                </div>
+              ))}
               {test_array_comment.slice(0, visible).map(idx => {
                 return (
                   <div key={idx}>

@@ -1,10 +1,11 @@
 import React from 'react'
 import { ImFacebook, ImLinkedin2, ImTwitter } from 'react-icons/im'
+import { Link } from 'react-router-dom'
 import { FOOTER_INFO, STORE_NAME } from 'utils/static'
 import './Footer.scss'
 
 function Footer() {
-  const { contact, other, services, linksSocial } = FOOTER_INFO
+  const { contact, services, linksSocial, link_services } = FOOTER_INFO
   return (
     <footer>
       <div className="footer">
@@ -37,17 +38,7 @@ function Footer() {
               {services.map((text, index) => {
                 return (
                   <p className="footer__body-side-text" key={index}>
-                    {text}
-                  </p>
-                )
-              })}
-            </div>
-            <div className="footer__body-side">
-              <h5 className="footer__body-side-title">Other</h5>
-              {other.map((text, index) => {
-                return (
-                  <p className="footer__body-side-text" key={index}>
-                    {text}
+                    <Link to={link_services[index]}>{text}</Link>
                   </p>
                 )
               })}

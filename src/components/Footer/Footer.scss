@@ -1,5 +1,5 @@
-@import "assets/styles/_variables.scss";
-@import "assets/styles/_mixins.scss";
+@import 'assets/styles/_variables.scss';
+@import 'assets/styles/_mixins.scss';
 
 .footer {
   background-color: $bg-dark;
@@ -76,6 +76,9 @@
 
   &-text {
     font-size: 11pt;
+    & a:hover {
+      color: rgb(0, 153, 255);
+    }
   }
 }
 
