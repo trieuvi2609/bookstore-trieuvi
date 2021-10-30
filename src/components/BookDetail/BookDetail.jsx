@@ -1,18 +1,17 @@
 import { selectBooks } from 'features/books/booksSlice'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import './BookDetail.scss'
 import { MdStars } from 'react-icons/md'
 import { addCart } from 'features/cart/cartSlice'
 import { selectCurrentUser } from 'features/session/sessionSlice'
-import { Comment } from 'components'
 import { selectTypes } from 'features/books/booksSlice'
+import instance from 'api/axios'
 
 function BookDetail(props) {
   const [hidden, setHidden] = useState('hidden')
   const [comment, setComment] = useState('')
-  const [listComment, setListComment] = useState([])
   const books = useSelector(selectBooks)
   const { id } = useParams()
   const dispatch = useDispatch()
@@ -20,19 +19,35 @@ function BookDetail(props) {
   const currentUser = useSelector(selectCurrentUser)
   const types = useSelector(selectTypes)
   const [visible, setVisible] = useState(2)
-
+  const [listComment, setListComment] = useState([])
+  const [getList, setGetList] = useState([])
+  const listCmt = getList.length === 0 ? currentBook.comment_list : getList
   const showMore = () => {
     setVisible(oldValue => oldValue + 2)
   }
   const handleComment = ({ target }) => {
     setComment(target.value)
   }
-  const test_array_comment = [1, 2, 3, 4, 5]
-  // console.log(currentBook);
+  const addComment = async comment => {
+    const data = {
+      userId: currentUser.id,
+      comment: comment,
+      bookId: id,
+      fullName: currentUser.fullName
+    }
+    const resp = await instance.post('/comment/add', data)
+    console.log(resp)
+  }
+  useEffect(() => {
+    const getComment = async () => {
+      const resp = await instance.get(`/books/${id}`)
+      setGetList(resp.data.book_details.list_comment)
+    }
+    getComment()
+  }, [id])
   const { b_publisher, b_price, b_nm, b_subcat, b_img, b_desc, b_edition } = currentBook
   const typeUsed = types.findIndex(type => type.cat_id === b_subcat)
   const typeField = types[typeUsed].cat_nm.toUpperCase()
-
   return (
     <div className="bg-bookdetail">
       <div className="container">
@@ -119,7 +134,11 @@ function BookDetail(props) {
                       marginBottom: '1rem'
                     }}
                     onClick={() => {
-                      if (comment) setListComment(prev => [comment, ...prev])
+                      if (comment) {
+                        addComment(comment)
+                        // getComment()
+                        setListComment(prev => [comment, ...prev])
+                      }
                       setComment('')
                       setHidden('hidden')
                     }}
@@ -155,16 +174,37 @@ function BookDetail(props) {
                   <hr />
                 </div>
               ))}
-              {test_array_comment.slice(0, visible).map(idx => {
+              {listCmt.slice(0, visible).map((item, idx) => {
                 return (
-                  <div key={idx}>
-                    <Comment />
+                  <div className="w-full bg-white flex border-b-2 py-2" key={idx}>
+                    <img
+                      alt="..."
+                      src={require('assets/images/maleAvatar.png').default}
+                      style={{
+                        width: '3.75rem',
+                        height: '3.75rem'
+                      }}
+                    />
+                    <div style={{ padding: '0 15px' }} className="w-full">
+                      <p
+                        style={{
+                          fontSize: 'large',
+                          fontWeight: 500,
+                          margin: '0px'
+                        }}
+                      >
+                        {item.fullName}
+                      </p>
+                      <p className="-mt-4" style={{ color: 'grey' }}>
+                        {item.comment}
+                      </p>
+                    </div>
                     <hr />
                   </div>
                 )
               })}
             </div>
-            {visible !== test_array_comment.length && (
+            {visible !== listCmt.length && listCmt.length > 0 && (
               <div className="bookdetail__comment-morebtn">
                 <button onClick={showMore}>Show more</button>
               </div>
