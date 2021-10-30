@@ -26,7 +26,7 @@ function CardBook(props) {
         <Link to={url} title={b_desc}>
           <img src={b_img} alt="" className="cardbook__top-img" />
         </Link>
-        {b_hot && <span className="cardbook__top-hot">HOT</span>}
+        {b_hot && <span className="cardbook__top-hot">BEST SELLER</span>}
         <span className="cardbook__top-price">
           {Number(b_price).toLocaleString('it-IT', {
             style: 'currency',

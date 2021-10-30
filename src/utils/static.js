@@ -98,7 +98,7 @@ export const ABOUT_US = [
     name: 'Nguyen Minh Ngoc',
     title: 'Member',
 
-    text: 'Business Analysist',
+    text: 'Business Analyst',
     url: 'https://www.facebook.com/minhngoc.nguyen.98434'
   }
 ]

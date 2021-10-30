@@ -11,7 +11,7 @@ function HotBooks(props) {
       <div className="hotproducts">
         <div className="container">
           <div className="home__header">
-            <Title title="HOT BOOKS" text="Best-seller books in year 2021. Almost people like these books" />
+            <Title title="BEST SELLERS" text="Best-seller books in year 2021. Almost people like these books" />
           </div>
           <div>
             <Slider {...SLIDE_VIEW_4}>

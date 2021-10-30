@@ -52,11 +52,11 @@ function Navbar() {
                 Home
               </Link>
               <Link to="/books" className="navbar__link dropdown">
-                List of Books
+                Book List
               </Link>
               {bookTypes && (
                 <div className="navbar__link dropdown">
-                  Books Type
+                  Categories
                   <div className="dropdown-content">
                     <ul>
                       {bookTypes.map(type => (
@@ -110,7 +110,7 @@ function Navbar() {
           </Link>
           <hr />
           <Link to="/books" className="menu-hidden-link" onClick={() => setNavbarOpen(!navbarOpen)}>
-            List of Books
+            Book List
           </Link>
           <hr />
           {currentUser.username ? (
