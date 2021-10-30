@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { selectCurrentUser } from 'features/session/sessionSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { setUser } from 'features/session/sessionSlice'
@@ -14,12 +14,20 @@ export default function ProfilePage() {
         const idx = books.findIndex(i => Number(i.b_id) === Number(item.itemId))
         return { item: books[idx], number: item.quantity }
       })
-      historyTable.push({ list_item: historyGet, purchased: i.purchased, total: i.total, created_at: i.created_at })
+      historyTable.push({
+        list_item: historyGet,
+        purchased: i.purchased,
+        total: i.total,
+        created_at: i.created_at,
+        status: i.status,
+        expected_time: i.expected_time,
+        order_id: i.orderId
+      })
     }
     historyTable.sort((a, b) => {
       const d1 = new Date(a.created_at)
       const d2 = new Date(b.created_at)
-      return d1 - d2
+      return d2 - d1
     })
   }
   console.log(historyTable)
@@ -44,6 +52,16 @@ export default function ProfilePage() {
     await instance.post(`/updateInfo/${currentUser.id}`, updateBody)
     dispatch(setUser(updateBody))
   }
+  const handleStatus = async orderId => {
+    await instance.get(`/history/status/${orderId}`)
+  }
+  const getShipping = async () => {
+    const respShipping = await instance.get(`history/${currentUser.id}`)
+    dispatch(setUser({ ...currentUser, history: respShipping.data.list_order }))
+  }
+  useEffect(() => {
+    getShipping()
+  }, [])
   return (
     <>
       <main>
@@ -148,9 +166,9 @@ export default function ProfilePage() {
                 </div>
               </div>
             </div>
-            <div className="relative flex flex-col break-words bg-white mb-6 shadow-xl rounded-lg -mt-64 w-7/12 px-3">
+            <div className="relative flex flex-col break-words mb-6 -mt-64 w-7/12">
               {historyTable.length === 0 && (
-                <div className="w-full py-3">
+                <div className="w-full py-5 bg-white px-3 shadow-xl rounded-lg">
                   <p className="text-xl font-bold text-center">You don't have any purchase order </p>
                   <p className="text-center">
                     Now you don't have any purchase order. If you are interesting in our books, go to homepage and buy
@@ -159,13 +177,19 @@ export default function ProfilePage() {
                 </div>
               )}
               {historyTable.map((item, idx) => (
-                <div className="w-full py-3 border-b-2" key={idx}>
-                  <p className="text-xl font-bold text-center">Purchase Order {idx + 1} </p>
+                <div className="w-full py-3 bg-white px-3 mb-6 shadow-xl rounded-lg" key={idx}>
+                  <p className="text-xl font-bold text-center">Purchase Order #{item.order_id} </p>
                   <p>
                     <span className="text-blueGray-700 font-semibold">Ordered Date</span>:{' '}
                     {new Date(item.created_at).toLocaleDateString('vi-VN')}{' '}
                     {new Date(item.created_at).toLocaleTimeString()}
                   </p>
+                  <p>
+                    <span className="text-blueGray-700 font-semibold">Expected Delivery Time</span>:{' '}
+                    {new Date(item.expected_time).toLocaleDateString('vi-VN')}{' '}
+                    {new Date(item.expected_time).toLocaleTimeString()}
+                  </p>
+
                   <p>
                     <span className="text-blueGray-700 font-semibold">Price</span>:{' '}
                     {Number(item.total).toLocaleString('it-IT', {
@@ -176,6 +200,9 @@ export default function ProfilePage() {
                   <p>
                     <span className="text-blueGray-700 font-semibold">Purchase Status</span>:{' '}
                     {item.purchased === true ? 'Yes' : 'No'}
+                  </p>
+                  <p>
+                    <span className="text-blueGray-700 font-semibold">Shipping Status</span>: {item.status}
                   </p>
                   <div className="block w-full overflow-x-auto">
                     <table className="items-center bg-transparent w-full">
@@ -212,6 +239,17 @@ export default function ProfilePage() {
                         ))}
                       </tbody>
                     </table>
+                    {item.status !== 'Finish' && (
+                      <button
+                        className="bg-lightBlue-500 active:bg-blueGray-600 text-white font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150 mt-3"
+                        onClick={() => {
+                          handleStatus(item.order_id)
+                          getShipping()
+                        }}
+                      >
+                        Confirm the order have received
+                      </button>
+                    )}
                   </div>
                 </div>
               ))}

@@ -5,8 +5,8 @@ export default function CartAddress(props) {
   const [districtList, setDistrictList] = useState([])
   const [wardList, setWardList] = useState([])
   const [distId, setDistId] = useState('')
+  const [wardId, setWardId] = useState('')
   const [cost, setCost] = useState(0)
-  console.log(cost)
   const getProvince = async () => {
     const resp = await instance.get('/ghn/province/')
     setProvinceList(resp.data.list_province)
@@ -41,7 +41,6 @@ export default function CartAddress(props) {
       ward_no: wardId
     }
     const resp = await instance.post('/ghn/cost', body)
-    console.log(resp)
     setCost(resp.data.data.total)
   }
   useEffect(() => {
@@ -64,6 +63,7 @@ export default function CartAddress(props) {
     const wd = wardList.find(item => item.wardName === ward)
     if (wd) {
       getCost(distId, wd.wardId)
+      setWardId(wd.wardId)
     }
   }, [ward, wardList, distId])
   return (
@@ -147,6 +147,7 @@ export default function CartAddress(props) {
           onClick={() => {
             const addr = `${address}, ${ward}, ${district}, ${province}`
             props.handleAddress(addr)
+            props.saveWardDistrict(wardId, distId)
             props.handleCost(cost)
             props.handleClose()
             props.handleShow()
