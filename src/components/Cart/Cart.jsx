@@ -319,6 +319,7 @@ export default function Cart() {
                           handleShow5()
                           const purchased = checked === 'momo' ? true : false
                           const payment_type = checked === 'momo' ? '1' : '2'
+                          const totalPrice = checked === 'momo' ? 0 : price
                           const item = cartItems.map(item => ({
                             itemId: item.item.b_id,
                             price: item.item.b_price,
@@ -336,7 +337,7 @@ export default function Cart() {
                             address: address,
                             ward_no: wardNo,
                             district_no: districtNo,
-                            total: price,
+                            total: totalPrice,
                             item_list: ghnItem,
                             payment_type: payment_type
                           }
@@ -353,7 +354,7 @@ export default function Cart() {
                           dispatch(resetCart())
                           dispatch(setUser({ ...currentUser, history: respShipping.data.list_order }))
                           if (checked === 'momo') {
-                            const pr = price
+                            const pr = 1000
                             const pay = await instance.post(`/momo/payment/transaction/${pr}`)
                             dispatch(resetCart())
                             handleClose5()
