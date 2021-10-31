@@ -9,11 +9,14 @@ import './Cart.scss'
 import CartItem from './CartItem'
 import CartAddress from './CartAddress'
 import { selectCurrentUser, setUser } from 'features/session/sessionSlice'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 export default function Cart() {
   const cartItems = useSelector(selectCart)
   const currentUser = useSelector(selectCurrentUser)
   const [cost, setCost] = useState(0)
   const [address, setAddress] = useState('')
+  const [wardNo, setWardNo] = useState('')
+  const [districtNo, setDistrictNo] = useState('')
   const location = useLocation()
   const success = location.search === '' ? false : true
   const dispatch = useDispatch()
@@ -35,6 +38,9 @@ export default function Cart() {
   const [show4, setShow4] = useState(false)
   const handleShow4 = () => setShow4(true)
   const handleClose4 = () => setShow4(false)
+  const [show5, setShow5] = useState(false)
+  const handleShow5 = () => setShow5(true)
+  const handleClose5 = () => setShow5(false)
   const [checked, setChecked] = useState('')
   const number = cartItems.length
   const numberAll = cartItems.reduce(function (acc, obj) {
@@ -45,7 +51,10 @@ export default function Cart() {
   }, 0)
   const handleCost = cost => setCost(cost)
   const handleAddress = address => setAddress(address)
-  console.log(location)
+  const saveWardDistrict = (ward, district) => {
+    setWardNo(ward)
+    setDistrictNo(district)
+  }
   const deleteAllCart = () => {
     confirmAlert({
       customUI: ({ onClose }) => {
@@ -178,6 +187,7 @@ export default function Cart() {
                       handleClose={handleClose}
                       handleShow={handleShow3}
                       handleAddress={handleAddress}
+                      saveWardDistrict={saveWardDistrict}
                     />
                   </Modal.Body>
                 </Modal>
@@ -297,45 +307,83 @@ export default function Cart() {
                     </div>
                     <div className="flex w-full justify-between">
                       <button
-                        className="bg-lightBlue-500 text-white active:bg-blueGray-600 text-xs font-bold uppercase px-3 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 mb-3 ease-linear transition-all duration-150"
+                        className="bg-lightBlue-500 text-white active:bg-blueGray-600 text-xs font-bold uppercase px-3 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 ease-linear transition-all duration-150"
                         onClick={handleClose4}
                       >
                         Cancel
                       </button>
                       <button
-                        className="bg-lightBlue-500 text-white active:bg-blueGray-600 text-xs font-bold uppercase px-3 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mb-0 mb-3 ease-linear transition-all duration-150"
+                        className="bg-lightBlue-500 text-white active:bg-blueGray-600 text-xs font-bold uppercase px-3 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mb-0 ease-linear transition-all duration-150"
                         onClick={async () => {
+                          handleClose4()
+                          handleShow5()
                           const purchased = checked === 'momo' ? true : false
+                          const payment_type = checked === 'momo' ? '1' : '2'
                           const item = cartItems.map(item => ({
                             itemId: item.item.b_id,
                             price: item.item.b_price,
                             quantity: item.number
                           }))
+                          const ghnItem = cartItems.map(item => ({
+                            itemName: item.item.b_nm,
+                            itemId: item.item.b_id,
+                            price: item.item.b_price,
+                            quantity: item.number
+                          }))
+                          const ghnData = {
+                            fullName: currentUser.fullName,
+                            phone: currentUser.contact,
+                            address: address,
+                            ward_no: wardNo,
+                            district_no: districtNo,
+                            total: price,
+                            item_list: ghnItem,
+                            payment_type: payment_type
+                          }
+                          const respGHN = await instance.post('/ghn/createOrder', ghnData)
                           const data = {
                             list_item: item,
                             userId: currentUser.id,
-                            purchased: purchased
+                            purchased: purchased,
+                            orderId: respGHN.data.data.order_code,
+                            expected_time: respGHN.data.data.expected_delivery_time
                           }
-                          const resp = await instance.post('/history/save', data)
-                          console.log(resp)
+                          await instance.post('/history/save', data)
                           const respShipping = await instance.get(`history/${currentUser.id}`)
                           dispatch(resetCart())
                           dispatch(setUser({ ...currentUser, history: respShipping.data.list_order }))
                           if (checked === 'momo') {
-                            const pr = 1000
+                            const pr = price
                             const pay = await instance.post(`/momo/payment/transaction/${pr}`)
                             dispatch(resetCart())
-                            handleClose4()
+                            handleClose5()
                             window.open(pay.data.payUrl, '_self')
                           }
                           if (checked !== 'momo') {
-                            handleClose4()
+                            handleClose5()
                             handleShow2()
                           }
                         }}
                       >
                         Confirm
                       </button>
+                    </div>
+                  </Modal.Body>
+                </Modal>
+                <Modal
+                  show={show5}
+                  onHide={handleClose5}
+                  backdrop="static"
+                  keyboard={false}
+                  aria-labelledby="contained-modal-title-vcenter"
+                  centered
+                >
+                  <Modal.Body>
+                    <div className="flex items-center">
+                      <AiOutlineLoading3Quarters className="mr-3 animate-spin text-3xl font-bold" />
+                      <div className="text-center font-semibold mt-3 text-xl">
+                        <p>Please wait, we are processing your order ...</p>
+                      </div>
                     </div>
                   </Modal.Body>
                 </Modal>

@@ -11,13 +11,11 @@ export default function TypePage() {
   const [listBook, setListBook] = useState([])
 
   const [visible, setVisible] = useState(8)
-  console.log(types)
   const showMore = () => {
     setVisible(oldValue => oldValue + 4)
   }
   const idx = types.findIndex(type => type.cat_nm === name)
   const typeUsed = types[idx].cat_id
-  console.log(typeUsed)
   useEffect(() => {
     const getBookOfType = async () => {
       const listBookResp = await instance.get(`/categories/${typeUsed}`)
