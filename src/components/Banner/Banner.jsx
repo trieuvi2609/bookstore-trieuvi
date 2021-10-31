@@ -12,7 +12,6 @@ function Banner(props) {
   }
   const [choose, setChoose] = useState('')
   const books = useSelector(selectBooks)
-  console.log(books)
   const onChange = ({ target }) => {
     setChoose(target.value)
   }

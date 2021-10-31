@@ -20,15 +20,11 @@ function Navbar() {
   const handleLogout = async () => {
     await instance.post('/logout')
     const itemUpdate = items.map(item => ({ itemId: item.item.b_id, price: item.item.b_price, quantity: item.number }))
-    console.log(itemUpdate)
     await instance.post(`/cart/${currentUser.id}`, itemUpdate)
-    // console.log(logOutSession.data,updateCart.data);
     dispatch(logOut())
     dispatch(resetCart())
     history.push('/')
   }
-
-  // console.log(bookTypes);
 
   return (
     <>

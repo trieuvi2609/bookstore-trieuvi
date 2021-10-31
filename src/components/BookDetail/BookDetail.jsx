@@ -35,8 +35,7 @@ function BookDetail(props) {
       bookId: id,
       fullName: currentUser.fullName
     }
-    const resp = await instance.post('/comment/add', data)
-    console.log(resp)
+    await instance.post('/comment/add', data)
   }
   useEffect(() => {
     const getComment = async () => {

@@ -30,7 +30,6 @@ export default function ProfilePage() {
       return d2 - d1
     })
   }
-  console.log(historyTable)
   const dispatch = useDispatch()
   const [show, setShow] = useState(false)
   const hidden = show ? 'hidden' : ''

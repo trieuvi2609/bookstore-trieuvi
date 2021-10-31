@@ -36,7 +36,6 @@ function ListBookPage(props) {
     setBookShow([...newBooks])
   }
   function handleClickPrice(price) {
-    console.log(price[0] * 100)
     const newBooks = bookShow.filter(book => book.b_price >= price[0] * 1000 && book.b_price <= (price[0] + 99) * 1000)
     setBookShow([...newBooks])
   }

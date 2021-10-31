@@ -70,8 +70,6 @@ export default function Register() {
   const onBlurPassword = () => {
     const regexp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,16}$/
     const checkingResult = regexp.exec(password)
-    console.log(password)
-    console.log(checkingResult)
     if (!checkingResult && password.length > 0) setPasswordError(passwordError1)
     else setPasswordError(errorCommon)
     if (password.length === 0 || !checkingResult) setPasswordHidden('')
@@ -99,7 +97,6 @@ export default function Register() {
   const handleChangeOtp = otp => {
     setErrorOtp(false)
     setOtp(otp)
-    console.log(otp)
   }
   const resendOTP = () => {
     setShowSpinner(!showSpinner)
@@ -114,8 +111,6 @@ export default function Register() {
     setShow(true)
   }
   const createAccount = async () => {
-    console.log(userName)
-    console.log(password)
     const regexp = /^[a-zA-Z0-9]{5,16}$/
     const checkingResult = regexp.exec(userName)
     const regexp2 = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,16}$/
@@ -143,7 +138,6 @@ export default function Register() {
     }
     if (isTrueSubmit) {
       const resp = await instance.get(`/getOTP/${phone}`)
-      console.log(resp.data)
       setSendOTP(resp.data.otp)
       handleShow()
     }
@@ -222,8 +216,7 @@ export default function Register() {
                     contact: phone,
                     email: email
                   }
-                  const resp = await instance.post('/register', signUpInfo)
-                  console.log(resp.data)
+                  await instance.post('/register', signUpInfo)
                   setShow(false)
                   setShow2(true)
                 } else {

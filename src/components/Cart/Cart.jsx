@@ -340,7 +340,6 @@ export default function Cart() {
                             item_list: ghnItem,
                             payment_type: payment_type
                           }
-                          console.log(ghnData)
                           const respGHN = await instance.post('/ghn/createOrder', ghnData)
                           const data = {
                             list_item: item,
@@ -354,7 +353,7 @@ export default function Cart() {
                           dispatch(resetCart())
                           dispatch(setUser({ ...currentUser, history: respShipping.data.list_order }))
                           if (checked === 'momo') {
-                            const pr = 1000
+                            const pr = price
                             const pay = await instance.post(`/momo/payment/transaction/${pr}`)
                             dispatch(resetCart())
                             handleClose5()

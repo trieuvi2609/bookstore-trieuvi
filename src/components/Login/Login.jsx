@@ -49,8 +49,6 @@ export default function Login() {
       check = false
     }
     if (check) {
-      console.log(userName)
-      console.log(password)
       const signInInfo = { username: userName, password: password }
       try {
         setLoading('')
