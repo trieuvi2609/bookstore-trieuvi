@@ -1,21 +1,16 @@
-## Feature đã có hiện tại:
-SignIn/SignUp
+## Introduce:
 
-Profile
+This is a bookstore website created by Group 1.
 
-Homepage
+## How to use website:
 
-Cart
-### Update: Now you can add or remove an item from your cart at cart page
-To view more function (add to cart,...), please follow below SETUP step and register to continue:
+To view all function, please follow below SETUP step and login to continue:
 
-You can sign in with Google or register (create new account) with this:
+You can log in with this account:
 
-userName: (anything you want)
+userName: khoaideptrai
 
-password: (anything you want)
-
-Name: (anything you want)
+password: Khoailaso1
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/),[Redux Toolkit](https://redux-toolkit.js.org/) and [TailWindCSS](https://tailwindcss.com/) template
 
