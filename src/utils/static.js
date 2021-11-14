@@ -55,7 +55,7 @@ export const TYPES_BOOK = [
 export const ABOUT_US = [
   {
     id: 1,
-    img: 'https://scontent.fhan2-1.fna.fbcdn.net/v/t1.6435-1/p320x320/176193173_1567898500073873_7761473171311765591_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=7206a8&_nc_ohc=I6gqpkCsxOcAX95V59N&tn=naJMs4S7yNpnQkTx&_nc_ht=scontent.fhan2-1.fna&oh=44290dcfd97c247bec6024b34fc65add&oe=617C57D3',
+    img: require('assets/images/ava-2.jpg').default,
     name: 'Pham Gia Nguyen',
     title: 'Leader',
     text: 'Backend Developer',
@@ -63,7 +63,7 @@ export const ABOUT_US = [
   },
   {
     id: 2,
-    img: 'https://scontent.fhan2-2.fna.fbcdn.net/v/t1.6435-9/83693415_1076733339341641_7848287005195632640_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=JgQhAJuegloAX96ubky&_nc_ht=scontent.fhan2-2.fna&oh=c6ad0aa8cac521d4d7036a8aa148c0fc&oe=617D769A',
+    img: require('assets/images/ava-1.jpg').default,
 
     name: 'Pham Khang Nguyen',
     title: 'Member',
@@ -73,7 +73,7 @@ export const ABOUT_US = [
   },
   {
     id: 3,
-    img: 'https://scontent.fsgn2-1.fna.fbcdn.net/v/t39.30808-6/241381050_2632206193749359_2197315290033660078_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=WDxKqS69HbEAX9jfwJQ&_nc_ht=scontent.fsgn2-1.fna&oh=88df91341d135e9cfcdeba99249491e0&oe=617E307F',
+    img: require('assets/images/ava-3.jpg').default,
 
     name: 'Tran Minh Hien',
     title: 'Member',
@@ -93,7 +93,7 @@ export const ABOUT_US = [
   },
   {
     id: 5,
-    img: 'https://scontent.fhan14-1.fna.fbcdn.net/v/t1.6435-9/52611621_1558137087663454_4861128184151670784_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=BggqzSdHwdcAX9m8e47&_nc_oc=AQl7T4f1EypSfMQt0ROkZdB_hC1PXhTkHD1x0z_KGTinJxdMLYnmLB2hmZ1vcR8edOE&_nc_ht=scontent.fhan14-1.fna&oh=bd5c29eb3a458a25e1f7a3aeb9c5cf9d&oe=617D180C',
+    img: require('assets/images/ava-4.jpg').default,
 
     name: 'Nguyen Minh Ngoc',
     title: 'Member',
