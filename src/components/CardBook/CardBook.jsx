@@ -8,15 +8,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import './CardBook.scss'
 
-function CardBook(props) {
+function CardBook({book}) {
   const dispatch = useDispatch()
   const currentUser = useSelector(selectCurrentUser)
   const types = useSelector(selectTypes)
-  const currentBook = props.book
+  const currentBook = book
 
   const { b_id, b_hot, b_price, b_nm, b_subcat, b_publisher, b_edition, b_img, b_desc } = currentBook
   const typeUsed = types.findIndex(type => type.cat_id === b_subcat)
-  const typeField = types[typeUsed].cat_nm.toUpperCase()
+  const typeField = types[typeUsed]?.cat_nm.toUpperCase()
 
   const url = '/book/' + b_id
 

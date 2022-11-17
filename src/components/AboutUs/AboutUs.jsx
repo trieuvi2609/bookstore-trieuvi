@@ -13,8 +13,8 @@ function AboutUs(props) {
           <div className="aboutus__header">
             <Title title="About Us" text="We are E-commerce team No. 1" />
           </div>
-          <div>
-            <Slider {...SLIDE_VIEW_5}>
+          <div className="aboutus__body">
+           
               {ABOUT_US.map(member => {
                 return (
                   <div key={member.id}>
@@ -22,7 +22,7 @@ function AboutUs(props) {
                   </div>
                 )
               })}
-            </Slider>
+         
           </div>
         </div>
       </div>

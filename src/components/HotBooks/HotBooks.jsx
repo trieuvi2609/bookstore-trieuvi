@@ -5,7 +5,7 @@ import Slider from 'react-slick'
 import './HotBooks.scss'
 function HotBooks(props) {
   const books = props.books
-
+  console.log(books)
   return (
     <section>
       <div className="hotproducts">
@@ -16,6 +16,7 @@ function HotBooks(props) {
           <div>
             <Slider {...SLIDE_VIEW_4}>
               {books.map(book => {
+                console.log(book)
                 return (
                   <div key={book.b_id}>
                     <CardBook book={book} />

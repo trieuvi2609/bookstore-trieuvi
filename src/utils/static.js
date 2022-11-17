@@ -55,50 +55,20 @@ export const TYPES_BOOK = [
 export const ABOUT_US = [
   {
     id: 1,
-    img: require('assets/images/ava-2.jpg').default,
-    name: 'Pham Gia Nguyen',
+    img: require('assets/images/ava1.jpg').default,
+    name: 'Huynh Trieu Vi',
     title: 'Leader',
     text: 'Backend Developer',
-    url: 'https://www.facebook.com/pham.tsuna'
+    url: 'https://www.facebook.com/vi.trieu.372/'
   },
   {
     id: 2,
-    img: require('assets/images/ava-1.jpg').default,
+    img: require('assets/images/ava2.jpg').default,
 
-    name: 'Pham Khang Nguyen',
+    name: 'Bui Minh Khoa',
     title: 'Member',
 
     text: 'Frontend Developer',
-    url: 'https://www.facebook.com/giotto.pham'
+    url: 'https://www.facebook.com/khoa.bui.0301tg'
   },
-  {
-    id: 3,
-    img: require('assets/images/ava-3.jpg').default,
-
-    name: 'Tran Minh Hien',
-    title: 'Member',
-
-    text: 'Backend Developer',
-    url: 'https://www.facebook.com/cse.minhhientran'
-  },
-  {
-    id: 4,
-    img: require('assets/images/avt-about-us.png').default,
-
-    name: 'Tran Long An',
-    title: 'Member',
-
-    text: 'Frontend Developer',
-    url: 'https://www.facebook.com/2123153an'
-  },
-  {
-    id: 5,
-    img: require('assets/images/ava-4.jpg').default,
-
-    name: 'Nguyen Minh Ngoc',
-    title: 'Member',
-
-    text: 'Business Analyst',
-    url: 'https://www.facebook.com/minhngoc.nguyen.98434'
-  }
 ]
