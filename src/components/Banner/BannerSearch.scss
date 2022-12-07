@@ -36,8 +36,10 @@
   }
 }
 .banner__search {
+  width: 990px;
+  display: flex;
+  justify-content: center;
   position: absolute;
-  bottom: 0;
   left: 50%;
   transform: translate(-50%, 50%);
   border-radius: 6px;
@@ -62,6 +64,15 @@
     }
   }
   &-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 45px;
+  text-transform: uppercase;
+    background-color: #F1592B;
     border-radius: 5px;
     width: 15%;
     color: $text-color;

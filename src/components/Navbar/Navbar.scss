@@ -1,19 +1,35 @@
 @import 'assets/styles/_mixins.scss';
 @import 'assets/styles/_variables.scss';
-
 .sticky {
-  position: sticky;
   top: 0;
   left: 0;
   z-index: 111;
-  background-color: $bg-white;
+  height: 377px;
+  background-position: center;
+  .slogan{
+    position: absolute;
+    left: calc(50% - 564.26px/2 + 0.1px);
+    top: 124px;
+    width: 564.26px;
+    font-weight: 700;
+font-size: 60px;
+line-height: 70px;
+display: flex;
+align-items: center;
+text-align: center;
+
+color: #064532;
+  }
 }
 .navbar {
-  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  justify-content: flex-start;
   padding: 100px 0;
   display: flex;
-  align-items: center;
   color: $text-color-black;
+  .container{
+    justify-content: flex-start;
+    display: flex;
+  }
 }
 
 .navbar__logo {
@@ -21,6 +37,7 @@
   align-items: center;
   font-size: $title-size;
   font-weight: 500;
+  margin-right: 40px;
   @include atLgScreen {
     font-size: $header-size;
   }
@@ -33,9 +50,15 @@
   color: rgb(0, 153, 255);
 }
 .navbar__links {
+  width: 974px;
   display: flex;
   align-items: center;
-
+  justify-content: space-between;
+  font-weight: 700;
+font-size: 16px;
+line-height: 24px;
+color: #064532;
+text-transform: capitalize;
   @include atLgScreen {
     display: none;
   }

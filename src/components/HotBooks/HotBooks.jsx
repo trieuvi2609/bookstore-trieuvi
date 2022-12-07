@@ -10,10 +10,10 @@ function HotBooks(props) {
     <section>
       <div className="hotproducts">
         <div className="container">
-          <div className="home__header">
-            <Title title="BEST SELLERS" text="Best-seller books in year 2021. Almost people like these books" />
-          </div>
-          <div>
+            <div className='title'>
+              <p>Best Seller</p>
+            </div>
+            <div>
             <Slider {...SLIDE_VIEW_4}>
               {books.map(book => {
                 console.log(book)

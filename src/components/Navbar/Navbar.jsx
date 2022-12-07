@@ -9,7 +9,7 @@ import { Link, useHistory } from 'react-router-dom'
 import './Navbar.scss'
 import { STORE_NAME } from 'utils/static'
 import instance from 'api/axios'
-
+import backgroundNavbar from '../../assets/images/bgNavbar.png'
 function Navbar() {
   const currentUser = useSelector(selectCurrentUser)
   const items = useSelector(selectCart)
@@ -28,8 +28,14 @@ function Navbar() {
 
   return (
     <>
-      <header className="sticky">
-        <div className="navbar">
+      <header className="sticky" 
+      // style={{ background: `url(${backgroundNavbar})`}}
+      style={{ backgroundImage: `url(${backgroundNavbar})` }} 
+      >
+        <span className='slogan'>The easiest way to find any book.</span>
+        <div className="navbar"
+          // style={{ backgroundImage: `url(${backgroundNavbar})`}}
+        >
           <div className="container">
             <Link to="/" className="navbar__logo">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -44,6 +50,7 @@ function Navbar() {
             </Link>
 
             <div className="navbar__links">
+              <div>
               <Link to="/" className="navbar__link">
                 Home
               </Link>
@@ -64,12 +71,15 @@ function Navbar() {
                   </div>
                 </div>
               )}
+
+              </div>
+              <div style={{marginLeft: '', display: 'flex'}}>
               <Link to="/cart" className="navbar__cart">
                 {items.length !== 0 && <span className="navbar__cart-count">{items.length}</span>}
                 <TiShoppingCart fontSize="20pt" />
               </Link>
               {currentUser.username ? (
-                <>
+                <div style={{display: 'flex'}}>
                   <Link to="/profile" className="navbar__user">
                     {!currentUser.imageUrl ? (
                       <img src={require('assets/images/maleAvatar.png').default} alt="" className="navbar__user-avt" />
@@ -81,12 +91,14 @@ function Navbar() {
                   <button className="navbar__btn" onClick={handleLogout}>
                     Logout
                   </button>
-                </>
+                </div>
               ) : (
                 <Link to="/login">
                   <button className="navbar__btn">Sign in</button>
                 </Link>
               )}
+
+              </div>
             </div>
 
             <div className="navbar__hidden">

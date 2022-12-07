@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { BANNER_HOME } from 'utils/static'
-import './Banner.scss'
+import './BannerSearch.scss'
 import { useSelector } from 'react-redux'
 import { selectBooks } from 'features/books/booksSlice'
 import { useHistory } from 'react-router'
-function Banner(props) {
+function BannerSearch(props) {
   const history = useHistory()
   const handleSearch = () => {
     const objBook = books.find(item => item.b_nm === choose)
@@ -16,17 +16,7 @@ function Banner(props) {
     setChoose(target.value)
   }
   return (
-    <section>
-      <div
-        className="banner"
-        style={{
-          backgroundImage: `url(${BANNER_HOME.img})`
-        }}
-      >
-        <h3 className="banner__header">{BANNER_HOME.title}</h3>
-        <p className="banner__text">{BANNER_HOME.text}</p>
         <div className="banner__search">
-          <h5 className="">{BANNER_HOME.searchTitle}</h5>
           <input
             type="text"
             className="banner__search-input"
@@ -41,12 +31,11 @@ function Banner(props) {
             ))}
           </datalist>{' '}
           <button className="banner__search-btn" onClick={handleSearch}>
-            Search
+            Find book
           </button>
         </div>
-      </div>
-    </section>
+        // <div>213</div>
   )
 }
 
-export default Banner
+export default BannerSearch;

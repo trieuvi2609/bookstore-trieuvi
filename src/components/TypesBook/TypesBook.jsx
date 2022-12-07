@@ -15,7 +15,7 @@ function TypesBook(props) {
       <div className="typesbook">
         <div className="container">
           <div className="typesbook__header">
-            <Title title="List type of book" text="This is all categories of books you can buy" />
+            <span className='hot-categories'>Hot Categories</span>
           </div>
           <div>
             <Slider {...SLIDE_VIEW_4}>

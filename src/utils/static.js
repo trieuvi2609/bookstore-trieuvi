@@ -57,7 +57,7 @@ export const ABOUT_US = [
     id: 1,
     img: require('assets/images/ava1.jpg').default,
     name: 'Huynh Trieu Vi',
-    title: 'Leader',
+    title: 'Member',
     text: 'Backend Developer',
     url: 'https://www.facebook.com/vi.trieu.372/'
   },
