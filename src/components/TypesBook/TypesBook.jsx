@@ -6,9 +6,11 @@ import { useSelector } from 'react-redux'
 import Slider from 'react-slick'
 import CardTypesBook from '../CardTypesBook/CardTypesBook'
 import './TypesBook.scss'
+import { CATEGORIES } from 'utils/static'
 
 function TypesBook(props) {
-  const types = useSelector(selectTypes)
+  // const types = useSelector(selectTypes)
+  const types = CATEGORIES.category_list
 
   return (
     <section>

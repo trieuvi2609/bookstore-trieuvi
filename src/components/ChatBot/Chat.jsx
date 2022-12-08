@@ -91,6 +91,8 @@ function ChatBot() {
       borderBottom : '1px solid black',
       borderRadius: '30px 30px 0px 0px',
       backgroundColor: 'rgb(185, 90, 27)',
+      display: 'flex',
+      alignItems: 'center'
 
   }
   const styleFooter = {
@@ -111,34 +113,24 @@ function ChatBot() {
 
   return (
     <div>
-      {/* <button onClick={()=>rasaAPI("shreyas","hi")}>Try this</button> */}
-      
-
-      <div className="container">
+      <div className="container-chatbot">
       <div className="row justify-content-center">
           
               <div className="card" style={stylecard}>
                   <div className="cardHeader text-white" style={styleHeader}>
-                      <h1 style={{marginBottom:'0px'}}>AI Assistant</h1>
+                      <h3 style={{marginLeft:'5px'}}>HCMUT Book</h3>
                       {botTyping ? <h6>Bot Typing....</h6> : null}
-                      
-                      
-                      
                   </div>
                   <div className="cardBody" id="messageArea" style={styleBody}>
-                      
                       <div className="row msgarea">
                           {chat.map((user,key) => (
                               <div key={key}>
                                   {user.sender==='bot' ?
                                       (
-                                          
                                           <div className= 'msgalignstart'>
                                               <BiBot className="botIcon"  /><h5 className="botmsg">{user.msg}</h5>
                                           </div>
-                                      
                                       )
-
                                       :(
                                           <div className= 'msgalignend'>
                                               <h5 className="usermsg">{user.msg}</h5><BiUser className="userIcon" />
@@ -149,7 +141,6 @@ function ChatBot() {
                           ))}
                           
                       </div>
-              
                   </div>
                   <div className="cardFooter" style={styleFooter}>
                       <div className="row">
@@ -164,36 +155,10 @@ function ChatBot() {
                       </div>
                   </div>
               </div>
-          
       </div>
       </div>
-
     </div>
   );
 }
 
 export default ChatBot
-// import axios from "axios";
-
-// function ChatBot(props) {
-//   async function postData(url = '', data = {
-    
-// }) {
-//     // Default options are marked with *
-//     const response = await axios.post('http://localhost:5005/webhooks/rest/webhook', {
-//       "sender" : "me", "message" : "còn không"
-//     })
-//     console.log(response)
-//     // return response.json(); // parses JSON response into native JavaScript objects
-//   }
-  
-  
-//   return (
-//     <div className="comment">
-//       <button onClick={postData}>Post data</button>
-//     </div>
-//   )
-// }
-
-// export default ChatBot
-
