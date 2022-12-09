@@ -17,10 +17,10 @@ function TypesBook(props) {
       <div className="typesbook">
         <div className="container">
           <div className="typesbook__header">
-            <span className='hot-categories'>Hot Categories</span>
+            <span className='hot-categories' style={{marginBottom: '16px'}}>Hot Categories</span>
           </div>
           <div>
-            <Slider {...SLIDE_VIEW_4}>
+            <Slider {...SLIDE_VIEW_4} style={{marginTop: '16px'}}>
               {types.map((type, index) => {
                 return (
                   <div key={index}>
