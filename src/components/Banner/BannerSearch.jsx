@@ -16,26 +16,26 @@ function BannerSearch(props) {
     setChoose(target.value)
   }
   return (
-        <div className="banner__search">
-          <input
-            type="text"
-            className="banner__search-input"
-            placeholder={BANNER_HOME.searchInput}
-            list="browsers"
-            value={choose}
-            onChange={onChange}
-          />
-          <datalist id="browsers">
-            {books.map(item => (
-              <option key={item.b_id} value={item.b_nm} />
-            ))}
-          </datalist>{' '}
-          <button className="banner__search-btn" onClick={handleSearch}>
-            Find book
-          </button>
-        </div>
-        // <div>213</div>
+    <div className="banner__search">
+      <input
+        type="text"
+        className="banner__search-input"
+        placeholder={BANNER_HOME.searchInput}
+        list="browsers"
+        value={choose}
+        onChange={onChange}
+      />
+      <datalist id="browsers">
+        {books.map(item => (
+          <option key={item.b_id} value={item.b_nm} />
+        ))}
+      </datalist>{' '}
+      <button className="banner__search-btn" onClick={handleSearch}>
+        Find book
+      </button>
+    </div>
+    // <div>213</div>
   )
 }
 
-export default BannerSearch;
+export default BannerSearch

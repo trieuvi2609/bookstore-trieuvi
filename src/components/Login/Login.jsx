@@ -83,10 +83,11 @@ export default function Login() {
         <div
           className="absolute top-0 w-full h-full bg-blueGray-800 bg-no-repeat bg-contain"
           style={{
-            backgroundImage: 'url(' + require('assets/images/bookWallpaper.jpg').default + ')'
+            // backgroundImage: 'url(' + require('assets/images/bookWallpaper.jpg').default + ')'
+            backgroundColor: '#cec9ae'
           }}
         >
-          <span id="blackOverlay" className="w-full h-full absolute opacity-50 bg-black"></span>
+          <span id="blackOverlay" className="w-full h-full absolute opacity-50 bg-white"></span>
         </div>
         <Modal
           show={showFailed}

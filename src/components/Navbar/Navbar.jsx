@@ -25,15 +25,16 @@ function Navbar() {
     dispatch(resetCart())
     history.push('/')
   }
-
   return (
     <>
-      <header className="sticky" 
-      // style={{ background: `url(${backgroundNavbar})`}}
-      style={{ backgroundImage: `url(${backgroundNavbar})` }} 
+      <header
+        className="sticky"
+        // style={{ background: `url(${backgroundNavbar})`}}
+        style={{ backgroundImage: `url(${backgroundNavbar})` }}
       >
-        <span className='slogan'>The easiest way to find any book.</span>
-        <div className="navbar"
+        <span className="slogan">The easiest way to find any book.</span>
+        <div
+          className="navbar"
           // style={{ backgroundImage: `url(${backgroundNavbar})`}}
         >
           <div className="container">
@@ -51,53 +52,55 @@ function Navbar() {
 
             <div className="navbar__links">
               <div>
-              <Link to="/" className="navbar__link">
-                Home
-              </Link>
-              <Link to="/books" className="navbar__link dropdown">
-                Book List
-              </Link>
-              {bookTypes && (
-                <div className="navbar__link dropdown">
-                  Categories
-                  <div className="dropdown-content">
-                    <ul>
-                      {bookTypes.map(type => (
-                        <li key={type.cat_id}>
-                          <Link to={`/type/${type.cat_nm}`}>{type.cat_nm}</Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              )}
-
-              </div>
-              <div style={{marginLeft: '', display: 'flex'}}>
-              <Link to="/cart" className="navbar__cart">
-                {items.length !== 0 && <span className="navbar__cart-count">{items.length}</span>}
-                <TiShoppingCart fontSize="20pt" />
-              </Link>
-              {currentUser.username ? (
-                <div style={{display: 'flex'}}>
-                  <Link to="/profile" className="navbar__user">
-                    {!currentUser.imageUrl ? (
-                      <img src={require('assets/images/maleAvatar.png').default} alt="" className="navbar__user-avt" />
-                    ) : (
-                      <img src={currentUser.imageUrl} alt="" className="navbar__user-avt" />
-                    )}
-                    <span className="navbar__user-name">{currentUser.fullName}</span>
-                  </Link>
-                  <button className="navbar__btn" onClick={handleLogout}>
-                    Logout
-                  </button>
-                </div>
-              ) : (
-                <Link to="/login">
-                  <button className="navbar__btn">Sign in</button>
+                <Link to="/" className="navbar__link">
+                  Home
                 </Link>
-              )}
-
+                <Link to="/books" className="navbar__link dropdown">
+                  Book List
+                </Link>
+                {bookTypes && (
+                  <div className="navbar__link dropdown">
+                    Categories
+                    <div className="dropdown-content">
+                      <ul>
+                        {bookTypes.map(type => (
+                          <li key={type.cat_id}>
+                            <Link to={`/type/${type.cat_nm}`}>{type.cat_nm}</Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div style={{ marginLeft: '', display: 'flex' }}>
+                <Link to="/cart" className="navbar__cart">
+                  {items.length !== 0 && <span className="navbar__cart-count">{items.length}</span>}
+                  <TiShoppingCart fontSize="20pt" />
+                </Link>
+                {currentUser.username ? (
+                  <div style={{ display: 'flex' }}>
+                    <Link to="/profile" className="navbar__user">
+                      {!currentUser.imageUrl ? (
+                        <img
+                          src={require('assets/images/maleAvatar.png').default}
+                          alt=""
+                          className="navbar__user-avt"
+                        />
+                      ) : (
+                        <img src={currentUser.imageUrl} alt="" className="navbar__user-avt" />
+                      )}
+                      <span className="navbar__user-name">{currentUser.fullName}</span>
+                    </Link>
+                    <button className="navbar__btn" onClick={handleLogout}>
+                      Logout
+                    </button>
+                  </div>
+                ) : (
+                  <Link to="/login">
+                    <button className="navbar__btn">Sign in</button>
+                  </Link>
+                )}
               </div>
             </div>
 
