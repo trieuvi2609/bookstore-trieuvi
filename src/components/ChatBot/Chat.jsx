@@ -137,6 +137,7 @@ function ChatBot() {
                         type="text"
                         className="msginp"
                         placeholder="Vui lòng nhập câu hỏi"
+                        style={{border: '1px solid black'}}
                       ></input>
                     </div>
                     <div className="col-2 cola">

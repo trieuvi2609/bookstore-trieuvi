@@ -11,12 +11,12 @@ function HomePage(props) {
   let books = useSelector(selectBooks)
   // const books = BOOKS.book_list
   const hotbook = books.filter(book => book.b_hot === true)
-  // const [isShowChatBot, setIsShowChatBot] = useState(false)
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setIsShowChatBot(true)
-  //   }, 5000)
-  // }, [])
+  const [isShowChatBot, setIsShowChatBot] = useState(false)
+  useEffect(() => {
+    setTimeout(() => {
+      setIsShowChatBot(true)
+    }, 5000)
+  }, [])
 
   return (
     <main>
@@ -24,7 +24,10 @@ function HomePage(props) {
       <HotBooks books={hotbook} />
       <TypesBook />
       <AboutUs />
-      <ChatBot />
+      {
+        isShowChatBot &&   <ChatBot />
+      }
+    
     </main>
   )
 }

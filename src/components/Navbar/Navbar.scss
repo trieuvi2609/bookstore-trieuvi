@@ -74,6 +74,7 @@ text-transform: capitalize;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.089);
   z-index: 1;
+  width: 300px;
 }
 .dropdown-content a {
   color: black;
@@ -102,6 +103,8 @@ text-transform: capitalize;
   color: rgb(0, 153, 255);
 }
 .navbar__cart {
+  display: flex;
+  align-items: center;
   margin: 0 20px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   padding: 8px;

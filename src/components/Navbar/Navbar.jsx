@@ -73,7 +73,7 @@ function Navbar() {
                   </div>
                 )}
               </div>
-              <div style={{ marginLeft: '', display: 'flex' }}>
+              <div style={{ marginLeft: '', display: 'flex', alignItems: 'center' }}>
                 <Link to="/cart" className="navbar__cart">
                   {items.length !== 0 && <span className="navbar__cart-count">{items.length}</span>}
                   <TiShoppingCart fontSize="20pt" />

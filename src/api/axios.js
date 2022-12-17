@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  // baseURL: 'http://cagood123.pythonanywhere.com'
-  baseURL: 'http://localhost:5000'
+  baseURL: 'http://cagood123.pythonanywhere.com'
+  // baseURL: 'http://localhost:5000'
 })
 
 export default instance

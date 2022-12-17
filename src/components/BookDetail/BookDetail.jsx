@@ -21,6 +21,7 @@ function BookDetail(props) {
   const [visible, setVisible] = useState(2)
   const [listComment, setListComment] = useState([])
   const [getList, setGetList] = useState([])
+  const [isShowPrice1, setIsShowPrice1] = useState(true)
   const listCmt = getList.length === 0 ? currentBook.comment_list : getList
   const showMore = () => {
     setVisible(oldValue => oldValue + 2)
@@ -44,7 +45,15 @@ function BookDetail(props) {
     }
     getComment()
   }, [id])
-  const { b_publisher, b_price, b_nm, b_subcat, b_img, b_desc, b_edition } = currentBook
+  const { b_publisher, b_price, b_nm, b_subcat, b_img, b_desc, b_edition, b_price2, b_amount } = currentBook
+  const price1 = Number(b_price).toLocaleString('it-IT', {
+    style: 'currency',
+    currency: 'VND'
+  })
+  const price2 = Number(b_price2).toLocaleString('it-IT', {
+    style: 'currency',
+    currency: 'VND'
+  })
   const typeUsed = types.findIndex(type => type.cat_id === b_subcat)
   const typeField = types[typeUsed].cat_nm.toUpperCase()
   return (
@@ -65,15 +74,14 @@ function BookDetail(props) {
                 <MdStars />
               </div>
               <div className="bookdetail__banner-title-author">Author: {b_publisher}</div>
+              
               <div className="bookdetail__banner-title-price">
-                Price:{' '}
-                {Number(b_price).toLocaleString('it-IT', {
-                  style: 'currency',
-                  currency: 'VND'
-                })}
+                {isShowPrice1 ? price1 : price2 }
               </div>
               <div className="bookdetail__banner-title-type">Book category: {typeField}</div>
               <div className="bookdetail__banner-title-type">Publishing year: {b_edition}</div>
+              <button className='bookdetail__banner-title-hard' onClick={() => setIsShowPrice1(false)}>Bìa cứng</button>
+              <button className='bookdetail__banner-title-soft' onClick={() => setIsShowPrice1(true)}>Bìa mềm</button>
               {currentUser.username && (
                 <div className="bookdetail__banner-title-btn">
                   <button
@@ -81,7 +89,7 @@ function BookDetail(props) {
                       dispatch(addCart(currentBook))
                     }}
                   >
-                    Add to cart
+                    Chọn mua
                   </button>
                 </div>
               )}
